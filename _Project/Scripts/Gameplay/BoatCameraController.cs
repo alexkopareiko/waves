@@ -34,7 +34,8 @@ namespace Game
             if (target == null)
                 return;
 
-            Vector3 desiredPosition = target.TransformPoint(_offset);
+            // Keep camera offset in world space so it follows boat without orbiting when the boat rotates
+            Vector3 desiredPosition = target.position + _offset;
             float? minWaterHeight = null;
             if (_clampToWaterSurface && WaterVolumeHelper.Instance != null)
             {

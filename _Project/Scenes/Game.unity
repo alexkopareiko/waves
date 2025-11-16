@@ -2075,12 +2075,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 1929800521}
     m_Modifications:
     - target: {fileID: 768365992744913233, guid: ccbb5b2b0219d7343b1edc2a810126d5, type: 3}
+      propertyPath: _offset.y
+      value: 6.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 768365992744913233, guid: ccbb5b2b0219d7343b1edc2a810126d5, type: 3}
+      propertyPath: _offset.z
+      value: -4.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 768365992744913233, guid: ccbb5b2b0219d7343b1edc2a810126d5, type: 3}
       propertyPath: _rotationLerp
-      value: 0.029
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 768365992744913233, guid: ccbb5b2b0219d7343b1edc2a810126d5, type: 3}
       propertyPath: _positionSmoothTime
-      value: 0.14
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4290191595784501304, guid: ccbb5b2b0219d7343b1edc2a810126d5, type: 3}
       propertyPath: m_Name
