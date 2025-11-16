@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 4670464772593960160}
   - component: {fileID: 7029940519282334388}
   - component: {fileID: 8239543278632811839}
+  - component: {fileID: 8239543278632811840}
   m_Layer: 0
   m_Name: SplinePoint
   m_TagString: Untagged
@@ -252,6 +253,7 @@ GameObject:
   - component: {fileID: 1410839458194759727}
   - component: {fileID: 4193034151119222481}
   - component: {fileID: 3637800978700508715}
+  - component: {fileID: 4193034151119222482}
   m_Layer: 0
   m_Name: SplinePoint
   m_TagString: Untagged
@@ -1094,7 +1096,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2916157544150850673
 Transform:
   m_ObjectHideFlags: 0
@@ -2852,7 +2854,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2916157545130199965
 Transform:
   m_ObjectHideFlags: 0
@@ -3129,14 +3131,14 @@ MonoBehaviour:
   _globalWindZone: {fileID: 0}
   _globalWindSpeed: 150
   _globalWindDirectionAngle: 0
-  _globalWindTurbulence: 0.145
+  _globalWindTurbulence: 0
   _viewpoint: {fileID: 0}
   _camera: {fileID: 0}
   _teleportThreshold: 10
   _timeProvider: {fileID: 0}
   _primaryLight: {fileID: 8441528417691097800}
   _searchForPrimaryLightOnStartup: 1
-  _material: {fileID: 2100000, guid: ef94c26e44a36e24a9dcbc5995a2bed1, type: 2}
+  _material: {fileID: 2100000, guid: 9def92ac79181fe41b238e91663f0fad, type: 2}
   _waterTilePrefab: {fileID: 0}
   _layerName: 
   _layer: 4
@@ -3145,16 +3147,16 @@ MonoBehaviour:
   _gravityMultiplier: 1
   _waterBodyCulling: 1
   _minScale: 8
-  _maxScale: 256
+  _maxScale: 8
   _dropDetailHeightBasedOnWaves: 0.2
-  _lodDataResolution: 384
+  _lodDataResolution: 128
   _geometryDownSampleFactor: 2
-  _lodCount: 7
+  _lodCount: 4
   _extentsSizeMultiplier: 100
   _simSettingsAnimatedWaves: {fileID: 0}
-  _createSeaFloorDepthData: 1
+  _createSeaFloorDepthData: 0
   _simSettingsSeaFloorDepth: {fileID: 0}
-  _createFoamSim: 1
+  _createFoamSim: 0
   _simSettingsFoam: {fileID: 11400000, guid: 8e1de4c30452ccf499882fefe206c5cd, type: 2}
   _createDynamicWaveSim: 1
   _simSettingsDynamicWaves: {fileID: 11400000, guid: 2191178a667ebae4594740b717a322f6, type: 2}
@@ -3162,7 +3164,7 @@ MonoBehaviour:
   _simSettingsFlow: {fileID: 0}
   _createShadowData: 0
   _simSettingsShadow: {fileID: 0}
-  _createClipSurfaceData: 1
+  _createClipSurfaceData: 0
   _simSettingsClipSurface: {fileID: 0}
   _defaultClippingState: 0
   _createAlbedoData: 0
@@ -3172,7 +3174,7 @@ MonoBehaviour:
   _fixFlickeringParticleInput: 0
   _enableRenderQueueSorting: 0
   _showOceanProxyPlane: 0
-  _editModeFPS: 30
+  _editModeFPS: 16.4
   _followSceneCamera: 1
   _heightQueries: 1
   _debug:
@@ -3210,7 +3212,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2916157546154822819}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4906,7 +4908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2916157546154822819
 Transform:
   m_ObjectHideFlags: 0
@@ -5421,9 +5423,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _version: 0
   _bottomH: -1.3
-  _buoyancyCoeff: 1.5
+  _buoyancyCoeff: 0.65
   _boyancyTorque: 8
-  _accelerateDownhill: 0
+  _accelerateDownhill: 0.776
   _maximumBuoyancyForce: Infinity
   _forceHeightOffset: -0.3
   _enginePower: 11
@@ -5654,6 +5656,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _version: 0
+--- !u!114 &4193034151119222482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2778703469760460078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 195788a19db58f145908f7b22a193f41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Crest::Crest.SplinePointDataWaves
+  _version: 0
+  _weight: 1
 --- !u!114 &4388562380445979204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5952,7 +5968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &8079353259824210392
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6084,6 +6100,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _version: 0
   _radiusMultiplier: 1
+--- !u!114 &8239543278632811840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473239956658094756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 195788a19db58f145908f7b22a193f41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Crest::Crest.SplinePointDataWaves
+  _version: 0
+  _weight: 1
 --- !u!114 &8250534540649751947
 MonoBehaviour:
   m_ObjectHideFlags: 0
