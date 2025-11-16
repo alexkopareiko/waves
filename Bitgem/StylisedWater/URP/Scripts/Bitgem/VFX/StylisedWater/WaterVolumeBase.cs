@@ -97,6 +97,12 @@ namespace Bitgem.VFX.StylisedWater
 
         public float? GetHeight(Vector3 _position)
         {
+            if (tiles == null)
+            {
+                // volume has not been generated yet
+                return null;
+            }
+
             // convert the position to a tile
             var x = Mathf.FloorToInt((_position.x - transform.position.x + 0.5f) / TileSize);
             var z = Mathf.FloorToInt((_position.z - transform.position.z + 0.5f) / TileSize);
@@ -359,7 +365,6 @@ namespace Bitgem.VFX.StylisedWater
             // flag as clean
             isDirty = false;
         }
-
         #endregion
 
         #region Virtual methods
