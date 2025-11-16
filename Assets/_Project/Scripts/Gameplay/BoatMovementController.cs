@@ -26,6 +26,7 @@ namespace Game
         [SerializeField] private float _maxSpeed = 5f;
         [SerializeField] private float _linearDrag = 0.4f;
         [SerializeField] private float _angularDrag = 0.75f;
+        [SerializeField] private float _strokeCooldown = 0.75f;
 
         [Header("Oar Animation")]
         [SerializeField] private Vector3 _oarRotationAxis = Vector3.right;
@@ -40,6 +41,10 @@ namespace Game
         private bool _controlsEnabled = true;
         private bool _leftInput;
         private bool _rightInput;
+        private int _leftStrokesQueued;
+        private int _rightStrokesQueued;
+        private float _leftNextStrokeTime = 0f;
+        private float _rightNextStrokeTime = 0f;
 
         public void EnableControls(bool enabled)
         {
@@ -48,6 +53,10 @@ namespace Game
             {
                 _leftInput = false;
                 _rightInput = false;
+                _leftStrokesQueued = 0;
+                _rightStrokesQueued = 0;
+                _leftNextStrokeTime = 0f;
+                _rightNextStrokeTime = 0f;
             }
         }
 
@@ -94,6 +103,10 @@ namespace Game
             {
                 _leftInput = false;
                 _rightInput = false;
+                _leftStrokesQueued = 0;
+                _rightStrokesQueued = 0;
+                _leftNextStrokeTime = 0f;
+                _rightNextStrokeTime = 0f;
                 UpdateOarVisual(_leftOar, _leftOarRestRotation, ref _leftOarBlend, 0f);
                 UpdateOarVisual(_rightOar, _rightOarRestRotation, ref _rightOarBlend, 0f);
                 return;
@@ -101,6 +114,8 @@ namespace Game
 
             _leftInput = Input.GetKey(_leftPrimaryKey) || Input.GetKey(_leftAltKey);
             _rightInput = Input.GetKey(_rightPrimaryKey) || Input.GetKey(_rightAltKey);
+            TryQueueStroke(_leftPrimaryKey, _leftAltKey, _leftInput, ref _leftStrokesQueued, ref _leftNextStrokeTime);
+            TryQueueStroke(_rightPrimaryKey, _rightAltKey, _rightInput, ref _rightStrokesQueued, ref _rightNextStrokeTime);
 
             UpdateOarVisual(_leftOar, _leftOarRestRotation, ref _leftOarBlend, _leftInput ? 1f : 0f);
             UpdateOarVisual(_rightOar, _rightOarRestRotation, ref _rightOarBlend, _rightInput ? 1f : 0f);
@@ -114,27 +129,52 @@ namespace Game
                 return;
             }
 
-            var leftPower = _leftInput ? 1f : 0f;
-            var rightPower = _rightInput ? 1f : 0f;
-            ApplyMovement(leftPower, rightPower);
+            var leftStroke = ConsumeStroke(ref _leftStrokesQueued);
+            var rightStroke = ConsumeStroke(ref _rightStrokesQueued);
+            ApplyStrokeMovement(leftStroke, rightStroke);
         }
 
-        private void ApplyMovement(float leftPower, float rightPower)
+        private bool ConsumeStroke(ref int queuedStrokeCount)
         {
-            var forwardPower = (leftPower + rightPower) * 0.5f;
-            var turnPower = rightPower - leftPower;
+            if (queuedStrokeCount <= 0)
+            {
+                return false;
+            }
+
+            queuedStrokeCount--;
+            return true;
+        }
+
+        private void ApplyStrokeMovement(bool leftStroke, bool rightStroke)
+        {
+            if (!leftStroke && !rightStroke)
+            {
+                ApplyPassiveDrag();
+                return;
+            }
+
+            var forwardStrokes = 0;
+            if (leftStroke)
+            {
+                forwardStrokes++;
+            }
+            if (rightStroke)
+            {
+                forwardStrokes++;
+            }
 
             if (_rigidbody)
             {
-                if (forwardPower != 0f)
+                if (forwardStrokes > 0)
                 {
-                    var forwardForce = transform.forward * (forwardPower * _strokeForce);
-                    _rigidbody.AddForce(forwardForce, ForceMode.Acceleration);
+                    var forwardImpulse = transform.forward * (_strokeForce * (forwardStrokes * 0.5f));
+                    _rigidbody.AddForce(forwardImpulse, ForceMode.Impulse);
                 }
 
-                if (turnPower != 0f)
+                if (leftStroke ^ rightStroke)
                 {
-                    _rigidbody.AddTorque(Vector3.up * (turnPower * _turnForce), ForceMode.Acceleration);
+                    var turnDirection = rightStroke ? 1f : -1f;
+                    _rigidbody.AddTorque(Vector3.up * (turnDirection * _turnForce), ForceMode.Impulse);
                 }
 
                 ApplyPassiveDrag();
@@ -152,18 +192,38 @@ namespace Game
             else
             {
                 // Fallback to manual transform changes if a rigidbody is not available.
-                if (forwardPower != 0f)
+                if (forwardStrokes > 0)
                 {
-                    var delta = transform.forward * (forwardPower * _strokeForce) * Time.fixedDeltaTime;
+                    var delta = transform.forward * (_strokeForce * (forwardStrokes * 0.5f)) * Time.fixedDeltaTime;
                     transform.position += delta;
                 }
 
-                if (turnPower != 0f)
+                if (leftStroke ^ rightStroke)
                 {
-                    var angle = turnPower * _turnForce * Time.fixedDeltaTime;
+                    var turnDirection = rightStroke ? 1f : -1f;
+                    var angle = turnDirection * _turnForce * Time.fixedDeltaTime;
                     transform.Rotate(Vector3.up, angle, Space.World);
                 }
+
+                ApplyPassiveDrag();
             }
+        }
+
+        private void TryQueueStroke(KeyCode primaryKey, KeyCode altKey, bool inputHeld, ref int strokeQueue, ref float nextStrokeTime)
+        {
+            if (!inputHeld)
+            {
+                return;
+            }
+
+            var strokeStarted = Input.GetKeyDown(primaryKey) || Input.GetKeyDown(altKey);
+            if (!strokeStarted || Time.time < nextStrokeTime)
+            {
+                return;
+            }
+
+            strokeQueue++;
+            nextStrokeTime = Time.time + _strokeCooldown;
         }
 
         private void ApplyPassiveDrag()
