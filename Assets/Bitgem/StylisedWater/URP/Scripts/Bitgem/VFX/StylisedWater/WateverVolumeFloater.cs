@@ -19,8 +19,12 @@ namespace Bitgem.VFX.StylisedWater
         public WaterVolumeHelper WaterVolumeHelper = null;
         [Tooltip("Distance used to probe the surface for slope estimation.")]
         public float SurfaceSampleOffset = 0.5f;
+        [Tooltip("Vertical offset to match the floater's pivot to the water surface.")]
+        public float VerticalOffset = 0f;
         [Tooltip("How quickly the floater rotates to follow the wave normal.")]
         public float RotationLerpSpeed = 5f;
+        [Tooltip("How quickly the floater follows vertical wave motion. Higher is snappier, lower is smoother.")]
+        public float HeightLerpSpeed = 8f;
         [Tooltip("Enable rotation alignment so the floater rolls with the waves.")]
         public bool AlignRotation = true;
         [Header("Horizontal Drift")]
@@ -41,8 +45,9 @@ namespace Bitgem.VFX.StylisedWater
             }
         }
 
-        void Update()
+        void FixedUpdate()
         {
+            var dt = Time.fixedDeltaTime;
             var instance = WaterVolumeHelper ? WaterVolumeHelper : WaterVolumeHelper.Instance;
             if (!instance)
             {
@@ -89,20 +94,22 @@ namespace Bitgem.VFX.StylisedWater
             }
             else
             {
-                currentPosition += horizontalDrift * Time.deltaTime;
+                currentPosition += horizontalDrift * dt;
             }
 
             // Vertical bobbing as before (kept separate so only Y is overwritten).
+            var currentY = _rigidbody ? _rigidbody.position.y : currentPosition.y;
+            var smoothedHeight = Mathf.Lerp(currentY, surfaceHeight.Value, 1f - Mathf.Exp(-HeightLerpSpeed * dt));
             if (_rigidbody)
             {
                 var rbPosition = _rigidbody.position;
-                rbPosition.y = surfaceHeight.Value;
+                rbPosition.y = smoothedHeight + VerticalOffset;
                 _rigidbody.MovePosition(rbPosition);
             }
             else
             {
                 currentPosition = transform.position;
-                currentPosition.y = surfaceHeight.Value;
+                currentPosition.y = smoothedHeight + VerticalOffset;
                 transform.position = currentPosition;
             }
 
@@ -126,7 +133,7 @@ namespace Bitgem.VFX.StylisedWater
             }
 
             var targetRotation = Quaternion.LookRotation(forwardProjected, normal);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationLerpSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationLerpSpeed * dt);
         }
 
     }
