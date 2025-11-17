@@ -49,7 +49,7 @@ namespace Bitgem.VFX.StylisedWater
                 return;
             }
 
-            var currentPosition = transform.position;
+            var currentPosition = _rigidbody ? (Vector3)_rigidbody.position : transform.position;
             var surfaceHeight = instance.GetHeight(currentPosition);
             if (!surfaceHeight.HasValue)
             {
@@ -93,9 +93,18 @@ namespace Bitgem.VFX.StylisedWater
             }
 
             // Vertical bobbing as before (kept separate so only Y is overwritten).
-            currentPosition = transform.position;
-            currentPosition.y = surfaceHeight.Value;
-            transform.position = currentPosition;
+            if (_rigidbody)
+            {
+                var rbPosition = _rigidbody.position;
+                rbPosition.y = surfaceHeight.Value;
+                _rigidbody.MovePosition(rbPosition);
+            }
+            else
+            {
+                currentPosition = transform.position;
+                currentPosition.y = surfaceHeight.Value;
+                transform.position = currentPosition;
+            }
 
             if (!AlignRotation)
             {

@@ -3,60 +3,45 @@ using UnityEngine;
 namespace Game
 {
     /// <summary>
-    /// Handles player driven rowing by mapping key presses to per-oar thrust
-    /// and simple oar visuals.
+    /// Gear-based ship movement similar to Sunless Sea.
+    /// W/S (Up/Down) step through -2..2 gears with inertia, A/D (Left/Right) steers while moving.
     /// </summary>
     public class BoatMovementController : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] private Boat _boat = null;
         [SerializeField] private Rigidbody _rigidbody = null;
-        [SerializeField] private Transform _leftOar = null;
-        [SerializeField] private Transform _rightOar = null;
 
         [Header("Input")]
-        [SerializeField] private KeyCode _leftPrimaryKey = KeyCode.A;
-        [SerializeField] private KeyCode _leftAltKey = KeyCode.LeftArrow;
-        [SerializeField] private KeyCode _rightPrimaryKey = KeyCode.D;
-        [SerializeField] private KeyCode _rightAltKey = KeyCode.RightArrow;
+        [SerializeField] private KeyCode _gearUpKey = KeyCode.W;
+        [SerializeField] private KeyCode _gearUpAltKey = KeyCode.UpArrow;
+        [SerializeField] private KeyCode _gearDownKey = KeyCode.S;
+        [SerializeField] private KeyCode _gearDownAltKey = KeyCode.DownArrow;
+        [SerializeField] private KeyCode _turnLeftKey = KeyCode.A;
+        [SerializeField] private KeyCode _turnLeftAltKey = KeyCode.LeftArrow;
+        [SerializeField] private KeyCode _turnRightKey = KeyCode.D;
+        [SerializeField] private KeyCode _turnRightAltKey = KeyCode.RightArrow;
 
         [Header("Movement")]
-        [SerializeField] private float _strokeForce = 6f;
-        [SerializeField] private float _turnForce = 4f;
-        [SerializeField] private float _maxSpeed = 5f;
-        [SerializeField] private float _linearDrag = 0.4f;
-        [SerializeField] private float _angularDrag = 0.75f;
-        [SerializeField] private float _strokeCooldown = 0.75f;
+        [SerializeField] private float _gear1Thrust = 6f;
+        [SerializeField] private float _gear2Thrust = 10f;
+        [SerializeField] private float _turnTorque = 3f;
+        [SerializeField] private float _maxSpeed = 6f;
+        [SerializeField] private float _linearDrag = 0.25f;
+        [SerializeField] private float _angularDrag = 0.6f;
+        [SerializeField] private float _minTurningSpeed = 0.5f;
 
-        [Header("Oar Animation")]
-        [SerializeField] private Vector3 _oarRotationAxis = Vector3.right;
-        [SerializeField] private float _oarStrokeAngle = 45f;
-        [SerializeField] private float _oarRecoveryAngle = -20f;
-        [SerializeField] private float _oarAnimationSpeed = 6f;
-
-        private Quaternion _leftOarRestRotation;
-        private Quaternion _rightOarRestRotation;
-        private float _leftOarBlend = 0f;
-        private float _rightOarBlend = 0f;
         private bool _controlsEnabled = true;
-        private bool _leftInput;
-        private bool _rightInput;
-        private int _leftStrokesQueued;
-        private int _rightStrokesQueued;
-        private float _leftNextStrokeTime = 0f;
-        private float _rightNextStrokeTime = 0f;
+        private int _gearState; // -2, -1, 0, 1, 2
+        private float _turnInput;
 
         public void EnableControls(bool enabled)
         {
             _controlsEnabled = enabled;
             if (!enabled)
             {
-                _leftInput = false;
-                _rightInput = false;
-                _leftStrokesQueued = 0;
-                _rightStrokesQueued = 0;
-                _leftNextStrokeTime = 0f;
-                _rightNextStrokeTime = 0f;
+                _gearState = 0;
+                _turnInput = 0f;
             }
         }
 
@@ -71,54 +56,18 @@ namespace Game
             {
                 _rigidbody = GetComponent<Rigidbody>();
             }
-
-            CacheRestRotations();
-
-            if (_oarRotationAxis == Vector3.zero)
-            {
-                _oarRotationAxis = Vector3.right;
-            }
-            else
-            {
-                _oarRotationAxis.Normalize();
-            }
-        }
-
-        private void CacheRestRotations()
-        {
-            if (_leftOar)
-            {
-                _leftOarRestRotation = _leftOar.localRotation;
-            }
-
-            if (_rightOar)
-            {
-                _rightOarRestRotation = _rightOar.localRotation;
-            }
         }
 
         private void Update()
         {
             if (!_controlsEnabled || GameManager.isPaused)
             {
-                _leftInput = false;
-                _rightInput = false;
-                _leftStrokesQueued = 0;
-                _rightStrokesQueued = 0;
-                _leftNextStrokeTime = 0f;
-                _rightNextStrokeTime = 0f;
-                UpdateOarVisual(_leftOar, _leftOarRestRotation, ref _leftOarBlend, 0f);
-                UpdateOarVisual(_rightOar, _rightOarRestRotation, ref _rightOarBlend, 0f);
+                _turnInput = 0f;
                 return;
             }
 
-            _leftInput = Input.GetKey(_leftPrimaryKey) || Input.GetKey(_leftAltKey);
-            _rightInput = Input.GetKey(_rightPrimaryKey) || Input.GetKey(_rightAltKey);
-            TryQueueStroke(_leftPrimaryKey, _leftAltKey, _leftInput, ref _leftStrokesQueued, ref _leftNextStrokeTime);
-            TryQueueStroke(_rightPrimaryKey, _rightAltKey, _rightInput, ref _rightStrokesQueued, ref _rightNextStrokeTime);
-
-            UpdateOarVisual(_leftOar, _leftOarRestRotation, ref _leftOarBlend, _leftInput ? 1f : 0f);
-            UpdateOarVisual(_rightOar, _rightOarRestRotation, ref _rightOarBlend, _rightInput ? 1f : 0f);
+            HandleGearInput();
+            HandleTurnInput();
         }
 
         private void FixedUpdate()
@@ -129,101 +78,69 @@ namespace Game
                 return;
             }
 
-            var leftStroke = ConsumeStroke(ref _leftStrokesQueued);
-            var rightStroke = ConsumeStroke(ref _rightStrokesQueued);
-            ApplyStrokeMovement(leftStroke, rightStroke);
+            ApplyThrust();
+            ApplyTurn();
+            ApplyPassiveDrag();
+            ClampSpeed();
         }
 
-        private bool ConsumeStroke(ref int queuedStrokeCount)
+        private void HandleGearInput()
         {
-            if (queuedStrokeCount <= 0)
+            var gearUpPressed = Input.GetKeyDown(_gearUpKey) || Input.GetKeyDown(_gearUpAltKey);
+            var gearDownPressed = Input.GetKeyDown(_gearDownKey) || Input.GetKeyDown(_gearDownAltKey);
+
+            if (gearUpPressed)
             {
-                return false;
+                _gearState = Mathf.Clamp(_gearState + 1, -2, 2);
             }
-
-            queuedStrokeCount--;
-            return true;
-        }
-
-        private void ApplyStrokeMovement(bool leftStroke, bool rightStroke)
-        {
-            if (!leftStroke && !rightStroke)
+            else if (gearDownPressed)
             {
-                ApplyPassiveDrag();
-                return;
-            }
-
-            var forwardStrokes = 0;
-            if (leftStroke)
-            {
-                forwardStrokes++;
-            }
-            if (rightStroke)
-            {
-                forwardStrokes++;
-            }
-
-            if (_rigidbody)
-            {
-                if (forwardStrokes > 0)
-                {
-                    var forwardImpulse = transform.forward * (_strokeForce * (forwardStrokes * 0.5f));
-                    _rigidbody.AddForce(forwardImpulse, ForceMode.Impulse);
-                }
-
-                if (leftStroke ^ rightStroke)
-                {
-                    var turnDirection = rightStroke ? 1f : -1f;
-                    _rigidbody.AddTorque(Vector3.up * (turnDirection * _turnForce), ForceMode.Impulse);
-                }
-
-                ApplyPassiveDrag();
-
-                if (_maxSpeed > 0f)
-                {
-                    var velocity = _rigidbody.linearVelocity;
-                    var maxSpeedSq = _maxSpeed * _maxSpeed;
-                    if (velocity.sqrMagnitude > maxSpeedSq)
-                    {
-                        _rigidbody.linearVelocity = velocity.normalized * _maxSpeed;
-                    }
-                }
-            }
-            else
-            {
-                // Fallback to manual transform changes if a rigidbody is not available.
-                if (forwardStrokes > 0)
-                {
-                    var delta = transform.forward * (_strokeForce * (forwardStrokes * 0.5f)) * Time.fixedDeltaTime;
-                    transform.position += delta;
-                }
-
-                if (leftStroke ^ rightStroke)
-                {
-                    var turnDirection = rightStroke ? 1f : -1f;
-                    var angle = turnDirection * _turnForce * Time.fixedDeltaTime;
-                    transform.Rotate(Vector3.up, angle, Space.World);
-                }
-
-                ApplyPassiveDrag();
+                _gearState = Mathf.Clamp(_gearState - 1, -2, 2);
             }
         }
 
-        private void TryQueueStroke(KeyCode primaryKey, KeyCode altKey, bool inputHeld, ref int strokeQueue, ref float nextStrokeTime)
+        private void HandleTurnInput()
         {
-            if (!inputHeld)
+            var left = Input.GetKey(_turnLeftKey) || Input.GetKey(_turnLeftAltKey);
+            var right = Input.GetKey(_turnRightKey) || Input.GetKey(_turnRightAltKey);
+            _turnInput = 0f;
+            if (left && !right)
+            {
+                _turnInput = -1f;
+            }
+            else if (right && !left)
+            {
+                _turnInput = 1f;
+            }
+        }
+
+        private void ApplyThrust()
+        {
+            if (!_rigidbody || _gearState == 0)
             {
                 return;
             }
 
-            var strokeStarted = Input.GetKeyDown(primaryKey) || Input.GetKeyDown(altKey);
-            if (!strokeStarted || Time.time < nextStrokeTime)
+            var thrust = Mathf.Abs(_gearState) == 1 ? _gear1Thrust : _gear2Thrust;
+            var direction = Mathf.Sign(_gearState);
+            _rigidbody.AddForce(transform.forward * (thrust * direction), ForceMode.Acceleration);
+        }
+
+        private void ApplyTurn()
+        {
+            if (!_rigidbody || Mathf.Approximately(_turnInput, 0f))
             {
                 return;
             }
 
-            strokeQueue++;
-            nextStrokeTime = Time.time + _strokeCooldown;
+            var forwardSpeed = Vector3.Dot(_rigidbody.linearVelocity, transform.forward);
+            if (Mathf.Abs(forwardSpeed) < _minTurningSpeed)
+            {
+                return; // no turning in place
+            }
+
+            var turnDirection = _turnInput * Mathf.Sign(forwardSpeed); // reverse steering when moving backward
+            _rigidbody.AddTorque(Vector3.up * (turnDirection * _turnTorque), ForceMode.Acceleration);
         }
 
         private void ApplyPassiveDrag()
@@ -242,17 +159,19 @@ namespace Game
             }
         }
 
-        private void UpdateOarVisual(Transform oar, Quaternion restRotation, ref float blend, float targetBlend)
+        private void ClampSpeed()
         {
-            if (!oar)
+            if (!_rigidbody || _maxSpeed <= 0f)
             {
                 return;
             }
 
-            blend = Mathf.MoveTowards(blend, targetBlend, _oarAnimationSpeed * Time.deltaTime);
-            var targetAngle = Mathf.Lerp(_oarRecoveryAngle, _oarStrokeAngle, blend);
-            var offset = Quaternion.AngleAxis(targetAngle, _oarRotationAxis);
-            oar.localRotation = restRotation * offset;
+            var velocity = _rigidbody.linearVelocity;
+            var maxSpeedSq = _maxSpeed * _maxSpeed;
+            if (velocity.sqrMagnitude > maxSpeedSq)
+            {
+                _rigidbody.linearVelocity = velocity.normalized * _maxSpeed;
+            }
         }
     }
 }
