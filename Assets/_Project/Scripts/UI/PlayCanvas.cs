@@ -9,6 +9,17 @@ namespace Game
         [SerializeField] private Button _pauseButton;
         [SerializeField] private Button _menuButton;
 
+        [Header("References")]
+        [SerializeField] private GearboxUI _gearboxUI;
+        
+
+        public void Initialize()
+        {
+            if (_gearboxUI != null)
+            {
+                _gearboxUI.Initialize();
+            }
+        }
 
         private void OnEnable()
         {

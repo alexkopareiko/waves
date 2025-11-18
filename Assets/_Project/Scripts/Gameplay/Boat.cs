@@ -18,7 +18,6 @@ namespace Game
 
         public void Load()
         {
-            throw new System.NotImplementedException();
         }
 
         public void Initialize()

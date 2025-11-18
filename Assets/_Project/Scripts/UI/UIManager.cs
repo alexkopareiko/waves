@@ -81,7 +81,8 @@ namespace Game
             _canvases.Add(_settingsCanvas);
 
             GameManager.Pause(false);
-
+            
+            PlayCanvas.Initialize();
             ShowPlayCanvas();
 
             _isInitialized = true;

@@ -40,6 +40,8 @@ namespace Game
         private float _turnInput;
         private float _currentThrust;
 
+        public int GearState => _gearState;
+
         public void EnableControls(bool enabled)
         {
             _controlsEnabled = enabled;
