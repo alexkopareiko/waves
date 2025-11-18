@@ -34,6 +34,7 @@ namespace Game
         private float _distance;
         private bool _initializedAngles;
         private bool _isDragging;
+        private bool _isZooming;
 
         private Transform Target => _targetOverride != null ? _targetOverride : GetBoatTransform();
 
@@ -53,6 +54,13 @@ namespace Game
             Quaternion orbitRotation = Quaternion.Euler(_pitch, _yaw, 0f);
             Vector3 desiredOffset = orbitRotation * new Vector3(0f, 0f, -_distance);
             Vector3 desiredPosition = target.position + desiredOffset;
+
+            bool hasInput = _isDragging || _isZooming;
+            if (!hasInput)
+            {
+                desiredPosition.y = transform.position.y;
+            }
+
             float? minWaterHeight = null;
             if (_clampToWaterSurface && WaterVolumeHelper.Instance != null)
             {
@@ -109,6 +117,7 @@ namespace Game
                 InitializeOrbitFromOffset();
 
             _isDragging = Input.GetMouseButton(0);
+            _isZooming = false;
 
             if (_isDragging)
             {
@@ -123,6 +132,7 @@ namespace Game
             {
                 _distance -= scroll * _zoomSpeed;
                 _distance = Mathf.Clamp(_distance, _zoomLimits.x, _zoomLimits.y);
+                _isZooming = true;
             }
         }
     }
