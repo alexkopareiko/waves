@@ -30,10 +30,15 @@ namespace Game
         [SerializeField] private float _linearDrag = 0.25f;
         [SerializeField] private float _angularDrag = 0.6f;
         [SerializeField] private float _minTurningSpeed = 0.5f;
+        [SerializeField, Tooltip("How quickly thrust ramps when changing gears.")]
+        private float _thrustChangeRate = 6f;
+        [SerializeField, Tooltip("Residual drag applied while coasting in neutral.")]
+        private float _coastLinearDrag = 0.05f;
 
         private bool _controlsEnabled = true;
         private int _gearState; // -2, -1, 0, 1, 2
         private float _turnInput;
+        private float _currentThrust;
 
         public void EnableControls(bool enabled)
         {
@@ -116,14 +121,24 @@ namespace Game
 
         private void ApplyThrust()
         {
-            if (!_rigidbody || _gearState == 0)
+            if (!_rigidbody)
             {
                 return;
             }
 
-            var thrust = Mathf.Abs(_gearState) == 1 ? _gear1Thrust : _gear2Thrust;
-            var direction = Mathf.Sign(_gearState);
-            _rigidbody.AddForce(transform.forward * (thrust * direction), ForceMode.Acceleration);
+            var targetThrust = 0f;
+            if (_gearState != 0)
+            {
+                targetThrust = (Mathf.Abs(_gearState) == 1 ? _gear1Thrust : _gear2Thrust) * Mathf.Sign(_gearState);
+            }
+
+            // Smoothly ramp toward the new gear thrust so gear changes feel weighty.
+            _currentThrust = Mathf.MoveTowards(_currentThrust, targetThrust, _thrustChangeRate * Time.fixedDeltaTime);
+
+            if (!Mathf.Approximately(_currentThrust, 0f))
+            {
+                _rigidbody.AddForce(transform.forward * _currentThrust, ForceMode.Acceleration);
+            }
         }
 
         private void ApplyTurn()
@@ -147,9 +162,12 @@ namespace Game
         {
             if (_rigidbody)
             {
-                if (_linearDrag > 0f)
+                // Use lighter drag when coasting in neutral so the boat drifts.
+                var linearDrag = _gearState == 0 ? _coastLinearDrag : _linearDrag;
+
+                if (linearDrag > 0f)
                 {
-                    _rigidbody.AddForce(-_rigidbody.linearVelocity * _linearDrag, ForceMode.Acceleration);
+                    _rigidbody.AddForce(-_rigidbody.linearVelocity * linearDrag, ForceMode.Acceleration);
                 }
 
                 if (_angularDrag > 0f)
