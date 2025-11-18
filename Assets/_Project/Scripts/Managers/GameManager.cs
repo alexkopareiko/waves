@@ -1,3 +1,4 @@
+using Bitgem.VFX.StylisedWater;
 using UnityEngine;
 
 namespace Game
@@ -9,11 +10,15 @@ namespace Game
 
         //references to other managers/components
         private Boat _boat;
+        private WaterVolumeHelper _waterVolumeHelper;
+        private BoatCameraController _boatCameraController;
 
         private static bool _isPaused = false;
         internal static bool isPaused => _isPaused;
 
         public Boat Boat => _boat;
+        public WaterVolumeHelper WaterVolumeHelper => _waterVolumeHelper;
+        public BoatCameraController BoatCameraController => _boatCameraController;
 
         private void OnEnable()
         {
@@ -91,6 +96,8 @@ namespace Game
         private void CollectReferences()
         {
             _boat = FindFirstObjectByType<Boat>();
+            _waterVolumeHelper = FindFirstObjectByType<WaterVolumeHelper>();
+            _boatCameraController = FindFirstObjectByType<BoatCameraController>();
         }
     }
 }
