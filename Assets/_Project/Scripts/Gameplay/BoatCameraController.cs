@@ -23,7 +23,6 @@ namespace Game
         [Header("Rotation")]
         [SerializeField] private float _rotationSpeed = 120f;
         [SerializeField] private Vector2 _pitchLimits = new Vector2(-25f, 75f);
-        [SerializeField, Range(0.01f, 1f)] private float _rotationLerp = 0.15f;
 
         [Header("Zoom")]
         [SerializeField] private float _zoomSpeed = 8f;
@@ -34,6 +33,7 @@ namespace Game
         private float _pitch;
         private float _distance;
         private bool _initializedAngles;
+        private bool _isDragging;
 
         private Transform Target => _targetOverride != null ? _targetOverride : GetBoatTransform();
 
@@ -65,7 +65,9 @@ namespace Game
                 }
             }
 
-            Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref _velocity, _positionSmoothTime);
+            Vector3 smoothedPosition = _isDragging
+                ? desiredPosition
+                : Vector3.SmoothDamp(transform.position, desiredPosition, ref _velocity, _positionSmoothTime);
             if (minWaterHeight.HasValue && smoothedPosition.y < minWaterHeight.Value)
                 smoothedPosition.y = minWaterHeight.Value;
 
@@ -75,7 +77,7 @@ namespace Game
             if (lookDirection.sqrMagnitude > 0.001f)
             {
                 Quaternion desiredRotation = Quaternion.LookRotation(lookDirection.normalized, Vector3.up);
-                transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, _rotationLerp);
+                transform.rotation = desiredRotation;
             }
         }
 
@@ -106,17 +108,15 @@ namespace Game
             if (!_initializedAngles)
                 InitializeOrbitFromOffset();
 
-            bool isDragging = Input.GetMouseButton(0);
+            _isDragging = Input.GetMouseButton(0);
 
-            if (isDragging)
+            if (_isDragging)
             {
                 float mouseX = Input.GetAxis("Mouse X");
                 float mouseY = Input.GetAxis("Mouse Y");
                 _yaw += mouseX * _rotationSpeed * Time.deltaTime;
                 _pitch -= mouseY * _rotationSpeed * Time.deltaTime;
                 _pitch = Mathf.Clamp(_pitch, _pitchLimits.x, _pitchLimits.y);
-
-
             }
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             if (!Mathf.Approximately(scroll, 0f))
