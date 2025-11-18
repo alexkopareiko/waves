@@ -24,6 +24,7 @@ namespace Game
         {
            _isInitialized = true;
            _movementController?.EnableControls(true);
+           Debug.Log("Boat Initialized");
         }
 
         public void SetInteriorWaterLevel(float normalizedAmount)

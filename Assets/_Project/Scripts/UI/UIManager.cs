@@ -75,6 +75,11 @@ namespace Game
 
         public void Load()
         {
+
+        }
+
+        public void Initialize()
+        {
             _canvases.Add(_playCanvas);
             _canvases.Add(_dieCanvas);
             _canvases.Add(_winCanvas);
@@ -86,11 +91,6 @@ namespace Game
             ShowPlayCanvas();
 
             _isInitialized = true;
-        }
-
-        public void Initialize()
-        {
-            throw new System.NotImplementedException();
         }
     }
 

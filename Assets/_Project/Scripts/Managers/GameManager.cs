@@ -48,6 +48,8 @@ namespace Game
         {
             CollectReferences();
             _boat.Initialize();
+            UIManager.Instance.Initialize();
+            
             // Initialize components
         }
 
