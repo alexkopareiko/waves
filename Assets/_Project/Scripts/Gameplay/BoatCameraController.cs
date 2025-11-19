@@ -23,6 +23,9 @@ namespace Game
         [Header("Rotation")]
         [SerializeField] private float _rotationSpeed = 120f;
         [SerializeField] private Vector2 _pitchLimits = new Vector2(-25f, 75f);
+        [SerializeField] private bool _autoFaceMovement = true;
+        [SerializeField, Min(0f)] private float _movementAlignSpeed = 90f;
+        [SerializeField, Min(0f)] private float _movementThreshold = 0.05f;
 
         [Header("Zoom")]
         [SerializeField] private float _zoomSpeed = 8f;
@@ -35,6 +38,8 @@ namespace Game
         private bool _initializedAngles;
         private bool _isDragging;
         private bool _isZooming;
+        private bool _hasLastTargetPosition;
+        private Vector3 _lastTargetPosition;
 
         private Transform Target => _targetOverride != null ? _targetOverride : GetBoatTransform();
 
@@ -51,11 +56,13 @@ namespace Game
 
             HandleInput();
 
+            bool hasInput = _isDragging || _isZooming;
+            TryAlignWithMovement(target, hasInput);
+
             Quaternion orbitRotation = Quaternion.Euler(_pitch, _yaw, 0f);
             Vector3 desiredOffset = orbitRotation * new Vector3(0f, 0f, -_distance);
             Vector3 desiredPosition = target.position + desiredOffset;
 
-            bool hasInput = _isDragging || _isZooming;
             if (!hasInput)
             {
                 desiredPosition.y = transform.position.y;
@@ -87,6 +94,9 @@ namespace Game
                 Quaternion desiredRotation = Quaternion.LookRotation(lookDirection.normalized, Vector3.up);
                 transform.rotation = desiredRotation;
             }
+
+            _lastTargetPosition = target.position;
+            _hasLastTargetPosition = true;
         }
 
         private Transform GetBoatTransform()
@@ -134,6 +144,28 @@ namespace Game
                 _distance = Mathf.Clamp(_distance, _zoomLimits.x, _zoomLimits.y);
                 _isZooming = true;
             }
+        }
+
+        private void TryAlignWithMovement(Transform target, bool hasInput)
+        {
+            if (!_autoFaceMovement || hasInput)
+                return;
+
+            if (!_hasLastTargetPosition)
+            {
+                _lastTargetPosition = target.position;
+                _hasLastTargetPosition = true;
+                return;
+            }
+
+            Vector3 displacement = target.position - _lastTargetPosition;
+            displacement.y = 0f; // ignore vertical displacement when computing heading
+            float sqrMagnitude = displacement.sqrMagnitude;
+            if (sqrMagnitude < _movementThreshold * _movementThreshold)
+                return;
+
+            float targetYaw = Mathf.Atan2(displacement.x, displacement.z) * Mathf.Rad2Deg;
+            _yaw = Mathf.MoveTowardsAngle(_yaw, targetYaw, _movementAlignSpeed * Time.deltaTime);
         }
     }
 }
