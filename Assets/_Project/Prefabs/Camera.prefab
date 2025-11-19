@@ -157,8 +157,11 @@ MonoBehaviour:
   _positionSmoothTime: 0.01
   _clampToWaterSurface: 1
   _waterSurfaceOffset: 0.5
-  _rotationSpeed: 100
+  _rotationSpeed: 300
   _pitchLimits: {x: -25, y: 75}
+  _autoFaceMovement: 1
+  _movementAlignSpeed: 200
+  _movementThreshold: 0.05
   _zoomSpeed: 8
   _zoomLimits: {x: 4, y: 20}
 --- !u!114 &5511695048665303104
