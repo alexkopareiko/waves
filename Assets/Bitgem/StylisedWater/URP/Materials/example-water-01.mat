@@ -13,7 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
@@ -78,6 +78,7 @@ Material:
     - Vector1_46E42935: 0.25
     - Vector1_47683D42: 0.875
     - Vector1_A0EAD698: 0.6
+    - Vector1_A32BA28C: 1
     - Vector1_A6A0BC26: 0.035
     - Vector1_B9F56378: 0.35
     - Vector1_C360A163: 2.5
@@ -98,7 +99,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _QueueControl: 1
-    - _QueueOffset: 0
+    - _QueueOffset: 1
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
