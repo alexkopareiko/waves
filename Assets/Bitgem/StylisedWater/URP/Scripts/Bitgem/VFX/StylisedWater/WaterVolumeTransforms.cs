@@ -11,7 +11,61 @@ namespace Bitgem.VFX.StylisedWater
     [AddComponentMenu("Bitgem/Water  Volume (Transforms)")]
     public class WaterVolumeTransforms : WaterVolumeBase
     {
+        [Header("Follow Settings")]
+        [SerializeField] private bool _followTarget = false;
+        [SerializeField] private Transform _followTransform;
+        [SerializeField] private bool _lockYToSeaLevel = true;
+        [SerializeField] private float _seaLevelY = 0f;
+        [SerializeField] private Vector3 _seaSquareOffset = Vector3.zero;
+
+        /// <summary>
+        /// Optional transform to keep this volume centered on (useful to only render water around a moving actor).
+        /// </summary>
+        public Transform FollowTransform
+        {
+            get => _followTransform;
+            set => _followTransform = value;
+        }
+
+        /// <summary>
+        /// Enable following a target at runtime (locks Y to the configured sea level when requested).
+        /// </summary>
+        public void SetFollowTarget(Transform target, bool lockYToSeaLevel = true)
+        {
+            _followTarget = target != null;
+            _followTransform = target;
+            _lockYToSeaLevel = lockYToSeaLevel;
+            if (_lockYToSeaLevel)
+            {
+                _seaLevelY = transform.position.y;
+            }
+        }
+
+        /// <summary>
+        /// Update the cached sea level (used when locking Y).
+        /// </summary>
+        /// <param name="y">World Y value to lock to.</param>
+        public void SetSeaLevel(float y)
+        {
+            _seaLevelY = y;
+        }
+
         #region MonoBehaviour events
+
+        private void LateUpdate()
+        {
+            if (!_followTarget || _followTransform == null)
+            {
+                return;
+            }
+
+            Vector3 targetPos = _followTransform.position;
+            if (_lockYToSeaLevel)
+            {
+                targetPos.y = _seaLevelY;
+            }
+            transform.position = targetPos + _seaSquareOffset;
+        }
 
         private void OnDrawGizmos()
         {

@@ -396,10 +396,10 @@ namespace Bitgem.VFX.StylisedWater
                 Rebuild();
             }
 
-            // if (Input.GetKeyDown(KeyCode.P))
-            // {
-            //     Rebuild();
-            // }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                Rebuild();
+            }
         }
 
         #endregion

@@ -12,6 +12,8 @@ namespace Game
         private Boat _boat;
         private WaterVolumeHelper _waterVolumeHelper;
         private BoatCameraController _boatCameraController;
+        private WaterVolumeTransforms _waterVolumeTransforms;
+        private WaterSpawnManager _waterSpawnManager;
 
         private static bool _isPaused = false;
         internal static bool isPaused => _isPaused;
@@ -19,6 +21,8 @@ namespace Game
         public Boat Boat => _boat;
         public WaterVolumeHelper WaterVolumeHelper => _waterVolumeHelper;
         public BoatCameraController BoatCameraController => _boatCameraController;
+        public WaterVolumeTransforms WaterVolumeTransforms => _waterVolumeTransforms;
+        public WaterSpawnManager WaterSpawnManager => _waterSpawnManager;
 
         private void OnEnable()
         {
@@ -50,6 +54,8 @@ namespace Game
             _boat.Initialize();
             UIManager.Instance.Initialize();
             PoolManagerMono.Instance.Initialize();
+            _waterVolumeTransforms.SetFollowTarget(_boat.transform, lockYToSeaLevel: true);
+            // _waterSpawnManager.Initialize();
             
             // Initialize components
         }
@@ -101,6 +107,8 @@ namespace Game
             _boat = FindFirstObjectByType<Boat>();
             _waterVolumeHelper = FindFirstObjectByType<WaterVolumeHelper>();
             _boatCameraController = FindFirstObjectByType<BoatCameraController>();
+            _waterVolumeTransforms = FindFirstObjectByType<WaterVolumeTransforms>();
+            _waterSpawnManager = FindFirstObjectByType<WaterSpawnManager>();
         }
     }
 }
