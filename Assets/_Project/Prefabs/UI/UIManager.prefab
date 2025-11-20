@@ -168,6 +168,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1524368439617888605}
+  - {fileID: 7010588167392456969}
   m_Father: {fileID: 5911828947430219968}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -228,6 +229,7 @@ MonoBehaviour:
   _pauseButton: {fileID: 0}
   _menuButton: {fileID: 0}
   _gearboxUI: {fileID: 733723315097408429}
+  _compassUI: {fileID: 7034797962613233204}
 --- !u!1 &1230155290347068022
 GameObject:
   m_ObjectHideFlags: 0
@@ -1271,6 +1273,105 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483124eb9a25d4949a49c521e9f14544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.UISubCanvas
+--- !u!1 &7941160177627195830
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7010588167392456969}
+  - component: {fileID: 3232707801792086378}
+  - component: {fileID: 678617387790054774}
+  - component: {fileID: 7034797962613233204}
+  m_Layer: 5
+  m_Name: Compas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7010588167392456969
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7941160177627195830}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7676776041766884485}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -129}
+  m_SizeDelta: {x: 532.328, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3232707801792086378
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7941160177627195830}
+  m_CullTransparentMesh: 1
+--- !u!114 &678617387790054774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7941160177627195830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3764706}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7034797962613233204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7941160177627195830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d0f3f829762f94d8a7abebfee43c16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.CompassUI
+  _referenceTransform: {fileID: 0}
+  _autoAssignReference: 1
+  _visibleAngle: 180
+  _markerYOffset: -18
+  _markerSize: {x: 6, y: 24}
+  _labelFontSize: 16
+  _cardinalColor: {r: 0, g: 0, b: 0, a: 1}
+  _labelFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  _fallbackMarkerSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _targetDistanceFadeStart: 0.75
+  _markerFadeMin: 0.15
 --- !u!1 &8242398230506786609
 GameObject:
   m_ObjectHideFlags: 0

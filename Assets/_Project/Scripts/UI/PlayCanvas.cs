@@ -11,6 +11,7 @@ namespace Game
 
         [Header("References")]
         [SerializeField] private GearboxUI _gearboxUI;
+        [SerializeField] private CompassUI _compassUI;
         
 
         public void Initialize()
@@ -18,6 +19,10 @@ namespace Game
             if (_gearboxUI != null)
             {
                 _gearboxUI.Initialize();
+            }
+            if (_compassUI != null)
+            {
+                _compassUI.Initialize();
             }
         }
 
