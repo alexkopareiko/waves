@@ -107,8 +107,8 @@ namespace Game
             if (GameManager.Instance == null)
                 return null;
 
-            Boat boat = GameManager.Instance.Boat;
-            return boat != null ? boat.transform : null;
+            Transform anchor = GameManager.Instance.Boat.CameraAnchor;
+            return anchor;
         }
 
         private void InitializeOrbitFromOffset()
