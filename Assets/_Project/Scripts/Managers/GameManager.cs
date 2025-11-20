@@ -49,6 +49,7 @@ namespace Game
             CollectReferences();
             _boat.Initialize();
             UIManager.Instance.Initialize();
+            PoolManagerMono.Instance.Initialize();
             
             // Initialize components
         }
