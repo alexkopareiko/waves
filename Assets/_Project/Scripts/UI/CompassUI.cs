@@ -39,13 +39,13 @@ namespace Game
         private static readonly (string Label, float Angle)[] s_directionDefinitions = new[]
         {
             ("N", 0f),
-            ("NE", 45f),
+            // ("NE", 45f),
             ("E", 90f),
-            ("SE", 135f),
+            // ("SE", 135f),
             ("S", 180f),
-            ("SW", -135f),
+            // ("SW", -135f),
             ("W", -90f),
-            ("NW", -45f)
+            // ("NW", -45f)
         };
 
         private void Awake()
