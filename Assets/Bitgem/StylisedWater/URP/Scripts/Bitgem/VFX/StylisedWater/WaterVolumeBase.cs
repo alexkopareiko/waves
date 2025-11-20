@@ -214,10 +214,10 @@ namespace Bitgem.VFX.StylisedWater
                             uvs.Add(new Vector2(ux0, uz1));
                             uvs.Add(new Vector2(ux1, uz1));
                             uvs.Add(new Vector2(ux1, uz0));
-                            colors.Add(foamNegX || foamNegZ || foamNegXnegZ ? Color.red : Color.black);
-                            colors.Add(foamNegX || foamPosZ || foamNegXposZ ? Color.red : Color.black);
-                            colors.Add(foamPosX || foamPosZ || foamPosXposZ ? Color.red : Color.black);
-                            colors.Add(foamPosX || foamNegZ || foamPosXnegZ ? Color.red : Color.black);
+                            colors.Add(Color.black);
+                            colors.Add(Color.black);
+                            colors.Add(Color.black);
+                            colors.Add(Color.black);
                             var v = vertices.Count - 4;
                             if (foamNegX && foamPosZ || foamPosX && foamNegZ)
                             {
@@ -255,8 +255,8 @@ namespace Bitgem.VFX.StylisedWater
                             uvs.Add(new Vector2(uz0, uy1));
                             uvs.Add(new Vector2(uz0, uy0));
                             colors.Add(Color.black);
-                            colors.Add(posY ? Color.red : Color.black);
-                            colors.Add(posY ? Color.red : Color.black);
+                            colors.Add(Color.black);
+                            colors.Add(Color.black);
                             colors.Add(Color.black);
                             var v = vertices.Count - 4;
                             indices.Add(v);
@@ -281,8 +281,8 @@ namespace Bitgem.VFX.StylisedWater
                             uvs.Add(new Vector2(uz1, uy1));
                             uvs.Add(new Vector2(uz1, uy0));
                             colors.Add(Color.black);
-                            colors.Add(posY ? Color.red : Color.black);
-                            colors.Add(posY ? Color.red : Color.black);
+                            colors.Add(Color.black);
+                            colors.Add(Color.black);
                             colors.Add(Color.black);
                             var v = vertices.Count - 4;
                             indices.Add(v);
@@ -307,8 +307,8 @@ namespace Bitgem.VFX.StylisedWater
                             uvs.Add(new Vector2(ux1, uy1));
                             uvs.Add(new Vector2(ux1, uy0));
                             colors.Add(Color.black);
-                            colors.Add(posY ? Color.red : Color.black);
-                            colors.Add(posY ? Color.red : Color.black);
+                            colors.Add(Color.black);
+                            colors.Add(Color.black);
                             colors.Add(Color.black);
                             var v = vertices.Count - 4;
                             indices.Add(v);
@@ -333,8 +333,8 @@ namespace Bitgem.VFX.StylisedWater
                             uvs.Add(new Vector2(ux0, uy1));
                             uvs.Add(new Vector2(ux0, uy0));
                             colors.Add(Color.black);
-                            colors.Add(posY ? Color.red : Color.black);
-                            colors.Add(posY ? Color.red : Color.black);
+                            colors.Add(Color.black);
+                            colors.Add(Color.black);
                             colors.Add(Color.black);
                             var v = vertices.Count - 4;
                             indices.Add(v);
