@@ -186,7 +186,7 @@ namespace Game
                 entry.Rect.anchoredPosition = new Vector2(normalized * _halfWidth, 0f);
 
                 float fade = Mathf.Clamp01(1f - Mathf.Abs(normalized));
-                float alpha = Mathf.Lerp(0.35f, 1f, fade);
+                float alpha = Mathf.Lerp(0.0f, 1f, fade);
                 entry.Label.color = new Color(_cardinalColor.r, _cardinalColor.g, _cardinalColor.b, alpha);
             }
         }
