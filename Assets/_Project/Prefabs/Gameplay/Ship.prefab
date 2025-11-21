@@ -1414,13 +1414,66 @@ PrefabInstance:
       propertyPath: m_Name
       value: boat
       objectReference: {fileID: 0}
+    - target: {fileID: 2381762104714999499, guid: bb73d079395674d48adc9e7b1694e3a2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7072302
+      objectReference: {fileID: 0}
+    - target: {fileID: 2381762104714999499, guid: bb73d079395674d48adc9e7b1694e3a2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7069834
+      objectReference: {fileID: 0}
+    - target: {fileID: 2381762104714999499, guid: bb73d079395674d48adc9e7b1694e3a2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2381762104714999499, guid: bb73d079395674d48adc9e7b1694e3a2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2381762104714999499, guid: bb73d079395674d48adc9e7b1694e3a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 2381762104714999499, guid: bb73d079395674d48adc9e7b1694e3a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -7938384577209828416, guid: bb73d079395674d48adc9e7b1694e3a2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1598194097141707607}
   m_SourcePrefab: {fileID: 100100000, guid: bb73d079395674d48adc9e7b1694e3a2, type: 3}
+--- !u!4 &5284536723609579110 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2381762104714999499, guid: bb73d079395674d48adc9e7b1694e3a2, type: 3}
+  m_PrefabInstance: {fileID: 7519826263528659117}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8057348031830966086 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bb73d079395674d48adc9e7b1694e3a2, type: 3}
   m_PrefabInstance: {fileID: 7519826263528659117}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8759214767810323309 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7938384577209828416, guid: bb73d079395674d48adc9e7b1694e3a2, type: 3}
+  m_PrefabInstance: {fileID: 7519826263528659117}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1598194097141707607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8759214767810323309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3424ebb8d01c994ca41af53cfe94eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.KeelYawAnimator
+  _keel: {fileID: 5284536723609579110}
+  _movementController: {fileID: 2676085152914915882}
+  _maxYawDegrees: 45
+  _smoothSpeed: 180
