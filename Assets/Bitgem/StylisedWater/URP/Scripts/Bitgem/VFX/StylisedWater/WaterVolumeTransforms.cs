@@ -54,6 +54,7 @@ namespace Bitgem.VFX.StylisedWater
 
         private void LateUpdate()
         {
+            return;
             if (!_followTarget || _followTransform == null)
             {
                 return;

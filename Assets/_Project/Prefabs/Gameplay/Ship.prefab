@@ -32,8 +32,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.36, y: 6.86, z: 10.23}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4998431095507129351}
   - {fileID: 755176175720434524}
@@ -61,10 +61,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36aa02d38bb10b548bc7b8879596b15c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 6637338918345372037}
+  _rigidbody: {fileID: 0}
   WaterVolumeHelper: {fileID: 0}
-  SurfaceSampleOffset: 0.5
-  VerticalOffset: 0.07
+  SurfaceSampleOffset: 0.01
+  VerticalOffset: 0.067
   RotationLerpSpeed: 5
   HeightLerpSpeed: 5
   AlignRotation: 1
@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0957cd1b0f947e4cbf0cead2b49fb87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.BoatMovementController
-  _boat: {fileID: 7191153909085779399}
-  _rigidbody: {fileID: 6637338918345372037}
+  _boat: {fileID: 0}
+  _rigidbody: {fileID: 0}
   _gearUpKey: 119
   _gearUpAltKey: 273
   _gearDownKey: 115
@@ -150,8 +150,8 @@ MonoBehaviour:
   _turnLeftAltKey: 276
   _turnRightKey: 100
   _turnRightAltKey: 275
-  _gear1Thrust: 6
-  _gear2Thrust: 10
+  _gear1Thrust: 0.5
+  _gear2Thrust: 1
   _turnTorque: 1
   _maxSpeed: 3
   _linearDrag: 0.4
@@ -341,8 +341,8 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 0.2}
-  m_Intensity: 0.005
-  m_Range: 0.5
+  m_Intensity: 0.001
+  m_Range: 0.005
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -383,7 +383,7 @@ Light:
   m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 0.93
+  m_BounceIntensity: 0.54
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -579,8 +579,8 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 10.69
+  m_Intensity: 0.1
+  m_Range: 0.1
   m_SpotAngle: 38.64731
   m_InnerSpotAngle: 26.990505
   m_CookieSize: 10

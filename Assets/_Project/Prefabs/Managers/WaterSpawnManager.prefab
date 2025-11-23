@@ -48,6 +48,6 @@ MonoBehaviour:
   _poolManager: {fileID: 0}
   _waterVolume: {fileID: 0}
   _cellSize: {x: 20, y: 10, z: 20}
-  _gridRadius: {x: 2, y: 2}
+  _gridRadius: {x: 1, y: 1}
   _fixedYLevel: 0
   _gridOriginOffset: {x: 0, y: -3, z: 0}
