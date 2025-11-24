@@ -1,4 +1,5 @@
 using Bitgem.VFX.StylisedWater;
+using System.Collections;
 using UnityEngine;
 
 namespace Game
@@ -40,6 +41,8 @@ namespace Game
         private bool _isZooming;
         private bool _hasLastTargetPosition;
         private Vector3 _lastTargetPosition;
+        private Coroutine _shakeRoutine;
+        private Vector3 _shakeOffset;
 
         private Transform Target => _targetOverride != null ? _targetOverride : GetBoatTransform();
 
@@ -87,6 +90,7 @@ namespace Game
                 smoothedPosition.y = minWaterHeight.Value;
 
             transform.position = smoothedPosition;
+            transform.position += _shakeOffset;
 
             Vector3 lookDirection = target.position - transform.position;
             if (lookDirection.sqrMagnitude > 0.001f)
@@ -97,6 +101,32 @@ namespace Game
 
             _lastTargetPosition = target.position;
             _hasLastTargetPosition = true;
+        }
+
+        public void ShakeOnce(float duration, float strength)
+        {
+            if (_shakeRoutine != null)
+            {
+                StopCoroutine(_shakeRoutine);
+                _shakeOffset = Vector3.zero;
+            }
+            _shakeRoutine = StartCoroutine(CameraShakeRoutine(duration, strength));
+        }
+
+        private IEnumerator CameraShakeRoutine(float duration, float strength)
+        {
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                float damper = duration > 0f ? 1f - (elapsed / duration) : 0f;
+                _shakeOffset = Random.insideUnitSphere * strength * damper;
+                _shakeOffset.z = 0f;
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            _shakeOffset = Vector3.zero;
+            _shakeRoutine = null;
         }
 
         private Transform GetBoatTransform()

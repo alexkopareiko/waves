@@ -29,8 +29,11 @@ namespace Game
 
         public enum PoolType
         {
-            // FURNITURE
+            // WATER
             WaterCube = 0,
+
+            // FX
+            ExplosionFX = 1,
 
             // check on biggest number
         }

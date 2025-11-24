@@ -110,6 +110,13 @@ MonoBehaviour:
   _interiorWater: {fileID: 8350208272158913248}
   _movementController: {fileID: 2676085152914915882}
   _cameraAnchor: {fileID: 3245172113012133039}
+  _obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  _rotationDuration: 1
+  _sinkDelay: 0.8
+  _sinkDuration: 30
+  _sinkDepth: 1
 --- !u!114 &8350208272158913248
 MonoBehaviour:
   m_ObjectHideFlags: 0
