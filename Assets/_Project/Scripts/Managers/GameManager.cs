@@ -5,6 +5,13 @@ namespace Game
 {
     public class GameManager : MonoBehaviour
     {
+        public enum WaterState
+        {
+            CALM = 0,
+            CRAZY = 1,
+        }
+
+
         public static GameManager Instance => s_Instance;
         private static GameManager s_Instance;
 
@@ -14,6 +21,7 @@ namespace Game
         private BoatCameraController _boatCameraController;
         private WaterVolumeTransforms _waterVolumeTransforms;
         private WaterSpawnManager _waterSpawnManager;
+        private WaterState waterState = WaterState.CALM;
 
         private static bool _isPaused = false;
         internal static bool isPaused => _isPaused;
@@ -23,6 +31,7 @@ namespace Game
         public BoatCameraController BoatCameraController => _boatCameraController;
         public WaterVolumeTransforms WaterVolumeTransforms => _waterVolumeTransforms;
         public WaterSpawnManager WaterSpawnManager => _waterSpawnManager;
+        public WaterState CurrentWaterState => waterState;
 
         private void OnEnable()
         {
@@ -30,6 +39,11 @@ namespace Game
             SetupInstance();
 
             LoadSequencer.LastModuleLoaded += Load;
+        }
+
+        void Awake()
+        {
+            SetWaterState(WaterState.CALM);
         }
 
         private void OnDisable()
@@ -58,6 +72,12 @@ namespace Game
             // _waterSpawnManager.Initialize();
             
             // Initialize components
+        }
+
+        public void SetWaterState(WaterState newState)
+        {
+            waterState = newState;
+            SimpleEventManager.Emit(GameEvents.WaterStateChanged, newState);
         }
 
         public void GameOver()

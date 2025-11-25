@@ -1,6 +1,7 @@
 ﻿#region Using statements
 
 using Bitgem.Core;
+using Game;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,12 +41,18 @@ namespace Bitgem.VFX.StylisedWater
 
         private UnityEngine.Mesh mesh = null;
         private MeshFilter meshFilter = null;
+        private System.Action<object> _onWaterStateChangedAction = null;
 
         private bool[,,] tiles = null;
 
         #endregion
 
         #region Public fields
+        [SerializeField] private Material _calmWaterMaterial;
+        [SerializeField] private Material _crazyWaterMaterial;
+
+        public Material CalmWaterMaterial => _calmWaterMaterial;
+        public Material CrazyWaterMaterial => _crazyWaterMaterial;
 
         [FlagEnum]
         public TileFace IncludeFaces = TileFace.NegX | TileFace.NegZ | TileFace.PosX | TileFace.PosZ;
@@ -94,6 +101,41 @@ namespace Bitgem.VFX.StylisedWater
         #endregion
 
         #region Public methods
+        public void OnWaterStateChanged(object payload)
+        {
+            var meshRenderer = gameObject.GetComponent<MeshRenderer>();
+            if (payload is GameManager.WaterState newState && meshRenderer != null)
+            {
+                var template = newState == GameManager.WaterState.CALM ? CalmWaterMaterial :
+                               newState == GameManager.WaterState.CRAZY ? CrazyWaterMaterial :
+                               null;
+
+                ApplyMaterialTemplate(meshRenderer, template);
+            }
+            else
+            {
+                Debug.LogWarning("WaterVolumeBase: OnWaterStateChanged received invalid payload");
+            }
+            Rebuild();
+        }
+
+        private void ApplyMaterialTemplate(MeshRenderer renderer, Material template)
+        {
+            if (renderer == null || template == null)
+            {
+                return;
+            }
+
+            var current = renderer.material;
+            if (current == null)
+            {
+                return;
+            }
+
+            current.CopyPropertiesFromMaterial(template);
+            current.shaderKeywords = template.shaderKeywords;
+            current.renderQueue = template.renderQueue;
+        }
 
         public float? GetHeight(Vector3 _position)
         {
@@ -376,6 +418,12 @@ namespace Bitgem.VFX.StylisedWater
 
         #region MonoBehaviour events
 
+        private void Awake()
+        {
+            _onWaterStateChangedAction = OnWaterStateChanged;
+            SimpleEventManager.Subscribe(GameEvents.WaterStateChanged, OnWaterStateChanged);
+        }
+
         void OnValidate()
         {
             // keep tile size in a sensible range
@@ -396,10 +444,11 @@ namespace Bitgem.VFX.StylisedWater
                 Rebuild();
             }
 
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                Rebuild();
-            }
+
+            // if (Input.GetKeyDown(KeyCode.P))
+            // {
+            //     GameManager.Instance.SetWaterState(GameManager.WaterState.CRAZY);
+            // }
         }
 
         #endregion

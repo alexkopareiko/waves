@@ -68,7 +68,7 @@ MonoBehaviour:
   SurfaceSampleOffset: 0.01
   VerticalOffset: 0.097
   RotationLerpSpeed: 5
-  HeightLerpSpeed: 5
+  HeightLerpSpeed: 0.1
   AlignRotation: 1
   HorizontalDriftStrength: 2.5
   DriftResponsiveness: 1.7
