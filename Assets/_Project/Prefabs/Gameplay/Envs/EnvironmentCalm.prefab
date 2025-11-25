@@ -181,5 +181,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946bf9f351a845c40a1c55de890ed66f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.EnvironmentContainer
-  environmentObjects:
-  - {fileID: 4279384827136204611}
+  environmentObjects: []

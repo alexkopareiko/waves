@@ -30,7 +30,7 @@ namespace Game
 
         private IEnumerator ChangeStateAsync(bool desiredState)
         {
-            if (environmentObjects == null)
+            if (environmentObjects == null || environmentObjects.Count == 0)
             {
                 // yield break;
                 // get firstrow child objects
