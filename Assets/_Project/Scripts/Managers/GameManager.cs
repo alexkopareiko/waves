@@ -22,6 +22,7 @@ namespace Game
         private WaterVolumeTransforms _waterVolumeTransforms;
         private WaterSpawnManager _waterSpawnManager;
         private WaterState waterState = WaterState.CALM;
+        private EnvironmentManager _environmentManager;
 
         private static bool _isPaused = false;
         internal static bool isPaused => _isPaused;
@@ -32,6 +33,7 @@ namespace Game
         public WaterVolumeTransforms WaterVolumeTransforms => _waterVolumeTransforms;
         public WaterSpawnManager WaterSpawnManager => _waterSpawnManager;
         public WaterState CurrentWaterState => waterState;
+        public EnvironmentManager EnvironmentManager => _environmentManager;
 
         private void OnEnable()
         {
@@ -41,9 +43,8 @@ namespace Game
             LoadSequencer.LastModuleLoaded += Load;
         }
 
-        void Awake()
+        void Start()
         {
-            SetWaterState(WaterState.CALM);
         }
 
         private void OnDisable()
@@ -65,13 +66,15 @@ namespace Game
         public void Load()
         {
             CollectReferences();
+
+            // Initialize components
+
             _boat.Initialize();
             UIManager.Instance.Initialize();
             PoolManagerMono.Instance.Initialize();
-            _waterVolumeTransforms.SetFollowTarget(_boat.transform, lockYToSeaLevel: true);
-            // _waterSpawnManager.Initialize();
-            
-            // Initialize components
+            _environmentManager.Initialize();
+
+            SetWaterState(WaterState.CALM);
         }
 
         public void SetWaterState(WaterState newState)
@@ -129,6 +132,7 @@ namespace Game
             _boatCameraController = FindFirstObjectByType<BoatCameraController>();
             _waterVolumeTransforms = FindFirstObjectByType<WaterVolumeTransforms>();
             _waterSpawnManager = FindFirstObjectByType<WaterSpawnManager>();
+            _environmentManager = FindFirstObjectByType<EnvironmentManager>();
         }
     }
 }
