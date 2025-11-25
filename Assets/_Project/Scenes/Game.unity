@@ -646,6 +646,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.EnvironmentManager
   environmentContainerCalm: {fileID: 1408168008}
   environmentContainerCrazy: {fileID: 1929800522}
+  calmSkybox: {fileID: 2100000, guid: 2bd8959f5fbd3644aa33af1a155fc147, type: 2}
+  crazySkybox: {fileID: 2100000, guid: cc421da483ed06c49933077a621bff25, type: 2}
 --- !u!4 &564234375
 Transform:
   m_ObjectHideFlags: 0
@@ -1587,7 +1589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8369035563036845585, guid: 1a6a9face5a08864898e6f63fca1477a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.4
+      value: 6.32
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

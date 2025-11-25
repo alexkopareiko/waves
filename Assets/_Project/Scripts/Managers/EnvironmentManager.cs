@@ -6,12 +6,21 @@ namespace Game
     {
         [SerializeField] private EnvironmentContainer environmentContainerCalm;
         [SerializeField] private EnvironmentContainer environmentContainerCrazy;
+        [SerializeField] private Material calmSkybox;
+        [SerializeField] private Material crazySkybox;
+
+        private Material _defaultSkybox;
 
 
         public void Initialize()
         {
             SimpleEventManager.Subscribe(GameEvents.WaterStateChanged, OnWaterStateChanged);
             Debug.Log("EnvironmentManager initialized");
+        }
+
+        private void Awake()
+        {
+            _defaultSkybox = RenderSettings.skybox;
         }
         // void OnEnable()
         // {
@@ -27,6 +36,7 @@ namespace Game
         {
             var waterState = (GameManager.WaterState)state;
             Debug.Log($"EnvironmentManager: Water state changed to {waterState}");
+            ApplySkyboxForState(waterState);
             switch (waterState)
             {
                 case GameManager.WaterState.CALM:
@@ -38,6 +48,24 @@ namespace Game
                     environmentContainerCrazy.ActivateEnvironment();
                     break;
             }
+        }
+
+        private void ApplySkyboxForState(GameManager.WaterState waterState)
+        {
+            Material skyboxTarget = waterState switch
+            {
+                GameManager.WaterState.CALM => calmSkybox ?? _defaultSkybox,
+                GameManager.WaterState.CRAZY => crazySkybox ?? _defaultSkybox,
+                _ => _defaultSkybox,
+            };
+
+            if (skyboxTarget == null || RenderSettings.skybox == skyboxTarget)
+            {
+                return;
+            } 
+
+            RenderSettings.skybox = skyboxTarget;
+            DynamicGI.UpdateEnvironment();
         }
 
     }
