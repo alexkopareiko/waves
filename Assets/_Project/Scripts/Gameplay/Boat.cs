@@ -56,6 +56,11 @@ namespace Game
                 impactPoint = collision.GetContact(0).point;
 
             HandleObstacleImpact(impactPoint);
+
+            if (collision.gameObject.name.Contains("Mine"))
+            {
+                Destroy(collision.gameObject);
+            }
         }
 
         private bool IsObstacleLayer(int layer)
