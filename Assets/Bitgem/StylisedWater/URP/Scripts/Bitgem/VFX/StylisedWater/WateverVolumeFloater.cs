@@ -34,6 +34,8 @@ namespace Bitgem.VFX.StylisedWater
         public float DriftResponsiveness = 2f;
         [Tooltip("Caps the horizontal speed introduced by the waves.")]
         public float MaxDriftSpeed = 3f;
+        [SerializeField] private float _minRelativeFloadedHeight = 0.05f;
+        [SerializeField] private float _maxRelativeFloadedHeight = 0.01f;
 
         #endregion
 
@@ -100,6 +102,7 @@ namespace Bitgem.VFX.StylisedWater
             // Vertical bobbing as before (kept separate so only Y is overwritten).
             var currentY = _rigidbody ? _rigidbody.position.y : currentPosition.y;
             var smoothedHeight = Mathf.Lerp(currentY, surfaceHeight.Value, 1f - Mathf.Exp(-HeightLerpSpeed * dt));
+            smoothedHeight = Mathf.Clamp(smoothedHeight, surfaceHeight.Value - _minRelativeFloadedHeight, surfaceHeight.Value + _maxRelativeFloadedHeight);
             if (_rigidbody)
             {
                 var rbPosition = _rigidbody.position;
