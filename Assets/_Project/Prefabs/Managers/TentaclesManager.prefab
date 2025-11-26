@@ -51,10 +51,10 @@ MonoBehaviour:
   _boat: {fileID: 0}
   _poolManager: {fileID: 0}
   _tentacleCount: 1
-  _spawnRadius: 0.5
+  _spawnRadius: 2
   _spawnRadiusVariance: 0.7
   _minimumSpacing: 4
-  _yOffsetFromBoat: -0.6
+  _yOffsetFromBoat: -0.8
   _maxPositionAttempts: 12
   _obstacleLayerMask:
     serializedVersion: 2
