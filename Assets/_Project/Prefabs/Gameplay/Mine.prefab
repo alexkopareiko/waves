@@ -88,9 +88,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 15c629751ba00c241a9f1aeff02fb549, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6918332279087315802}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 15c629751ba00c241a9f1aeff02fb549, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5667804665828559771}
   m_SourcePrefab: {fileID: 100100000, guid: 15c629751ba00c241a9f1aeff02fb549, type: 3}
 --- !u!1 &1232420907579197286 stripped
 GameObject:
@@ -189,18 +186,3 @@ MonoBehaviour:
   delayBetweenMoves: 2
   verticalLerpSpeed: 0.31
   floater: {fileID: 1721520617985805908}
---- !u!114 &5667804665828559771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1232420907579197286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1a66bff1b937e74b8847f6055eb32cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.CompassTarget
-  _markerSprite: {fileID: 0}
-  _markerColor: {r: 0.4, g: 0.85, b: 1, a: 1}
-  _visibleDistance: 500
