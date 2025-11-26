@@ -62,9 +62,9 @@ MonoBehaviour:
   _obstacleCheckRadius: 1
   _spawnInterval: 2
   _riseHeight: 0.4
-  _riseSpeed: 0.03
-  _stayDuration: 2
-  _fallSpeed: 0.1
+  _riseSpeed: 0.06
+  _stayDuration: 8
+  _fallSpeed: 0.06
   _spawnOnEnable: 1
 --- !u!1001 &1262503437026748017
 PrefabInstance:
