@@ -8,7 +8,6 @@ namespace Game
     /// Keeps the camera following the boat with configurable position and rotation smoothing.
     /// Attach to the main camera and assign offsets in the inspector.
     /// </summary>
-    [RequireComponent(typeof(Camera))]
     public class BoatCameraController : MonoBehaviour
     {
         [Header("Target")]

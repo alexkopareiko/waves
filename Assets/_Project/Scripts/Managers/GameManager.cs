@@ -11,6 +11,15 @@ namespace Game
             CRAZY = 1,
         }
 
+        public enum GameState
+        {
+            IntroScene = 0,
+            BoatMoving = 1,
+            BoatDying = 2,
+            Win = 3,
+            Paused = 4,
+        }
+
 
         public static GameManager Instance => s_Instance;
         private static GameManager s_Instance;
@@ -24,6 +33,8 @@ namespace Game
         private WaterState waterState = WaterState.CALM;
         private EnvironmentManager _environmentManager;
         private Tentacles _tentacles;
+        private GameState _gameState = GameState.IntroScene;
+        private CameraController _cameraController;
 
         private static bool _isPaused = false;
         internal static bool isPaused => _isPaused;
@@ -36,6 +47,8 @@ namespace Game
         public WaterState CurrentWaterState => waterState;
         public EnvironmentManager EnvironmentManager => _environmentManager;
         public Tentacles Tentacles => _tentacles;
+        public GameState CurrentGameState => _gameState;
+        public CameraController CameraController => _cameraController;
 
         private void OnEnable()
         {
@@ -76,8 +89,16 @@ namespace Game
             PoolManagerMono.Instance.Initialize();
             _environmentManager.Initialize();
             _tentacles.Initialize();
+            _cameraController.Initialize();
 
             SetWaterState(WaterState.CALM);
+            SetGameState(GameState.IntroScene);
+        }
+
+        public void SetGameState(GameState newState)
+        {
+            _gameState = newState;
+            SimpleEventManager.Emit(GameEvents.GameStateChanged, newState);
         }
 
         public void SetWaterState(WaterState newState)
@@ -137,6 +158,7 @@ namespace Game
             _waterSpawnManager = FindFirstObjectByType<WaterSpawnManager>();
             _environmentManager = FindFirstObjectByType<EnvironmentManager>();
             _tentacles = FindFirstObjectByType<Tentacles>();
+            _cameraController = FindFirstObjectByType<CameraController>();
         }
     }
 }

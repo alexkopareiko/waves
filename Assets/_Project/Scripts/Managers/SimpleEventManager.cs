@@ -5,6 +5,7 @@ public static class GameEvents
 {
     public const string GameOver = "GameOver";
     public const string WaterStateChanged = "WaterStateChanged";
+    public const string GameStateChanged = "GameStateChanged";
 }
 
 public static class SimpleEventManager
