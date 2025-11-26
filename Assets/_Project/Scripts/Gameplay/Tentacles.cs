@@ -229,7 +229,7 @@ namespace Game
             if (payload is not GameManager.WaterState newState)
                 return;
 
-            if (newState != GameManager.WaterState.CRAZY)
+            if (newState == GameManager.WaterState.CRAZY)
             {
                 StartCrazySpawning();
             }
