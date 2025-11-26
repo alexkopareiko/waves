@@ -89,14 +89,14 @@ namespace Game
 
             if (gameState != GameManager.GameState.BoatMoving)
             {
-                _movementController?.EnableControls(false);
                 _floater.SetVerticalOffset(0.032f);
+                _movementController?.EnableControls(false);
             }
             else
             {
                 if (!_isDying) {
-                    _movementController?.EnableControls(true);
                     _floater.ResetVerticalOffset();
+                    _movementController?.EnableControls(true);
                 }
             }
         }

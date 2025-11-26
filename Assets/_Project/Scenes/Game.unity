@@ -2123,6 +2123,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentCalm
       objectReference: {fileID: 0}
+    - target: {fileID: 6905602248064390466, guid: bbea2cd294d7b5f49b9cccca87855f49, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.139
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905602248064390466, guid: bbea2cd294d7b5f49b9cccca87855f49, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.348
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905602248064390466, guid: bbea2cd294d7b5f49b9cccca87855f49, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.127
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
