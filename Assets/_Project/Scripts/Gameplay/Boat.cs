@@ -6,11 +6,17 @@ namespace Game
 {
     public class Boat : MonoBehaviour, IGameModule
     {
+        [Header("FX")]
+        [SerializeField] private GameObject _generalHitExplosionFX = null;
+        [SerializeField] private GameObject _bigHitExplosionFX = null;
+        [Header("Boat Components")]
 
         [SerializeField] private WateverVolumeFloater _floater = null;
         [SerializeField] private BoatInteriorWaterController _interiorWater = null;
         [SerializeField] private BoatMovementController _movementController = null;
         [SerializeField] private Transform _cameraAnchor = null;
+
+        [Header("Obstacle Impact Settings")]
         [SerializeField] private LayerMask _obstacleLayers = 0;
         [SerializeField, Min(0f)] private float _rotationDuration = 1.1f;
         [SerializeField] private float _sinkDelay = 0.8f;
@@ -55,12 +61,18 @@ namespace Game
             if (collision.contactCount > 0)
                 impactPoint = collision.GetContact(0).point;
 
-            HandleObstacleImpact(impactPoint);
 
             if (collision.gameObject.name.Contains("Mine"))
             {
+                HandleObstacleImpact(impactPoint, generalHit: false);
                 Destroy(collision.gameObject);
             }
+            else 
+            {
+                HandleObstacleImpact(impactPoint, generalHit: true);
+            }
+
+
         }
 
         private bool IsObstacleLayer(int layer)
@@ -68,7 +80,7 @@ namespace Game
             return (_obstacleLayers.value & (1 << layer)) != 0;
         }
 
-        private void HandleObstacleImpact(Vector3 impactPoint)
+        private void HandleObstacleImpact(Vector3 impactPoint, bool generalHit)
         {
             _isDying = true;
             _movementController?.EnableControls(false);
@@ -80,7 +92,7 @@ namespace Game
                 _rigidbody.isKinematic = true;
             }
 
-            SpawnExplosion(impactPoint);
+            SpawnExplosion(impactPoint, generalHit);
             GameManager.Instance?.BoatCameraController?.ShakeOnce(0.4f, 0.3f);
 
             if (_deathCoroutine != null)
@@ -90,19 +102,22 @@ namespace Game
             _deathCoroutine = StartCoroutine(ObstacleDeathSequence());
         }
 
-        private void SpawnExplosion(Vector3 position)
+        private void SpawnExplosion(Vector3 position, bool generalHit)
         {
-            PoolManagerMono pool = PoolManagerMono.Instance;
-            if (pool == null)
+            if (generalHit)
+            {
+                GameObject explosion = Instantiate(_generalHitExplosionFX);
+                explosion.transform.position = position;
+                explosion.transform.rotation = Quaternion.identity;
                 return;
-
-            GameObject explosion = pool.GetObjectFromPool(PoolManagerMono.PoolType.ExplosionFX);
-            if (explosion == null)
+            }
+            else
+            {
+                GameObject explosion = Instantiate(_bigHitExplosionFX);
+                explosion.transform.position = position;
+                explosion.transform.rotation = Quaternion.identity;
                 return;
-
-            explosion.transform.position = position;
-            explosion.transform.rotation = Quaternion.identity;
-            explosion.SetActive(true);
+            }
         }
 
         private IEnumerator ObstacleDeathSequence()

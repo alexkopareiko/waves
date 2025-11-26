@@ -108,6 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff8d8dc6ada8f18448f210c6f0f3cb87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Boat
+  _generalHitExplosionFX: {fileID: 7274528221589344787, guid: e93e9562d1a7f3840b0459f351173166, type: 3}
+  _bigHitExplosionFX: {fileID: 7274528221589344787, guid: e93e9562d1a7f3840b0459f351173166, type: 3}
   _floater: {fileID: 2258159752169565881}
   _interiorWater: {fileID: 8350208272158913248}
   _movementController: {fileID: 2676085152914915882}
