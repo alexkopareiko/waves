@@ -73,13 +73,7 @@ namespace Game
             if (!_controlsEnabled || GameManager.isPaused)
             {
                 _turnInput = 0f;
-                _rigidbody.useGravity = false;
                 return;
-            }
-
-            if (!_rigidbody.useGravity)
-            {
-                _rigidbody.useGravity = true;
             }
 
             HandleGearInput();

@@ -66,8 +66,8 @@ MonoBehaviour:
   _rigidbody: {fileID: 0}
   WaterVolumeHelper: {fileID: 0}
   SurfaceSampleOffset: 0.01
-  VerticalOffset: 0.097
-  RotationLerpSpeed: 5
+  VerticalOffset: 0.035
+  RotationLerpSpeed: 0.1
   HeightLerpSpeed: 0.1
   AlignRotation: 1
   HorizontalDriftStrength: 2.5
@@ -194,7 +194,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0

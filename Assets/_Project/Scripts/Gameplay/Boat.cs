@@ -33,6 +33,7 @@ namespace Game
         public BoatMovementController MovementController => _movementController;
         public Transform CameraAnchor => _cameraAnchor;
 
+
         public void Load()
         {
         }
@@ -89,13 +90,15 @@ namespace Game
 
             if (gameState != GameManager.GameState.BoatMoving)
             {
-                _floater.SetVerticalOffset(0.032f);
+                // _floater.SetVerticalOffset(0.032f);
+                // _rigidbody.useGravity = false;
                 _movementController?.EnableControls(false);
             }
             else
             {
                 if (!_isDying) {
-                    _floater.ResetVerticalOffset();
+                    // _floater.ResetVerticalOffset();
+                    // _rigidbody.useGravity = true;
                     _movementController?.EnableControls(true);
                 }
             }
