@@ -168,7 +168,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1406849309684849278}
-  m_Layer: 0
+  - component: {fileID: 3217081255482087933}
+  m_Layer: 6
   m_Name: Bone.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,6 +192,27 @@ Transform:
   - {fileID: 423793510963752987}
   m_Father: {fileID: 8993680542679024788}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3217081255482087933
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577260922168195762}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.03, y: 0.03, z: 0.03}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &601860200938899438
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,7 +523,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5626792812357909434
 Transform:
   m_ObjectHideFlags: 0
@@ -1023,7 +1045,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9046803908529041609}
-  m_Layer: 0
+  - component: {fileID: 7767362435737538721}
+  m_Layer: 6
   m_Name: Bone.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1046,6 +1069,27 @@ Transform:
   - {fileID: 4405146432893922626}
   m_Father: {fileID: 4870791407557574478}
   m_LocalEulerAnglesHint: {x: -55.139637, y: 15.500361, z: -12.173053}
+--- !u!65 &7767362435737538721
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4055974826410787537}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.03, y: 0.03, z: 0.03}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4079215558148271049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,7 +1369,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6808100001772827272}
-  m_Layer: 0
+  - component: {fileID: 505140696466250461}
+  m_Layer: 6
   m_Name: Bone.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1348,6 +1393,27 @@ Transform:
   - {fileID: 6287013305791301655}
   m_Father: {fileID: 6175251290779340328}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &505140696466250461
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5496316889510051700}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.03, y: 0.03, z: 0.03}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5588044073184313223
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,7 +1655,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2619129378442373489}
-  m_Layer: 0
+  - component: {fileID: 8191864190758235770}
+  m_Layer: 6
   m_Name: Bone.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1612,6 +1679,27 @@ Transform:
   - {fileID: 3035930088425860352}
   m_Father: {fileID: 7720145227965243906}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8191864190758235770
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5945965185703580661}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.03, y: 0.03, z: 0.03}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6067718572260644424
 GameObject:
   m_ObjectHideFlags: 0
