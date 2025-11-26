@@ -42,11 +42,19 @@ namespace Game
            _isInitialized = true;
            _movementController?.EnableControls(true);
            Debug.Log("Boat Initialized");
+
+           SimpleEventManager.Subscribe(GameEvents.GameStateChanged, OnGameStateChanged);
         }
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
+        }
+
+        void OnDisable()
+        {
+            SimpleEventManager.Unsubscribe(GameEvents.GameStateChanged, OnGameStateChanged);
+            
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -73,6 +81,24 @@ namespace Game
             }
 
 
+        }
+
+        private void OnGameStateChanged(object gameStateObj)
+        {
+            GameManager.GameState gameState = (GameManager.GameState)gameStateObj;
+
+            if (gameState != GameManager.GameState.BoatMoving)
+            {
+                _movementController?.EnableControls(false);
+                _floater.SetVerticalOffset(0.032f);
+            }
+            else
+            {
+                if (!_isDying) {
+                    _movementController?.EnableControls(true);
+                    _floater.ResetVerticalOffset();
+                }
+            }
         }
 
         private bool IsObstacleLayer(int layer)

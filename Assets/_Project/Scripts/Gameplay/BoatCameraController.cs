@@ -196,5 +196,41 @@ namespace Game
             float targetYaw = Mathf.Atan2(displacement.x, displacement.z) * Mathf.Rad2Deg;
             _yaw = Mathf.MoveTowardsAngle(_yaw, targetYaw, _movementAlignSpeed * Time.deltaTime);
         }
+
+        public bool TryGetFollowPose(out Vector3 position, out Quaternion rotation)
+        {
+            position = transform.position;
+            rotation = transform.rotation;
+            Transform target = Target;
+            if (target == null)
+                return false;
+
+            if (!_initializedAngles)
+                InitializeOrbitFromOffset();
+
+            Quaternion orbitRotation = Quaternion.Euler(_pitch, _yaw, 0f);
+            Vector3 desiredOffset = orbitRotation * new Vector3(0f, 0f, -_distance);
+            Vector3 desiredPosition = target.position + desiredOffset;
+
+            if (_clampToWaterSurface && WaterVolumeHelper.Instance != null)
+            {
+                float? waterHeight = WaterVolumeHelper.Instance.GetHeight(desiredPosition);
+                if (waterHeight.HasValue)
+                {
+                    float minWaterHeight = waterHeight.Value + _waterSurfaceOffset;
+                    if (desiredPosition.y < minWaterHeight)
+                        desiredPosition.y = minWaterHeight;
+                }
+            }
+
+            Vector3 lookDirection = target.position - desiredPosition;
+            if (lookDirection.sqrMagnitude > 0.001f)
+            {
+                rotation = Quaternion.LookRotation(lookDirection.normalized, Vector3.up);
+            }
+
+            position = desiredPosition;
+            return true;
+        }
     }
 }

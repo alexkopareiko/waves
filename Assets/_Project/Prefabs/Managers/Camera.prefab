@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4290191595784501304}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23120928, y: 0.34275705, z: -0.087781295, w: 0.906286}
-  m_LocalPosition: {x: 1.0693121, y: 3.5587149, z: 1.6251307}
+  m_LocalRotation: {x: -0.06620127, y: 0.8619526, z: -0.11650147, w: -0.4889608}
+  m_LocalPosition: {x: 6.0274115, y: 6.684421, z: 5.354775}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.BoatCameraController
   _targetOverride: {fileID: 0}
   _autoAssignBoat: 1
-  _offset: {x: 0, y: 0, z: 1}
+  _offset: {x: 0, y: 0.2, z: 0.2}
   _positionSmoothTime: 0.01
   _clampToWaterSurface: 1
   _waterSurfaceOffset: 0.1

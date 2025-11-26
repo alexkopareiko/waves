@@ -39,6 +39,8 @@ namespace Bitgem.VFX.StylisedWater
 
         #endregion
 
+        private float _verticalOffsetInitial;
+
         private void Awake()
         {
             if (!_rigidbody)
@@ -139,5 +141,18 @@ namespace Bitgem.VFX.StylisedWater
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationLerpSpeed * dt);
         }
 
+        public void SetVerticalOffset(float newOffset)
+        {
+            if (_verticalOffsetInitial == 0f)
+            {
+                _verticalOffsetInitial = VerticalOffset;
+            }
+            VerticalOffset = newOffset;
+        }
+
+        public void ResetVerticalOffset()
+        {
+            VerticalOffset = _verticalOffsetInitial;
+        }
     }
 }

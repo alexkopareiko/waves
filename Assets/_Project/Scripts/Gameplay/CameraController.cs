@@ -19,6 +19,7 @@ namespace Game
         public BoatCameraController BoatCameraController => _boatCameraController;
 
         private Coroutine _cameraTransitionRoutine;
+        private Coroutine _boatCameraTransitionRoutine;
         
 
 
@@ -30,6 +31,8 @@ namespace Game
         void OnDisable()
         {
             SimpleEventManager.Unsubscribe(GameEvents.GameStateChanged, OnGameStateChanged);
+            StopCameraTransition();
+            StopBoatCameraTransition();
         }
 
         private void OnGameStateChanged(object gameStateObj)
@@ -52,8 +55,7 @@ namespace Game
                     break;
                 case GameManager.GameState.BoatMoving:
                     StopCameraTransition();
-                    if (_boatCameraController != null)
-                        _boatCameraController.enabled = true;
+                    StartBoatCameraTransition();
                     break;
             }
         }
@@ -67,7 +69,87 @@ namespace Game
                 _boatCameraController.enabled = false;
 
             StopCameraTransition();
+            StopBoatCameraTransition();
             _cameraTransitionRoutine = StartCoroutine(TransitionToCameraRoutine(targetCameraPrefab));
+        }
+
+        private void StartBoatCameraTransition()
+        {
+            if (_boatCameraController == null)
+            {
+                return;
+            }
+
+            if (_mainCamera == null)
+            {
+                _boatCameraController.enabled = true;
+                return;
+            }
+
+            StopBoatCameraTransition();
+            _boatCameraController.enabled = false;
+            _boatCameraTransitionRoutine = StartCoroutine(TransitionToBoatCameraRoutine());
+        }
+
+        private IEnumerator TransitionToBoatCameraRoutine()
+        {
+            if (_boatCameraController == null || _mainCamera == null)
+            {
+                _boatCameraTransitionRoutine = null;
+                yield break;
+            }
+
+            if (!_boatCameraController.TryGetFollowPose(out Vector3 targetPosition, out Quaternion targetRotation))
+            {
+                EnableBoatCameraController();
+                _boatCameraTransitionRoutine = null;
+                yield break;
+            }
+
+            Transform mainTransform = _mainCamera.transform;
+            Vector3 startPosition = mainTransform.position;
+            Quaternion startRotation = mainTransform.rotation;
+
+            float duration = Mathf.Max(0f, _cameraTransitionDuration);
+            if (duration <= 0f)
+            {
+                mainTransform.position = targetPosition;
+                mainTransform.rotation = targetRotation;
+                EnableBoatCameraController();
+                _boatCameraTransitionRoutine = null;
+                yield break;
+            }
+
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                float t = Mathf.SmoothStep(0f, 1f, elapsed / duration);
+                mainTransform.position = Vector3.Lerp(startPosition, targetPosition, t);
+                mainTransform.rotation = Quaternion.Slerp(startRotation, targetRotation, t);
+
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            mainTransform.position = targetPosition;
+            mainTransform.rotation = targetRotation;
+            EnableBoatCameraController();
+            _boatCameraTransitionRoutine = null;
+        }
+
+        private void EnableBoatCameraController()
+        {
+            if (_boatCameraController != null && !_boatCameraController.enabled)
+                _boatCameraController.enabled = true;
+        }
+
+        private void StopBoatCameraTransition()
+        {
+            if (_boatCameraTransitionRoutine != null)
+            {
+                StopCoroutine(_boatCameraTransitionRoutine);
+                _boatCameraTransitionRoutine = null;
+            }
         }
 
         private IEnumerator TransitionToCameraRoutine(UnityEngine.Camera referenceCamera)

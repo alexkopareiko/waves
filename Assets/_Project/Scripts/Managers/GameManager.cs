@@ -62,6 +62,14 @@ namespace Game
         {
         }
 
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SetGameState(GameState.BoatMoving);
+            }
+        }
+
         private void OnDisable()
         {
             StopAllCoroutines();
