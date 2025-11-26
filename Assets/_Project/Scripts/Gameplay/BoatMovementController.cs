@@ -42,6 +42,8 @@ namespace Game
 
         public int GearState => _gearState;
         public float TurnInput => _turnInput;
+        /// <summary>Current horizontal velocity, or zero if the rigidbody is missing.</summary>
+        public Vector3 LinearVelocity => _rigidbody != null ? _rigidbody.linearVelocity : Vector3.zero;
 
         public void EnableControls(bool enabled)
         {

@@ -153,15 +153,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.BoatCameraController
   _targetOverride: {fileID: 0}
   _autoAssignBoat: 1
-  _offset: {x: 0, y: 0.2, z: 0.2}
+  _offset: {x: 0, y: 0.4, z: 0.4}
   _positionSmoothTime: 0.01
   _clampToWaterSurface: 1
   _waterSurfaceOffset: 0.1
   _rotationSpeed: 300
   _pitchLimits: {x: -25, y: 30}
   _autoFaceMovement: 1
-  _movementAlignSpeed: 10
-  _movementThreshold: 1
+  _movementAlignSpeed: 70
+  _movementThreshold: 0.001
   _zoomSpeed: 1
   _zoomLimits: {x: 0.5, y: 1}
 --- !u!114 &6719729751355802803

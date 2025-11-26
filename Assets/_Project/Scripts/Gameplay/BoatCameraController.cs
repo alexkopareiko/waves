@@ -187,14 +187,54 @@ namespace Game
                 return;
             }
 
-            Vector3 displacement = target.position - _lastTargetPosition;
-            displacement.y = 0f; // ignore vertical displacement when computing heading
-            float sqrMagnitude = displacement.sqrMagnitude;
-            if (sqrMagnitude < _movementThreshold * _movementThreshold)
+            if (!TryGetMovementDirection(target, out Vector3 direction))
                 return;
 
-            float targetYaw = Mathf.Atan2(displacement.x, displacement.z) * Mathf.Rad2Deg;
+            float targetYaw = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             _yaw = Mathf.MoveTowardsAngle(_yaw, targetYaw, _movementAlignSpeed * Time.deltaTime);
+        }
+
+        private bool TryGetMovementDirection(Transform target, out Vector3 direction)
+        {
+            Vector3 displacement = target.position - _lastTargetPosition;
+            displacement.y = 0f; // ignore vertical displacement when computing heading
+            float minDistance = _movementThreshold;
+            if (displacement.sqrMagnitude >= minDistance * minDistance)
+            {
+                direction = displacement.normalized;
+                return true;
+            }
+
+            if (TryGetBoatVelocityDirection(out direction))
+            {
+                return true;
+            }
+
+            direction = Vector3.zero;
+            return false;
+        }
+
+        private bool TryGetBoatVelocityDirection(out Vector3 direction)
+        {
+            direction = Vector3.zero;
+            BoatMovementController movement = GameManager.Instance?.Boat?.MovementController;
+            if (movement == null)
+                return false;
+
+            Vector3 velocity = movement.LinearVelocity;
+            velocity.y = 0f;
+            if (velocity.sqrMagnitude < 0.0001f)
+                return false;
+
+            if (_movementThreshold > 0f)
+            {
+                float expectedDisplacement = velocity.magnitude * Time.deltaTime;
+                if (expectedDisplacement < _movementThreshold)
+                    return false;
+            }
+
+            direction = velocity.normalized;
+            return true;
         }
 
         public bool TryGetFollowPose(out Vector3 position, out Quaternion rotation)
