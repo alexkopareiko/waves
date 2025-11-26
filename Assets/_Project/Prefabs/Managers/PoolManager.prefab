@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d876507ee2b9b154094f4a937cda1e24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.PoolManagerMono
-  _waterPrefabs:
-  - {fileID: -1227286324176685701, guid: e93e9562d1a7f3840b0459f351173166, type: 3}
+  _waterPrefabs: []
   _otherPrefabs:
   - {fileID: -1227286324176685701, guid: e93e9562d1a7f3840b0459f351173166, type: 3}
+  - {fileID: 7412603320302469895, guid: c83bc893e9ac9834eb4910a7539db1f8, type: 3}

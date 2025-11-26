@@ -23,6 +23,7 @@ namespace Game
         private WaterSpawnManager _waterSpawnManager;
         private WaterState waterState = WaterState.CALM;
         private EnvironmentManager _environmentManager;
+        private Tentacles _tentacles;
 
         private static bool _isPaused = false;
         internal static bool isPaused => _isPaused;
@@ -34,6 +35,7 @@ namespace Game
         public WaterSpawnManager WaterSpawnManager => _waterSpawnManager;
         public WaterState CurrentWaterState => waterState;
         public EnvironmentManager EnvironmentManager => _environmentManager;
+        public Tentacles Tentacles => _tentacles;
 
         private void OnEnable()
         {
@@ -73,6 +75,7 @@ namespace Game
             UIManager.Instance.Initialize();
             PoolManagerMono.Instance.Initialize();
             _environmentManager.Initialize();
+            _tentacles.Initialize();
 
             SetWaterState(WaterState.CALM);
         }
@@ -133,6 +136,7 @@ namespace Game
             _waterVolumeTransforms = FindFirstObjectByType<WaterVolumeTransforms>();
             _waterSpawnManager = FindFirstObjectByType<WaterSpawnManager>();
             _environmentManager = FindFirstObjectByType<EnvironmentManager>();
+            _tentacles = FindFirstObjectByType<Tentacles>();
         }
     }
 }

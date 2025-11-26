@@ -17,7 +17,7 @@ namespace Game
 
         private Dictionary<PoolType, ObjectPool> _pools = new();
 
-        [Header("Unit Enemy Prefabs")]
+        [Header("Water Prefabs")]
         [SerializeField] private List<PoolPrefab> _waterPrefabs = new();
 
 
