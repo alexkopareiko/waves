@@ -35,6 +35,9 @@ namespace Game
             // FX
             ExplosionFX = 1,
 
+            // OBSTACLES AND MONSTERS
+            Tentacles = 2,
+
             // check on biggest number
         }
 
