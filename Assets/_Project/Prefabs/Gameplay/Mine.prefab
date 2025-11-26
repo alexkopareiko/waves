@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15c629751ba00c241a9f1aeff02fb549, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.64
+      value: 42.41
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15c629751ba00c241a9f1aeff02fb549, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.3283
+      value: 6.393
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15c629751ba00c241a9f1aeff02fb549, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.61
+      value: 7.62
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15c629751ba00c241a9f1aeff02fb549, type: 3}
       propertyPath: m_LocalRotation.w
@@ -132,12 +132,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36aa02d38bb10b548bc7b8879596b15c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 4749538061370564649}
+  _rigidbody: {fileID: 0}
   WaterVolumeHelper: {fileID: 0}
-  SurfaceSampleOffset: 0.01
-  VerticalOffset: 0.025
+  SurfaceSampleOffset: 0.81
+  VerticalOffset: -0.14000034
   RotationLerpSpeed: 5
-  HeightLerpSpeed: 0.1
+  HeightLerpSpeed: 3.3
   AlignRotation: 1
   HorizontalDriftStrength: 2.5
   DriftResponsiveness: 1.7
@@ -183,10 +183,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a263328d191a08542a2018be7244048b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MineController
-  shiftLength: 0.5
-  speed: 1
-  durationRange: {x: 1, y: 2}
-  delayBetweenMoves: 0.5
+  shiftLength: 1
+  speed: 0.1
+  durationRange: {x: 5, y: 5}
+  delayBetweenMoves: 2
+  verticalLerpSpeed: 0.31
+  floater: {fileID: 1721520617985805908}
 --- !u!114 &5667804665828559771
 MonoBehaviour:
   m_ObjectHideFlags: 0
