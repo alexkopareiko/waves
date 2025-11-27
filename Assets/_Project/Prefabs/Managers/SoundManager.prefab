@@ -185,7 +185,7 @@ MonoBehaviour:
   _soundEffectSource: {fileID: 5225380367364418851}
   _musicSource1: {fileID: 3862653663518743568}
   _musicSource2: {fileID: 2301842153847745361}
-  _fadeTime: 2
+  _fadeTime: 10
   _soundInterval: 0.01
 --- !u!1 &5794322797731886958
 GameObject:
