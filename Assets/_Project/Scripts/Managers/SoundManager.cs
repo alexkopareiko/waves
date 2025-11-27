@@ -46,12 +46,17 @@ public class SoundManager : MonoBehaviour
     [Header("Other")]
     [SerializeField] private float _fadeTime = 1.0f;
     [SerializeField] private float _soundInterval = 0.01f;
+    [SerializeField] private float _sceneLoadFadeDuration = 1.0f;
 
     private const float MixerMinDecibels = -80f;
+    private const string GameSceneName = "Game";
+    private const string MusicVolumeParameter = "MusicVolume";
+    private const string EffectsVolumeParameter = "EffectsVolume";
     private AudioSource _currentMusicSource;
     private AudioSource _nextMusicSource;
     private bool _isCrossfading;
     private Coroutine _crossfadeRoutine;
+    private Coroutine _sceneLoadMixerRoutine;
     private float _soundPlayedTime;
 
     private void OnEnable()
@@ -92,6 +97,7 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         SceneManager.sceneLoaded += OnSceneLoaded;
+        HandleSceneLoad(SceneManager.GetActiveScene());
 
         _currentMusicSource = _musicSource1;
         _nextMusicSource = _musicSource2;
@@ -200,12 +206,12 @@ public class SoundManager : MonoBehaviour
         {
             switch (gameState)
             {
-                case GameManager.GameState.IntroScene:
+                // case GameManager.GameState.IntroScene:
+                //     PlayMusic(_introSceneTheme);
+                //     break;
+                case GameManager.GameState.BoatMoving:
                     PlayMusic(_introSceneTheme);
                     break;
-                // case GameManager.GameState.BoatMoving:
-                //     PlayMusic(_boatIsMovingTheme);
-                //     break;
                 // case GameManager.GameState.Win:
                 //     PlayMusic(_winTheme);
                 //     break;
@@ -300,16 +306,14 @@ public class SoundManager : MonoBehaviour
 
     private float ConvertLinearVolumeToDb(float volume)
     {
-        float clamped = Mathf.Clamp01(volume);
-        return Mathf.Lerp(MixerMinDecibels, 0f, clamped);
+        float adjustedVolume = Mathf.Clamp(volume, 0.0001f, 1f);
+        return Mathf.Lerp(MixerMinDecibels, 0f, Mathf.Pow(adjustedVolume, 0.3f));
     }
 
     // Set the volume of sound effects
     public void SetSoundEffectVolume(float volume)
     {
-        // float dbVolume = ConvertLinearVolumeToDb(volume);
-        float adjustedVolume = Mathf.Clamp(volume, 0.0001f, 1f);
-        _audioMixer.SetFloat("EffectsVolume", Mathf.Lerp(-80f, 0f, Mathf.Pow(adjustedVolume, 0.3f)));
+        _audioMixer.SetFloat(EffectsVolumeParameter, ConvertLinearVolumeToDb(volume));
         SaveManager.Instance.EffectsVolume = volume;
     }
 
@@ -317,9 +321,7 @@ public class SoundManager : MonoBehaviour
     public void SetMusicVolume(float volume)
     {
         Debug.Log("SetMusicVolume: " + volume);
-        // float dbVolume = ConvertLinearVolumeToDb(volume);
-        float adjustedVolume = Mathf.Clamp(volume, 0.0001f, 1f);
-        _audioMixer.SetFloat("MusicVolume", Mathf.Lerp(-80f, 0f, Mathf.Pow(adjustedVolume, 0.3f)));
+        _audioMixer.SetFloat(MusicVolumeParameter, ConvertLinearVolumeToDb(volume));
         SaveManager.Instance.MusicVolume = volume;
     }
     #endregion
@@ -376,14 +378,52 @@ public class SoundManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // if (scene.name == "Game")
-        // {
-        //     PlayMusic(_gameTheme);
-        // }
-        // else
-        // {
-        //     PlayMusic(_menuTheme);
-        // }
+        HandleSceneLoad(scene);
+    }
+
+    private void HandleSceneLoad(Scene scene)
+    {
+        if (!string.Equals(scene.name, GameSceneName, StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        if (_audioMixer == null || SaveManager.Instance == null)
+        {
+            return;
+        }
+
+        if (_sceneLoadMixerRoutine != null)
+        {
+            StopCoroutine(_sceneLoadMixerRoutine);
+        }
+
+        _sceneLoadMixerRoutine = StartCoroutine(GameSceneMixerFadeCoroutine());
+    }
+
+    private IEnumerator GameSceneMixerFadeCoroutine()
+    {
+        float duration = Mathf.Max(0.0001f, _sceneLoadFadeDuration);
+        float startDb = MixerMinDecibels;
+        float targetMusicDb = ConvertLinearVolumeToDb(SaveManager.Instance.MusicVolume);
+        float targetEffectsDb = ConvertLinearVolumeToDb(SaveManager.Instance.EffectsVolume);
+
+        _audioMixer.SetFloat(MusicVolumeParameter, startDb);
+        _audioMixer.SetFloat(EffectsVolumeParameter, startDb);
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            _audioMixer.SetFloat(MusicVolumeParameter, Mathf.Lerp(startDb, targetMusicDb, t));
+            _audioMixer.SetFloat(EffectsVolumeParameter, Mathf.Lerp(startDb, targetEffectsDb, t));
+            yield return null;
+        }
+
+        _audioMixer.SetFloat(MusicVolumeParameter, targetMusicDb);
+        _audioMixer.SetFloat(EffectsVolumeParameter, targetEffectsDb);
+        _sceneLoadMixerRoutine = null;
     }
 
 }
