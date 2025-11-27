@@ -68,7 +68,7 @@ MonoBehaviour:
   WaterVolumeHelper: {fileID: 0}
   SurfaceSampleOffset: 0.01
   VerticalOffset: 0.035
-  RotationLerpSpeed: 0.1
+  RotationLerpSpeed: 100
   HeightLerpSpeed: 0.1
   AlignRotation: 1
   HorizontalDriftStrength: 2.5
