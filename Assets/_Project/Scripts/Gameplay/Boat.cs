@@ -6,6 +6,14 @@ namespace Game
 {
     public class Boat : MonoBehaviour, IGameModule
     {
+        private enum MotorClipType
+        {
+            None,
+            Idle,
+            Low,
+            High
+        }
+
         [Header("FX")]
         [SerializeField] private GameObject _generalHitExplosionFX = null;
         [SerializeField] private GameObject _bigHitExplosionFX = null;
@@ -15,6 +23,12 @@ namespace Game
         [SerializeField] private BoatInteriorWaterController _interiorWater = null;
         [SerializeField] private BoatMovementController _movementController = null;
         [SerializeField] private Transform _cameraAnchor = null;
+
+        [Header("Motor Audio")]
+        [SerializeField] private AudioSource _motorAudioSource = null;
+        [SerializeField] private AudioClip _idleMotorClip = null;
+        [SerializeField] private AudioClip _lowMotorClip = null;
+        [SerializeField] private AudioClip _highMotorClip = null;
 
         [Header("Obstacle Impact Settings")]
         [SerializeField] private LayerMask _obstacleLayers = 0;
@@ -26,6 +40,7 @@ namespace Game
         private Rigidbody _rigidbody;
         private bool _isDying;
         private Coroutine _deathCoroutine;
+        private MotorClipType _currentMotorClip = MotorClipType.None;
 
         bool IGameModule.IsLoaded => _isInitialized;
         public WateverVolumeFloater Floater => _floater;
@@ -50,6 +65,16 @@ namespace Game
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
+            if (_motorAudioSource != null)
+            {
+                _motorAudioSource.loop = true;
+                _motorAudioSource.playOnAwake = false;
+            }
+        }
+
+        private void Update()
+        {
+            UpdateMotorSound();
         }
 
         void OnDisable()
@@ -188,6 +213,64 @@ namespace Game
             Vector3 position = transform.position;
             position.y = y;
             transform.position = position;
+        }
+
+        private void UpdateMotorSound()
+        {
+            if (_movementController == null || _motorAudioSource == null)
+            {
+                return;
+            }
+
+            MotorClipType desiredClip = GetMotorClipForGear(_movementController.GearState);
+            AudioClip clip = GetAudioClipForMotorType(desiredClip);
+
+            if (clip == null)
+            {
+                if (_motorAudioSource.isPlaying)
+                {
+                    _motorAudioSource.Stop();
+                }
+                _motorAudioSource.clip = null;
+                _currentMotorClip = MotorClipType.None;
+                return;
+            }
+
+            if (_currentMotorClip != desiredClip || _motorAudioSource.clip != clip)
+            {
+                _motorAudioSource.clip = clip;
+                _motorAudioSource.loop = true;
+                _motorAudioSource.Play();
+                _currentMotorClip = desiredClip;
+                return;
+            }
+
+            if (!_motorAudioSource.isPlaying)
+            {
+                _motorAudioSource.Play();
+            }
+        }
+
+        private static MotorClipType GetMotorClipForGear(int gear)
+        {
+            return gear switch
+            {
+                0 => MotorClipType.Idle,
+                -1 or 1 => MotorClipType.Low,
+                -2 or 2 => MotorClipType.High,
+                _ => MotorClipType.None
+            };
+        }
+
+        private AudioClip GetAudioClipForMotorType(MotorClipType clipType)
+        {
+            return clipType switch
+            {
+                MotorClipType.Idle => _idleMotorClip,
+                MotorClipType.Low => _lowMotorClip,
+                MotorClipType.High => _highMotorClip,
+                _ => null
+            };
         }
 
         public void SetInteriorWaterLevel(float normalizedAmount)
