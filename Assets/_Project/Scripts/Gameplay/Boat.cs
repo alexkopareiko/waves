@@ -29,6 +29,8 @@ namespace Game
         [SerializeField] private AudioClip _idleMotorClip = null;
         [SerializeField] private AudioClip _lowMotorClip = null;
         [SerializeField] private AudioClip _highMotorClip = null;
+        [SerializeField] private AudioClip _shiftUpClip = null;
+        [SerializeField] private AudioClip _shiftDownClip = null;
 
         [Header("Obstacle Impact Settings")]
         [SerializeField] private LayerMask _obstacleLayers = 0;
@@ -41,6 +43,7 @@ namespace Game
         private bool _isDying;
         private Coroutine _deathCoroutine;
         private MotorClipType _currentMotorClip = MotorClipType.None;
+        private int _lastGearState;
 
         bool IGameModule.IsLoaded => _isInitialized;
         public WateverVolumeFloater Floater => _floater;
@@ -70,10 +73,15 @@ namespace Game
                 _motorAudioSource.loop = true;
                 _motorAudioSource.playOnAwake = false;
             }
+            if (_movementController != null)
+            {
+                _lastGearState = _movementController.GearState;
+            }
         }
 
         private void Update()
         {
+            UpdateGearShiftSound();
             UpdateMotorSound();
         }
 
@@ -249,6 +257,28 @@ namespace Game
             {
                 _motorAudioSource.Play();
             }
+        }
+
+        private void UpdateGearShiftSound()
+        {
+            if (_movementController == null || _motorAudioSource == null)
+            {
+                return;
+            }
+
+            int gear = _movementController.GearState;
+            if (gear == _lastGearState)
+            {
+                return;
+            }
+
+            AudioClip clip = gear > _lastGearState ? _shiftUpClip : _shiftDownClip;
+            if (clip != null)
+            {
+                _motorAudioSource.PlayOneShot(clip);
+            }
+
+            _lastGearState = gear;
         }
 
         private static MotorClipType GetMotorClipForGear(int gear)
