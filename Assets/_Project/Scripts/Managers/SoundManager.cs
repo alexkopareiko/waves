@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -27,18 +28,12 @@ public class SoundManager : MonoBehaviour
 
     [Header("Clips")]
     [SerializeField] private List<SoundButtonClipPair> _buttonClipPairs = new();
-    [SerializeField] private List<AudioClip> _hitClips;
-    [SerializeField] private List<AudioClip> _dieClips;
-    [SerializeField] private AudioClip _turnCubeClip;
-    [SerializeField] private AudioClip _turnSnakeClip;
-    [SerializeField] private List<AudioClip> _collectSimpleClips;
-    [SerializeField] private AudioClip _collectBigClip;
-    [SerializeField] private AudioClip _ouchClip;
-    [SerializeField] private List<AudioClip> _snakeStepClips;
 
     [Header("Music")]
     [SerializeField] private AudioClip _menuTheme;
-    [SerializeField] private AudioClip _gameTheme;
+    [SerializeField] private AudioClip _introSceneTheme;
+    [SerializeField] private AudioClip _boatIsMovingTheme;
+    [SerializeField] private AudioClip _winTheme;
 
     [Header("Mixer")]
     [SerializeField] private AudioMixer _audioMixer;
@@ -89,6 +84,8 @@ public class SoundManager : MonoBehaviour
     {
         StopAllCoroutines();
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        SimpleEventManager.Unsubscribe(GameEvents.GameStateChanged, OnGameStateChanged);
+        SimpleEventManager.Unsubscribe(GameEvents.WaterStateChanged, OnGameStateChanged);
     }
 
     private void Start()
@@ -102,6 +99,12 @@ public class SoundManager : MonoBehaviour
 
 
     // Play a sound effect
+
+    public void Initialize()
+    {
+        SimpleEventManager.Subscribe(GameEvents.GameStateChanged, OnGameStateChanged);
+        SimpleEventManager.Subscribe(GameEvents.WaterStateChanged, OnGameStateChanged);
+    }
 
     private void SetSoundPlayedTime(float time)
     {
@@ -172,19 +175,6 @@ public class SoundManager : MonoBehaviour
         Crossfade(clip);
     }
 
-    public void PlayGameMusic()
-    {
-        if (_currentMusicSource.clip == _gameTheme)
-            return;
-        PlayMusic(_gameTheme);
-    }
-
-    public void PlayMenuMusic()
-    {
-        if (_currentMusicSource.clip == _menuTheme)
-            return;
-        PlayMusic(_menuTheme);
-    }
 
     public void PauseMusic()
     {
@@ -196,6 +186,44 @@ public class SoundManager : MonoBehaviour
     {
         _musicSource1.UnPause();
         _musicSource2.UnPause();
+    }
+
+    private void OnGameStateChanged(object gameStateObj)
+    {
+        if (GameManager.Instance == null)
+            return;
+
+        if (gameStateObj is GameManager.GameState gameState)
+        {
+            switch (gameState)
+            {
+                case GameManager.GameState.IntroScene:
+                    PlayMusic(_introSceneTheme);
+                    break;
+                // case GameManager.GameState.BoatMoving:
+                //     PlayMusic(_boatIsMovingTheme);
+                //     break;
+                // case GameManager.GameState.Win:
+                //     PlayMusic(_winTheme);
+                //     break;
+                // case GameManager.GameState.Menu:
+                //     PlayMusic(_menuTheme);
+                //     break;
+                default:
+                    break;
+            }
+        }
+        else if (gameStateObj is GameManager.WaterState waterState)
+        {
+            switch (waterState)
+            {
+                case GameManager.WaterState.CRAZY:
+                    PlayMusic(_boatIsMovingTheme);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     private void Crossfade(AudioClip musicClip)
@@ -224,19 +252,7 @@ public class SoundManager : MonoBehaviour
         _crossfadeRoutine = StartCoroutine(CrossfadeCoroutine(musicClip));
     }
 
-    public void PlayGameTheme()
-    {
-        if (_currentMusicSource.clip == _gameTheme)
-            return;
-        PlayMusic(_gameTheme);
-    }
 
-    public void PlayMenuTheme()
-    {
-        if (_currentMusicSource.clip == _menuTheme)
-            return;
-        PlayMusic(_menuTheme);
-    }
 
     private IEnumerator CrossfadeCoroutine(AudioClip musicClip)
     {
@@ -308,19 +324,6 @@ public class SoundManager : MonoBehaviour
         //Vibrate();
     }
 
-    public void PlayDieSound()
-    {
-        AudioClip audioClip = _dieClips[UnityEngine.Random.Range(0, _dieClips.Count)];
-        PlaySoundEffect(audioClip);
-    }
-
-    public void PlayHitSound()
-    {
-        AudioClip audioClip = _hitClips[UnityEngine.Random.Range(0, _hitClips.Count)];
-        PlaySoundEffect(audioClip);
-
-    }
-
     public void Vibrate(int durationMilis = 10)
     {
         if (SaveManager.Instance.Vibration == 0)
@@ -358,59 +361,17 @@ public class SoundManager : MonoBehaviour
 
     #endregion
 
-    #region New Gameplay Sounds
-
-    public void PlayTurnCubeSound()
-    {
-        PlaySoundEffect(_turnCubeClip);
-    }
-
-    public void PlayTurnSnakeSound()
-    {
-        PlaySoundEffect(_turnSnakeClip);
-    }
-
-    public void PlayCollectSimpleSound()
-    {
-        if (_collectSimpleClips != null && _collectSimpleClips.Count > 0)
-        {
-            var clip = _collectSimpleClips[UnityEngine.Random.Range(0, _collectSimpleClips.Count)];
-            PlaySoundEffect(clip);
-        }
-    }
-
-    public void PlayCollectBigSound()
-    {
-        PlaySoundEffect(_collectBigClip);
-    }
-
-    public void PlayOuchSound()
-    {
-        PlaySoundEffect(_ouchClip);
-    }
-
-    #endregion
-
-    public void PlaySnakeStepSound()
-    {
-        if (_snakeStepClips != null && _snakeStepClips.Count > 0)
-        {
-            var clip = _snakeStepClips[UnityEngine.Random.Range(0, _snakeStepClips.Count)];
-            PlaySoundEffect(clip);
-        }
-    }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "Game")
-        {
-            PlayMusic(_gameTheme);
-        }
-        else
-        {
-            PlayMusic(_menuTheme);
-        }
+        // if (scene.name == "Game")
+        // {
+        //     PlayMusic(_gameTheme);
+        // }
+        // else
+        // {
+        //     PlayMusic(_menuTheme);
+        // }
     }
-
 
 }

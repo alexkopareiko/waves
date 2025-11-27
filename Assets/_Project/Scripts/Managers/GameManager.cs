@@ -35,6 +35,7 @@ namespace Game
         private Tentacles _tentacles;
         private GameState _gameState = GameState.IntroScene;
         private CameraController _cameraController;
+        private SoundManager _soundManager;
 
         private static bool _isPaused = false;
         internal static bool isPaused => _isPaused;
@@ -49,6 +50,7 @@ namespace Game
         public Tentacles Tentacles => _tentacles;
         public GameState CurrentGameState => _gameState;
         public CameraController CameraController => _cameraController;
+        public SoundManager SoundManager => _soundManager;
 
         private void OnEnable()
         {
@@ -98,6 +100,7 @@ namespace Game
             _environmentManager.Initialize();
             _tentacles.Initialize();
             _cameraController.Initialize();
+            _soundManager.Initialize();
 
             SetWaterState(WaterState.CALM);
             SetGameState(GameState.IntroScene);
@@ -120,14 +123,7 @@ namespace Game
             // Save max score
             if (SaveManager.Instance != null)
             {
-                
                 SaveManager.Instance.LosesCount = SaveManager.Instance.LosesCount + 1;
-            }
-
-            // Play ouch sound on death
-            if (SoundManager.Instance != null)
-            {
-                SoundManager.Instance.PlayOuchSound();
             }
 
             // Pause and show Die canvas
@@ -167,6 +163,7 @@ namespace Game
             _environmentManager = FindFirstObjectByType<EnvironmentManager>();
             _tentacles = FindFirstObjectByType<Tentacles>();
             _cameraController = FindFirstObjectByType<CameraController>();
+            _soundManager = FindFirstObjectByType<SoundManager>();
         }
     }
 }
