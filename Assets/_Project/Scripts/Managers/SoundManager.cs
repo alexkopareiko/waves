@@ -307,8 +307,9 @@ public class SoundManager : MonoBehaviour
     // Set the volume of sound effects
     public void SetSoundEffectVolume(float volume)
     {
-        float dbVolume = ConvertLinearVolumeToDb(volume);
-        _audioMixer.SetFloat("EffectsVolume", dbVolume);
+        // float dbVolume = ConvertLinearVolumeToDb(volume);
+        float adjustedVolume = Mathf.Clamp(volume, 0.0001f, 1f);
+        _audioMixer.SetFloat("EffectsVolume", Mathf.Lerp(-80f, 0f, Mathf.Pow(adjustedVolume, 0.3f)));
         SaveManager.Instance.EffectsVolume = volume;
     }
 
@@ -316,8 +317,9 @@ public class SoundManager : MonoBehaviour
     public void SetMusicVolume(float volume)
     {
         Debug.Log("SetMusicVolume: " + volume);
-        float dbVolume = ConvertLinearVolumeToDb(volume);
-        _audioMixer.SetFloat("MusicVolume", dbVolume);
+        // float dbVolume = ConvertLinearVolumeToDb(volume);
+        float adjustedVolume = Mathf.Clamp(volume, 0.0001f, 1f);
+        _audioMixer.SetFloat("MusicVolume", Mathf.Lerp(-80f, 0f, Mathf.Pow(adjustedVolume, 0.3f)));
         SaveManager.Instance.MusicVolume = volume;
     }
     #endregion

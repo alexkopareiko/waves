@@ -52,7 +52,7 @@ public class SaveManager : MonoBehaviour
 
     public float MusicVolume
     {
-        get => GetFloat(k_MusicVolume, 0.8f);
+        get => GetFloat(k_MusicVolume, 0.6f);
         set => SetFloat(k_MusicVolume, value);
     }
 
