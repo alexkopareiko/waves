@@ -993,6 +993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoadSequencer
   _gameObjects:
+  - {fileID: 5531858778407049201, guid: 24fb43d818e1dd349887bff6d2276cd8, type: 3}
   - {fileID: 6399876640186348466, guid: 003f08fd154585a43b3cd168c0e51eb6, type: 3}
   - {fileID: 292453385305563231, guid: 5e27e76138a538b489ea60dee272d4ce, type: 3}
   - {fileID: 1230155290347068022, guid: ee2ac20d0dba87f489a5f1701bf09eb3, type: 3}

@@ -16,14 +16,8 @@ public class SaveManager : MonoBehaviour
     const string k_MaxScore = "MaxScore";
     const string k_CurrentLevel = "CurrentLevel";
 
-    private void OnEnable()
-    {
-        SetupInstance();
-    }
-
     private void SetupInstance()
     {
-        gameObject.name = "SaveManager " + UnityEngine.Random.Range(0f, 1f);
         if (s_Instance != null && s_Instance != this)
         {
             Destroy(gameObject);
@@ -32,6 +26,11 @@ public class SaveManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         s_Instance = this;
+    }
+
+    public void Initialize()
+    {
+        SetupInstance();
     }
 
     #region Reset Prefs
@@ -53,7 +52,7 @@ public class SaveManager : MonoBehaviour
 
     public float MusicVolume
     {
-        get => GetFloat(k_MusicVolume, 1f);
+        get => GetFloat(k_MusicVolume, 0.8f);
         set => SetFloat(k_MusicVolume, value);
     }
 

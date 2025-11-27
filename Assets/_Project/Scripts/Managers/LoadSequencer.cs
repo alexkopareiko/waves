@@ -15,6 +15,7 @@ public class LoadSequencer : MonoBehaviour
 
     private void Awake()
     {
+        PlayerPrefs.DeleteAll();
         foreach (var item in _gameObjects)
         {
             GameObject obj = Instantiate(item);

@@ -47,6 +47,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private float _fadeTime = 1.0f;
     [SerializeField] private float _soundInterval = 0.01f;
 
+    private const float MixerMinDecibels = -80f;
     private AudioSource _currentMusicSource;
     private AudioSource _nextMusicSource;
     private bool _isCrossfading;
@@ -55,29 +56,7 @@ public class SoundManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if (s_Instance != null && s_Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
 
-        s_Instance = this;
-
-        DontDestroyOnLoad(this.gameObject);
-
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
-        _currentMusicSource = _musicSource1;
-        _nextMusicSource = _musicSource2;
-
-        _currentMusicSource.loop = true;
-        _nextMusicSource.loop = true;
-
-        // Set initial volume levels
-        SetMusicVolume(SaveManager.Instance.MusicVolume);
-        SetSoundEffectVolume(SaveManager.Instance.EffectsVolume);
-
-        //PlayMusic(_gameTheme);
     }
 
     private void OnDisable()
@@ -102,6 +81,30 @@ public class SoundManager : MonoBehaviour
 
     public void Initialize()
     {
+                if (s_Instance != null && s_Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        s_Instance = this;
+
+        DontDestroyOnLoad(this.gameObject);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        _currentMusicSource = _musicSource1;
+        _nextMusicSource = _musicSource2;
+
+        _currentMusicSource.loop = true;
+        _nextMusicSource.loop = true;
+
+        // Set initial volume levels
+        SetMusicVolume(SaveManager.Instance.MusicVolume);
+        SetSoundEffectVolume(SaveManager.Instance.EffectsVolume);
+
+        //PlayMusic(_gameTheme);
+
         SimpleEventManager.Subscribe(GameEvents.GameStateChanged, OnGameStateChanged);
         SimpleEventManager.Subscribe(GameEvents.WaterStateChanged, OnGameStateChanged);
     }
@@ -295,19 +298,26 @@ public class SoundManager : MonoBehaviour
 
     #region Set Volume
 
+    private float ConvertLinearVolumeToDb(float volume)
+    {
+        float clamped = Mathf.Clamp01(volume);
+        return Mathf.Lerp(MixerMinDecibels, 0f, clamped);
+    }
+
     // Set the volume of sound effects
     public void SetSoundEffectVolume(float volume)
     {
-        float adjustedVolume = Mathf.Clamp(volume, 0.0001f, 1f);
-        _audioMixer.SetFloat("EffectsVolume", Mathf.Log10(adjustedVolume) * 20);
+        float dbVolume = ConvertLinearVolumeToDb(volume);
+        _audioMixer.SetFloat("EffectsVolume", dbVolume);
         SaveManager.Instance.EffectsVolume = volume;
     }
 
     // Set the volume of background music
     public void SetMusicVolume(float volume)
     {
-        float adjustedVolume = Mathf.Clamp(volume, 0.0001f, 1f);
-        _audioMixer.SetFloat("MusicVolume", Mathf.Log10(adjustedVolume) * 20);
+        Debug.Log("SetMusicVolume: " + volume);
+        float dbVolume = ConvertLinearVolumeToDb(volume);
+        _audioMixer.SetFloat("MusicVolume", dbVolume);
         SaveManager.Instance.MusicVolume = volume;
     }
     #endregion

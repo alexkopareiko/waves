@@ -36,6 +36,7 @@ namespace Game
         private GameState _gameState = GameState.IntroScene;
         private CameraController _cameraController;
         private SoundManager _soundManager;
+        private SaveManager _saveManager;
 
         private static bool _isPaused = false;
         internal static bool isPaused => _isPaused;
@@ -51,6 +52,7 @@ namespace Game
         public GameState CurrentGameState => _gameState;
         public CameraController CameraController => _cameraController;
         public SoundManager SoundManager => _soundManager;
+        public SaveManager SaveManager => _saveManager;
 
         private void OnEnable()
         {
@@ -100,6 +102,7 @@ namespace Game
             _environmentManager.Initialize();
             _tentacles.Initialize();
             _cameraController.Initialize();
+            _saveManager.Initialize();
             _soundManager.Initialize();
 
             SetWaterState(WaterState.CALM);
@@ -164,6 +167,7 @@ namespace Game
             _tentacles = FindFirstObjectByType<Tentacles>();
             _cameraController = FindFirstObjectByType<CameraController>();
             _soundManager = FindFirstObjectByType<SoundManager>();
+            _saveManager = FindFirstObjectByType<SaveManager>();
         }
     }
 }
