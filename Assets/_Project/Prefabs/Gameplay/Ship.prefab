@@ -111,14 +111,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Boat
   _generalHitExplosionFX: {fileID: 7274528221589344787, guid: e93e9562d1a7f3840b0459f351173166, type: 3}
   _bigHitExplosionFX: {fileID: 7274528221589344787, guid: e93e9562d1a7f3840b0459f351173166, type: 3}
+  _obstacleHitClip: {fileID: 8300000, guid: 68942986a4a778b4e9974fa9eb95b27b, type: 3}
   _floater: {fileID: 2258159752169565881}
   _interiorWater: {fileID: 8350208272158913248}
   _movementController: {fileID: 2676085152914915882}
   _cameraAnchor: {fileID: 3245172113012133039}
   _motorAudioSource: {fileID: -5191798942942049745}
-  _idleMotorClip: {fileID: 8300000, guid: 2fc1d80f68403ca40933d23692ba9ab5, type: 3}
-  _lowMotorClip: {fileID: 8300000, guid: bb319175cbf9da74bb15cf2bd7c72530, type: 3}
-  _highMotorClip: {fileID: 8300000, guid: 7e7f71560a5c21142b9940d37d9906d4, type: 3}
+  _idleMotorClip: {fileID: 8300000, guid: e9d8959f022e3b940b4fe4b3c6aa59c2, type: 3}
+  _lowMotorClip: {fileID: 8300000, guid: aa08404b322dd04498ce360558b484c1, type: 3}
+  _highMotorClip: {fileID: 8300000, guid: e0299e789e9273547805f36ec637407c, type: 3}
   _shiftUpClip: {fileID: 8300000, guid: 0e98867c0d0ed7f40b60f7008894ca30, type: 3}
   _shiftDownClip: {fileID: 8300000, guid: fbdbd34fd7e02b54391f7100e1241db2, type: 3}
   _obstacleLayers:

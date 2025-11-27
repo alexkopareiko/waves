@@ -17,6 +17,7 @@ namespace Game
         [Header("FX")]
         [SerializeField] private GameObject _generalHitExplosionFX = null;
         [SerializeField] private GameObject _bigHitExplosionFX = null;
+        [SerializeField] private AudioClip _obstacleHitClip = null;
         [Header("Boat Components")]
 
         [SerializeField] private WateverVolumeFloater _floater = null;
@@ -114,7 +115,6 @@ namespace Game
                 HandleObstacleImpact(impactPoint, generalHit: true);
             }
 
-
         }
 
         private void OnGameStateChanged(object gameStateObj)
@@ -162,6 +162,10 @@ namespace Game
                 StopCoroutine(_deathCoroutine);
             }
             _deathCoroutine = StartCoroutine(ObstacleDeathSequence());
+
+            SoundManager.Instance?.PlaySoundEffect(_obstacleHitClip, urgent: true);
+
+            _rigidbody.useGravity = true;
         }
 
         private void SpawnExplosion(Vector3 position, bool generalHit)
