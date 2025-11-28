@@ -28,6 +28,8 @@ public class SoundManager : MonoBehaviour
 
     [Header("Clips")]
     [SerializeField] private List<SoundButtonClipPair> _buttonClipPairs = new();
+    [SerializeField] private AudioClip _calmEnvClip;
+    [SerializeField] private AudioClip _crazyEnvClip;
 
     [Header("Music")]
     [SerializeField] private AudioClip _menuTheme;
@@ -40,6 +42,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("Audio Sources")]
     [SerializeField] private AudioSource _soundEffectSource;
+    [SerializeField] private AudioSource _soundEffectEnvSource;
     [SerializeField] private AudioSource _musicSource1;
     [SerializeField] private AudioSource _musicSource2; 
 
@@ -206,9 +209,10 @@ public class SoundManager : MonoBehaviour
         {
             switch (gameState)
             {
-                // case GameManager.GameState.IntroScene:
-                //     PlayMusic(_introSceneTheme);
-                //     break;
+                case GameManager.GameState.IntroScene:
+                    _soundEffectEnvSource.clip = _calmEnvClip;
+                    _soundEffectEnvSource.Play();
+                    break;
                 case GameManager.GameState.BoatMoving:
                     PlayMusic(_introSceneTheme);
                     break;
@@ -228,6 +232,9 @@ public class SoundManager : MonoBehaviour
             {
                 case GameManager.WaterState.CRAZY:
                     PlayMusic(_boatIsMovingTheme);
+
+                    _soundEffectEnvSource.clip = _crazyEnvClip;
+                    _soundEffectEnvSource.Play();
                     break;
                 default:
                     break;

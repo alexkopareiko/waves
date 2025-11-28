@@ -178,12 +178,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   _buttonClipPairs: []
+  _calmEnvClip: {fileID: 8300000, guid: 688ee390d0f5a104e86ccdaf01c8c259, type: 3}
+  _crazyEnvClip: {fileID: 8300000, guid: abe978eb154cf7449a7dfb4efeaadbc5, type: 3}
   _menuTheme: {fileID: 0}
   _introSceneTheme: {fileID: 8300000, guid: 8ce5171cff868124fb32578f58cde179, type: 3}
   _boatIsMovingTheme: {fileID: 8300000, guid: ec1fd1382d590f549a1ba4056d8d365e, type: 3}
   _winTheme: {fileID: 0}
   _audioMixer: {fileID: 24100000, guid: e1a8a5b97a90c5d4a9e4cc944ae541eb, type: 2}
   _soundEffectSource: {fileID: 5225380367364418851}
+  _soundEffectEnvSource: {fileID: 8990052386893219720}
   _musicSource1: {fileID: 3862653663518743568}
   _musicSource2: {fileID: 2301842153847745361}
   _fadeTime: 0.2
