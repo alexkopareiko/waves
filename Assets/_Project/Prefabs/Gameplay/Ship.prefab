@@ -113,6 +113,7 @@ MonoBehaviour:
   _generalHitExplosionFX: {fileID: 7274528221589344787, guid: e93e9562d1a7f3840b0459f351173166, type: 3}
   _bigHitExplosionFX: {fileID: 7274528221589344787, guid: e93e9562d1a7f3840b0459f351173166, type: 3}
   _obstacleHitClip: {fileID: 8300000, guid: 68942986a4a778b4e9974fa9eb95b27b, type: 3}
+  _mineHitClip: {fileID: 8300000, guid: 800d1e4ef1c6e1441995aca6d2a3e11e, type: 3}
   _floater: {fileID: 2258159752169565881}
   _interiorWater: {fileID: 0}
   _movementController: {fileID: 2676085152914915882}

@@ -18,6 +18,7 @@ namespace Game
         [SerializeField] private GameObject _generalHitExplosionFX = null;
         [SerializeField] private GameObject _bigHitExplosionFX = null;
         [SerializeField] private AudioClip _obstacleHitClip = null;
+        [SerializeField] private AudioClip _mineHitClip = null;
         [Header("Boat Components")]
 
         [SerializeField] private WateverVolumeFloater _floater = null;
@@ -163,7 +164,10 @@ namespace Game
             }
             _deathCoroutine = StartCoroutine(ObstacleDeathSequence());
 
-            SoundManager.Instance?.PlaySoundEffect(_obstacleHitClip, urgent: true);
+            if (generalHit)
+                SoundManager.Instance?.PlaySoundEffect(_obstacleHitClip, urgent: true);
+            else
+                SoundManager.Instance?.PlaySoundEffect(_mineHitClip, urgent: true);
 
             _rigidbody.useGravity = true;
         }
