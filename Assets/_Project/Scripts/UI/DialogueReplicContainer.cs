@@ -10,11 +10,13 @@ namespace UI
         [SerializeField] private TMP_Text _nameText;
         [SerializeField] private Image _characterImage;
 
-        public void SetupReplic(string replic, string characterName, Sprite characterSprite)
+        public void SetupReplic(string characterName, Sprite characterSprite)
         {
-            _replicText.text = replic;
+            _replicText.text = string.Empty;
             _nameText.text = characterName;
             _characterImage.sprite = characterSprite;
         }
+
+        public TMP_Text ReplicText => _replicText;
     }
 }

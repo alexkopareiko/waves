@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a6a20523702c38499200426de18b60d, type: 3}
+  m_Name: Dialogue1-4
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueReplic
+  character: {fileID: 11400000, guid: a79040e96784300409a99efeeeeae10a, type: 2}
+  replic: "\u041A\u0442\u0443\u043B\u0445\u0443 \u0412\u0435\u0440\u0445\u043E\u0432\u043D\u044B\u0439
+    \u0416\u0440\u0435\u0446 \u0412\u0435\u043B\u0438\u043A\u0438\u0445 \u0414\u0440\u0435\u0432\u043D\u2026"
+  appearDelay: 0
+  soundBeforeAppear: {fileID: 0}
