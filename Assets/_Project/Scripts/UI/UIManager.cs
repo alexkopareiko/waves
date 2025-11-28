@@ -13,6 +13,7 @@ namespace Game
         [SerializeField] private UISubCanvas _dieCanvas;
         [SerializeField] private UISubCanvas _winCanvas;
         [SerializeField] private UISubCanvas _settingsCanvas;
+        [SerializeField] private UISubCanvas _dialogueCanvas;
 
         [Header("Other")]
         [SerializeField] private AudioClip _startClip;
@@ -24,6 +25,7 @@ namespace Game
         public DieCanvas DieCanvas => _dieCanvas as DieCanvas;
         public UISubCanvas WinCanvas => _winCanvas;
         public UISubCanvas SettingsCanvas => _settingsCanvas;
+        public UISubCanvas DialogueCanvas => _dialogueCanvas;
 
         public bool IsLoaded => _isInitialized;
 
@@ -73,6 +75,11 @@ namespace Game
             ShowCanvas(_settingsCanvas);
         }
 
+        public void ShowDialogueCanvas()
+        {
+            ShowCanvas(_dialogueCanvas);
+        }
+
         public void Load()
         {
 
@@ -84,6 +91,7 @@ namespace Game
             _canvases.Add(_dieCanvas);
             _canvases.Add(_winCanvas);
             _canvases.Add(_settingsCanvas);
+            _canvases.Add(_dialogueCanvas);
 
             GameManager.Pause(false);
             
