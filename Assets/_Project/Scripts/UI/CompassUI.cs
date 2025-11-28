@@ -22,6 +22,14 @@ namespace Game
         [SerializeField, Min(8f)] private float _labelFontSize = 16f;
         [SerializeField] private Color _cardinalColor = Color.white;
         [SerializeField] private TMP_FontAsset _labelFontAsset;
+
+        [Header("Cardinal Labels")]
+        [SerializeField, Tooltip("Show the cardinal points as sprites instead of text.")]
+        private bool _useSpriteCardinals;
+        [SerializeField, Tooltip("Sprites used for the N/E/S/W directions when sprite mode is enabled.")]
+        private CardinalDirectionSprites _cardinalSprites;
+
+        [Header("Target Markers")]
         [SerializeField, Tooltip("Fallback sprite used for any targets without their own marker.")]
         private Sprite _fallbackMarkerSprite;
         [SerializeField, Range(0f, 1f)] private float _targetDistanceFadeStart = 0.75f;
@@ -47,6 +55,15 @@ namespace Game
             ("W", -90f),
             // ("NW", -45f)
         };
+
+        [System.Serializable]
+        private struct CardinalDirectionSprites
+        {
+            public Sprite North;
+            public Sprite East;
+            public Sprite South;
+            public Sprite West;
+        }
 
         private void Awake()
         {
@@ -156,7 +173,7 @@ namespace Game
             var rect = go.GetComponent<RectTransform>();
             rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
             rect.pivot = new Vector2(0.5f, 0.5f);
-            rect.sizeDelta = new Vector2(48f, 24f);
+            rect.sizeDelta = new Vector2(60f, 60f);
 
             var text = go.AddComponent<TextMeshProUGUI>();
             text.text = label;
@@ -166,7 +183,28 @@ namespace Game
             text.color = _cardinalColor;
             text.raycastTarget = false;
 
-            return new DirectionEntry(angle, rect, text);
+            var spriteGO = new GameObject($"{label}_Sprite", typeof(RectTransform));
+            spriteGO.layer = go.layer;
+            spriteGO.transform.SetParent(go.transform, false);
+
+            var spriteRect = spriteGO.GetComponent<RectTransform>();
+            spriteRect.anchorMin = Vector2.zero;
+            spriteRect.anchorMax = Vector2.one;
+            spriteRect.offsetMin = Vector2.zero;
+            spriteRect.offsetMax = Vector2.zero;
+            spriteRect.pivot = new Vector2(0.5f, 0.5f);
+
+            var image = spriteGO.AddComponent<Image>();
+            var sprite = GetDirectionSprite(label);
+            image.sprite = sprite;
+            image.color = _cardinalColor;
+            image.raycastTarget = false;
+            image.preserveAspect = true;
+            spriteGO.SetActive(_useSpriteCardinals && sprite != null);
+
+            text.enabled = !_useSpriteCardinals || sprite == null;
+
+            return new DirectionEntry(angle, rect, text, image);
         }
 
         private void UpdateDirectionEntries(Transform reference)
@@ -187,7 +225,22 @@ namespace Game
 
                 float fade = Mathf.Clamp01(1f - Mathf.Abs(normalized));
                 float alpha = Mathf.Lerp(0.0f, 1f, fade);
-                entry.Label.color = new Color(_cardinalColor.r, _cardinalColor.g, _cardinalColor.b, alpha);
+                var color = new Color(_cardinalColor.r, _cardinalColor.g, _cardinalColor.b, alpha);
+                if (entry.Label != null)
+                {
+                    entry.Label.color = color;
+                }
+
+                if (entry.SpriteImage != null)
+                {
+                    entry.SpriteImage.color = color;
+                    bool showSprite = _useSpriteCardinals && entry.SpriteImage.sprite != null;
+                    entry.SpriteImage.gameObject.SetActive(showSprite);
+                    if (entry.Label != null)
+                    {
+                        entry.Label.enabled = !showSprite;
+                    }
+                }
             }
         }
 
@@ -331,6 +384,18 @@ namespace Game
             return Mathf.Atan2(forward.x, forward.z) * Mathf.Rad2Deg;
         }
 
+        private Sprite GetDirectionSprite(string label)
+        {
+            switch (label)
+            {
+                case "N": return _cardinalSprites.North;
+                case "E": return _cardinalSprites.East;
+                case "S": return _cardinalSprites.South;
+                case "W": return _cardinalSprites.West;
+                default: return null;
+            }
+        }
+
         private TMP_FontAsset GetLabelFontAsset()
         {
             if (_labelFontAsset != null)
@@ -392,12 +457,14 @@ namespace Game
             public float Angle { get; }
             public RectTransform Rect { get; }
             public TextMeshProUGUI Label { get; }
+            public Image SpriteImage { get; }
 
-            public DirectionEntry(float angle, RectTransform rect, TextMeshProUGUI label)
+            public DirectionEntry(float angle, RectTransform rect, TextMeshProUGUI label, Image spriteImage)
             {
                 Angle = angle;
                 Rect = rect;
                 Label = label;
+                SpriteImage = spriteImage;
             }
         }
 

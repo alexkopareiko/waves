@@ -48,10 +48,10 @@ namespace Game
 
             return _movementController.GearState switch
             {
-                -2 => 45f,
-                -1 => 25f,
-                1 => -25f,
-                2 => -45f,
+                -2 => 68f,
+                -1 => 36f,
+                1 => -36f,
+                2 => -68f,
                 _ => 0f
             };
         }
