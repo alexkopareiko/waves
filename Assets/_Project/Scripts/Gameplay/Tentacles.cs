@@ -24,6 +24,7 @@ namespace Game
             [HideInInspector] public TentacleState State;
             [HideInInspector] public float WaitTimer;
             [HideInInspector] public Vector2 SpawnXZ;
+            [HideInInspector] public bool HasPlayedRiseSound;
         }
 
         [Header("References")]
@@ -46,6 +47,11 @@ namespace Game
         [SerializeField, Min(0f)] private float _riseSpeed = 0.35f;
         [SerializeField, Min(0f)] private float _stayDuration = 2f;
         [SerializeField, Min(0f)] private float _fallSpeed = 0.25f;
+
+        [Header("Audio")]
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private AudioClip _riseAudioClip;
+        [SerializeField, Range(0f, 1f)] private float _riseAudioVolume = 1f;
 
         [Header("Behavior")]
         [SerializeField] private bool _spawnOnEnable = true;
@@ -117,6 +123,7 @@ namespace Game
                     StartY = spawnPosition.y,
                     TargetY = spawnPosition.y + _riseHeight,
                     State = TentacleState.Rising,
+                    HasPlayedRiseSound = false,
                 };
 
                 _tentacles.Add(instance);
@@ -188,6 +195,12 @@ namespace Game
                     {
                         float nextY = Mathf.MoveTowards(currentY, instance.TargetY, _riseSpeed * deltaTime);
                         SetTentacleY(rootTransform, nextY);
+
+                        if (!instance.HasPlayedRiseSound)
+                        {
+                            PlayRiseSound();
+                            instance.HasPlayedRiseSound = true;
+                        }
 
                         if (Mathf.Abs(nextY - instance.TargetY) <= positionTolerance)
                         {
@@ -322,7 +335,18 @@ namespace Game
             if ((_boat == null || _boat == default) && GameManager.Instance != null)
                 _boat = GameManager.Instance.Boat?.transform;
 
+            if (_audioSource == null)
+                _audioSource = GetComponent<AudioSource>();
+
             return _poolManager != null && _boat != null;
+        }
+
+        private void PlayRiseSound()
+        {
+            if (_audioSource == null || _riseAudioClip == null)
+                return;
+
+            _audioSource.PlayOneShot(_riseAudioClip, _riseAudioVolume);
         }
     }
 }

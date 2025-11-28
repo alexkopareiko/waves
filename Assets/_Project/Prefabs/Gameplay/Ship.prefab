@@ -129,7 +129,7 @@ MonoBehaviour:
     m_Bits: 64
   _rotationDuration: 1
   _sinkDelay: 0.8
-  _sinkDuration: 30
+  _sinkDuration: 3
   _sinkDepth: 1
 --- !u!114 &2676085152914915882
 MonoBehaviour:

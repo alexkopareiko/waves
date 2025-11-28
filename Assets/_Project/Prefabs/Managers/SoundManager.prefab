@@ -191,7 +191,7 @@ MonoBehaviour:
   _musicSource2: {fileID: 2301842153847745361}
   _fadeTime: 0.2
   _soundInterval: 0.01
-  _sceneLoadFadeDuration: 5
+  _sceneLoadFadeDuration: 10
 --- !u!1 &5794322797731886958
 GameObject:
   m_ObjectHideFlags: 0
