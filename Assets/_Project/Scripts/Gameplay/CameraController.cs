@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
@@ -21,6 +22,7 @@ namespace Game
 
         private Coroutine _cameraTransitionRoutine;
         private Coroutine _boatCameraTransitionRoutine;
+        private readonly Queue<Action> _cameraCompleteQueue = new();
         
 
 
@@ -80,6 +82,9 @@ namespace Game
             if (_mainCamera == null || targetCameraPrefab == null)
                 return;
 
+            if (onComplete != null)
+                _cameraCompleteQueue.Enqueue(onComplete);
+
             if (_boatCameraController != null)
                 _boatCameraController.enabled = false;
 
@@ -88,11 +93,11 @@ namespace Game
             if (instant)
             {
                 ApplyReferenceCamera(targetCameraPrefab);
-                onComplete?.Invoke();
+                InvokeNextCameraCompleteCallback();
                 return;
             }
 
-            _cameraTransitionRoutine = StartCoroutine(TransitionToCameraRoutine(targetCameraPrefab, onComplete));
+            _cameraTransitionRoutine = StartCoroutine(TransitionToCameraRoutine(targetCameraPrefab));
         }
 
         private void StartBoatCameraTransition()
@@ -174,7 +179,7 @@ namespace Game
             }
         }
 
-        private IEnumerator TransitionToCameraRoutine(UnityEngine.Camera referenceCamera, Action onComplete)
+        private IEnumerator TransitionToCameraRoutine(UnityEngine.Camera referenceCamera)
         {
             Transform mainTransform = _mainCamera.transform;
             Vector3 startPosition = mainTransform.position;
@@ -191,7 +196,7 @@ namespace Game
                 mainTransform.rotation = targetRotation;
                 _mainCamera.fieldOfView = targetFov;
                 _cameraTransitionRoutine = null;
-                onComplete?.Invoke();
+                InvokeNextCameraCompleteCallback();
                 yield break;
             }
 
@@ -211,7 +216,7 @@ namespace Game
             mainTransform.rotation = targetRotation;
             _mainCamera.fieldOfView = targetFov;
             _cameraTransitionRoutine = null;
-            onComplete?.Invoke();
+            InvokeNextCameraCompleteCallback();
         }
 
         private void ApplyReferenceCamera(UnityEngine.Camera referenceCamera)
@@ -229,6 +234,15 @@ namespace Game
                 StopCoroutine(_cameraTransitionRoutine);
                 _cameraTransitionRoutine = null;
             }
+        }
+
+        private void InvokeNextCameraCompleteCallback()
+        {
+            if (_cameraCompleteQueue.Count == 0)
+                return;
+
+            var callback = _cameraCompleteQueue.Dequeue();
+            callback?.Invoke();
         }
 
     }
