@@ -55,7 +55,7 @@ MonoBehaviour:
   _spawnRadius: 2
   _spawnRadiusVariance: 0.7
   _minimumSpacing: 4
-  _yOffsetFromBoat: -0.8
+  _yOffsetFromBoat: -1
   _maxPositionAttempts: 12
   _obstacleLayerMask:
     serializedVersion: 2
