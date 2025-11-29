@@ -12,7 +12,7 @@ namespace Game
         [Header("Canvases")]
         [SerializeField] private UISubCanvas _playCanvas;
         [SerializeField] private UISubCanvas _dieCanvas;
-        [SerializeField] private UISubCanvas _winCanvas;
+        [SerializeField] private WinCanvas _winCanvas;
         [SerializeField] private UISubCanvas _settingsCanvas;
         [SerializeField] private DialogueCanvas _dialogueCanvas;
 
@@ -24,7 +24,7 @@ namespace Game
 
         public PlayCanvas PlayCanvas => _playCanvas as PlayCanvas;
         public DieCanvas DieCanvas => _dieCanvas as DieCanvas;
-        public UISubCanvas WinCanvas => _winCanvas;
+        public WinCanvas WinCanvas => _winCanvas;
         public UISubCanvas SettingsCanvas => _settingsCanvas;
         public DialogueCanvas DialogueCanvas => _dialogueCanvas;
 

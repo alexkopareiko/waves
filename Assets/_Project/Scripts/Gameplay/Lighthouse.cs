@@ -46,7 +46,7 @@ namespace Game
             Vector3 endPosition = parkingSpot.position;
             Quaternion endRotation = parkingSpot.rotation;
 
-            float duration = 5f; // Duration of the parking animation
+            float duration = 3f; // Duration of the parking animation
             float elapsed = 0f;
 
             while (elapsed < duration)

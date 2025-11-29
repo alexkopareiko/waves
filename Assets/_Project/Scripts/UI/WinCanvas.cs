@@ -1,51 +1,43 @@
-using System.Collections;
-using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using MaskTransitions;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Game
 {
-    public class DieCanvas : UISubCanvas
+    public class WinCanvas : UISubCanvas
     {
         [Header("UI")]
         [SerializeField] private Button _reloadButton;
 
         private void OnEnable()
         {
-            // Ensure listeners are attached once when shown
             if (_reloadButton != null)
                 _reloadButton.onClick.AddListener(OnClickReload);
         }
 
-
-
         private void OnDisable()
         {
-            // Clean up listeners to avoid duplicate subscriptions
             if (_reloadButton != null)
                 _reloadButton.onClick.RemoveListener(OnClickReload);
-
         }
 
         public void OnClickReload()
         {
             if (SoundManager.Instance != null)
             {
-                SoundManager.Instance.PlayButtonSound(SoundManager.ButtonUIType.buy);
             }
-            if (_reloadButton != null) _reloadButton.interactable = false;
+
+            if (_reloadButton != null)
+                _reloadButton.interactable = false;
 
             LoadGameScene();
         }
-
 
         private void LoadGameScene()
         {
             GameManager.Pause(false);
 
-            // Prefer TransitionManager if present, else fall back to SceneManager
             if (TransitionManager.Instance != null)
                 TransitionManager.Instance.LoadLevel("Game", 0f);
             else
@@ -53,4 +45,3 @@ namespace Game
         }
     }
 }
-
