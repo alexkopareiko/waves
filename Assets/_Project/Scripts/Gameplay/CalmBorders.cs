@@ -6,6 +6,8 @@ namespace Game
     public class CalmBorders : MonoBehaviour
     {
         [SerializeField] private GameObject _plane;
+
+        private bool _triggered = false;
         void Update()
         {
             if (GameManager.Instance == null || GameManager.Instance.Boat == null)
@@ -15,25 +17,34 @@ namespace Game
 
             if (CheckIfBoatIsPositionedInsideBorders() == false)
             {
-                if (GameManager.Instance.CurrentWaterState == GameManager.WaterState.CALM)
+                if (GameManager.Instance.CurrentWaterState == GameManager.WaterState.CALM && _triggered == false)
                 {
+                    _triggered = true;
+                    UnityEngine.Debug.Log("Boat exited calm borders, switching to CRAZY water state.");
                     GameManager.Instance.Boat.MovementController.EnableControls(false);
                     GameManager.Instance.CameraController.ActivateCamera(GameManager.Instance.Boat.CameraTransition1, false, () =>
                     {
+                        UnityEngine.Debug.Log("Transitioned to crazy water state.");
                         UIManager.Instance.ShowDialogueCanvas();
                         GameManager.Instance.DialogueManager.StartDialogueSequence(2, () =>
                         {
-                            GameManager.Instance.CameraController.ActivateCamera(GameManager.Instance.Boat.CameraTransition2, true, () =>
+                            UnityEngine.Debug.Log("Dialogue sequence 2 complete.");
+                            GameManager.Instance.CameraController.ActivateCamera(GameManager.Instance.Boat.CameraTransition2, false, () =>
                             {
+                                UnityEngine.Debug.Log("Boat is now in CRAZY water state.");
                                 GameManager.Instance.SetWaterState(GameManager.WaterState.CRAZY);
-                                GameManager.Instance.CameraController.ActivateCamera(GameManager.Instance.Boat.CameraTransition3, true, () =>
+                                GameManager.Instance.CameraController.ActivateCamera(GameManager.Instance.Boat.CameraTransition3, false, () =>
                                 {
+                                    UnityEngine.Debug.Log("Boat controls re-enabled.");
                                     GameManager.Instance.CameraController.ActivateCamera(GameManager.Instance.Boat.CameraTransition1, false, () =>
                                     {
+                                        UnityEngine.Debug.Log("Transitioned to calm water state.");
                                         GameManager.Instance.DialogueManager.StartDialogueSequence(3, () =>
                                         {
+                                            UnityEngine.Debug.Log("Dialogue sequence 3 complete.");
                                             UIManager.Instance.ShowPlayCanvas();
                                             GameManager.Instance.Boat.MovementController.EnableControls(true);
+                                            GameManager.Instance.CameraController.SetCameraDefaultPose();
                                         });
                                     });
                                 });

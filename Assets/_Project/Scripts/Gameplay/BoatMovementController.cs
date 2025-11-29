@@ -52,6 +52,8 @@ namespace Game
             {
                 _gearState = 0;
                 _turnInput = 0f;
+                _rigidbody.linearVelocity = Vector3.zero;
+                _rigidbody.angularVelocity = Vector3.zero;
             }
         }
 

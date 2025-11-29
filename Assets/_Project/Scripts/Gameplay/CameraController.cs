@@ -71,10 +71,15 @@ namespace Game
                     ActivateCamera(_pauseMenuCameraPrefab);
                     break;
                 case GameManager.GameState.BoatMoving:
-                    StopCameraTransition();
-                    StartBoatCameraTransition();
+                    SetCameraDefaultPose();
                     break;
             }
+        }
+
+        public void SetCameraDefaultPose()
+        {
+            StopCameraTransition();
+            StartBoatCameraTransition();
         }
 
         public void ActivateCamera(UnityEngine.Camera targetCameraPrefab, bool instant = false, Action onComplete = null)
