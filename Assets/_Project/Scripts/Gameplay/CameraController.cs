@@ -51,8 +51,14 @@ namespace Game
                         UIManager.Instance.ShowDialogueCanvas();
                         GameManager.Instance.DialogueManager.StartDialogueSequence(0, () =>
                         {
-                            UIManager.Instance.ShowPlayCanvas();
-                            GameManager.Instance.SetGameState(GameManager.GameState.BoatMoving);
+                            // UIManager.Instance.ShowPlayCanvas();
+                            // UIManager.Instance.ShowDialogueCanvas();
+                            GameManager.Instance.DialogueManager.StartDialogueSequence(1, () =>
+                            {
+                                Debug.Log("Dialogue sequence 1 complete.");
+                                UIManager.Instance.ShowPlayCanvas();
+                                GameManager.Instance.SetGameState(GameManager.GameState.BoatMoving);
+                            });
                         });
                     });
                     break;

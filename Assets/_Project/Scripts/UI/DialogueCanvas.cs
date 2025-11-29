@@ -20,7 +20,7 @@ namespace UI
         }
 
         private readonly List<DialogueReplic> _replics = new();
-        private Action _onSequenceComplete;
+        private readonly Queue<Action> _sequenceCompleteQueue = new();
         private Coroutine _sequenceRoutine;
         private Coroutine _typingRoutine;
         private DialogueReplicContainer _currentContainer;
@@ -34,15 +34,17 @@ namespace UI
 
         public void Initialize(IReadOnlyList<DialogueReplic> replics, Action onSequenceComplete)
         {
+            if (onSequenceComplete != null)
+                _sequenceCompleteQueue.Enqueue(onSequenceComplete);
+
             if (replics == null || replics.Count == 0)
             {
-                onSequenceComplete?.Invoke();
+                InvokeNextSequenceCompleteCallback();
                 return;
             }
 
             ResetSequence();
             _replics.AddRange(replics);
-            _onSequenceComplete = onSequenceComplete;
             _currentIndex = 0;
             _hasLastSide = false;
 
@@ -113,11 +115,10 @@ namespace UI
                 DestroyCurrentContainer();
                 _currentIndex++;
             }
-
+            Debug.Log("Dialogue sequence completed.");
             _sequenceRoutine = null;
-            _onSequenceComplete?.Invoke();
-            _onSequenceComplete = null;
-            Hide();
+            InvokeNextSequenceCompleteCallback();
+            // Hide();
         }
 
         private IEnumerator TypeReplicText(string text)
@@ -220,6 +221,15 @@ namespace UI
             _isTyping = false;
             _shouldSkipTyping = false;
             DestroyCurrentContainer();
+        }
+
+        private void InvokeNextSequenceCompleteCallback()
+        {
+            if (_sequenceCompleteQueue.Count == 0)
+                return;
+
+            var callback = _sequenceCompleteQueue.Dequeue();
+            callback?.Invoke();
         }
     }
 }
