@@ -16,5 +16,5 @@ MonoBehaviour:
   replic: "\u041F\u0440\u043E\u0432\u043E\u0434\u043D\u0438\u043A! \u042F \u043D\u0430
     \u0442\u043E\u0447\u043A\u0435, \u043F\u0435\u0440\u0435\u043D\u043E\u0441\u0438
     \u043C\u0435\u043D\u044F!"
-  appearDelay: 0
-  soundBeforeAppear: {fileID: 0}
+  appearDelay: 2
+  soundBeforeAppear: {fileID: 8300000, guid: 0c2d52780f6c0ee47baa44923c535f76, type: 3}

@@ -13,6 +13,11 @@ namespace Game
             Low,
             High
         }
+        [Header("Cameras")]
+        [SerializeField] private Camera _cameraTransition1 = null;
+        [SerializeField] private Camera _cameraTransition2 = null;
+        [SerializeField] private Camera _cameraTransition3 = null;
+
 
         [Header("FX")]
         [SerializeField] private GameObject _generalHitExplosionFX = null;
@@ -52,6 +57,9 @@ namespace Game
         public BoatInteriorWaterController InteriorWater => _interiorWater;
         public BoatMovementController MovementController => _movementController;
         public Transform CameraAnchor => _cameraAnchor;
+        public Camera CameraTransition1 => _cameraTransition1;
+        public Camera CameraTransition2 => _cameraTransition2;
+        public Camera CameraTransition3 => _cameraTransition3;
 
 
         public void Load()

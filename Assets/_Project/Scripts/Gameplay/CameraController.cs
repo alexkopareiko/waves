@@ -75,7 +75,7 @@ namespace Game
             }
         }
 
-        private void ActivateCamera(UnityEngine.Camera targetCameraPrefab, bool instant = false, Action onComplete = null)
+        public void ActivateCamera(UnityEngine.Camera targetCameraPrefab, bool instant = false, Action onComplete = null)
         {
             if (_mainCamera == null || targetCameraPrefab == null)
                 return;

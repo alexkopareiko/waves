@@ -1,3 +1,4 @@
+using UI;
 using UnityEngine;
 
 namespace Game
@@ -16,7 +17,29 @@ namespace Game
             {
                 if (GameManager.Instance.CurrentWaterState == GameManager.WaterState.CALM)
                 {
-                    GameManager.Instance.SetWaterState(GameManager.WaterState.CRAZY);
+                    GameManager.Instance.Boat.MovementController.EnableControls(false);
+                    GameManager.Instance.CameraController.ActivateCamera(GameManager.Instance.Boat.CameraTransition1, false, () =>
+                    {
+                        UIManager.Instance.ShowDialogueCanvas();
+                        GameManager.Instance.DialogueManager.StartDialogueSequence(2, () =>
+                        {
+                            GameManager.Instance.CameraController.ActivateCamera(GameManager.Instance.Boat.CameraTransition2, true, () =>
+                            {
+                                GameManager.Instance.SetWaterState(GameManager.WaterState.CRAZY);
+                                GameManager.Instance.CameraController.ActivateCamera(GameManager.Instance.Boat.CameraTransition3, true, () =>
+                                {
+                                    GameManager.Instance.CameraController.ActivateCamera(GameManager.Instance.Boat.CameraTransition1, false, () =>
+                                    {
+                                        GameManager.Instance.DialogueManager.StartDialogueSequence(3, () =>
+                                        {
+                                            UIManager.Instance.ShowPlayCanvas();
+                                            GameManager.Instance.Boat.MovementController.EnableControls(true);
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
                 }
             }
         } 
