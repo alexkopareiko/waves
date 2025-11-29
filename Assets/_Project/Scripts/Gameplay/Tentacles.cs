@@ -196,14 +196,14 @@ namespace Game
                         float nextY = Mathf.MoveTowards(currentY, instance.TargetY, _riseSpeed * deltaTime);
                         SetTentacleY(rootTransform, nextY);
 
-                        if (!instance.HasPlayedRiseSound)
-                        {
-                            PlayRiseSound();
-                            instance.HasPlayedRiseSound = true;
-                        }
-
                         if (Mathf.Abs(nextY - instance.TargetY) <= positionTolerance)
                         {
+                            if (!instance.HasPlayedRiseSound)
+                            {
+                                PlayRiseSound();
+                                instance.HasPlayedRiseSound = true;
+                            }
+
                             instance.State = TentacleState.Waiting;
                             instance.WaitTimer = 0f;
                         }
