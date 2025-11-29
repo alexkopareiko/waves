@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -45,7 +46,15 @@ namespace Game
             switch (gameState)
             {
                 case GameManager.GameState.IntroScene:
-                    ActivateCamera(_introSceneCameraPrefab);
+                    ActivateCamera(_introSceneCameraPrefab, false, () =>
+                    {
+                        UIManager.Instance.ShowDialogueCanvas();
+                        GameManager.Instance.DialogueManager.StartDialogueSequence(0, () =>
+                        {
+                            UIManager.Instance.ShowPlayCanvas();
+                            GameManager.Instance.SetGameState(GameManager.GameState.BoatMoving);
+                        });
+                    });
                     break;
                 case GameManager.GameState.Win:
                     ActivateCamera(_winSceneCameraPrefab);
@@ -60,7 +69,7 @@ namespace Game
             }
         }
 
-        private void ActivateCamera(UnityEngine.Camera targetCameraPrefab)
+        private void ActivateCamera(UnityEngine.Camera targetCameraPrefab, bool instant = false, Action onComplete = null)
         {
             if (_mainCamera == null || targetCameraPrefab == null)
                 return;
@@ -70,7 +79,14 @@ namespace Game
 
             StopCameraTransition();
             StopBoatCameraTransition();
-            _cameraTransitionRoutine = StartCoroutine(TransitionToCameraRoutine(targetCameraPrefab));
+            if (instant)
+            {
+                ApplyReferenceCamera(targetCameraPrefab);
+                onComplete?.Invoke();
+                return;
+            }
+
+            _cameraTransitionRoutine = StartCoroutine(TransitionToCameraRoutine(targetCameraPrefab, onComplete));
         }
 
         private void StartBoatCameraTransition()
@@ -152,7 +168,7 @@ namespace Game
             }
         }
 
-        private IEnumerator TransitionToCameraRoutine(UnityEngine.Camera referenceCamera)
+        private IEnumerator TransitionToCameraRoutine(UnityEngine.Camera referenceCamera, Action onComplete)
         {
             Transform mainTransform = _mainCamera.transform;
             Vector3 startPosition = mainTransform.position;
@@ -169,6 +185,7 @@ namespace Game
                 mainTransform.rotation = targetRotation;
                 _mainCamera.fieldOfView = targetFov;
                 _cameraTransitionRoutine = null;
+                onComplete?.Invoke();
                 yield break;
             }
 
@@ -188,6 +205,15 @@ namespace Game
             mainTransform.rotation = targetRotation;
             _mainCamera.fieldOfView = targetFov;
             _cameraTransitionRoutine = null;
+            onComplete?.Invoke();
+        }
+
+        private void ApplyReferenceCamera(UnityEngine.Camera referenceCamera)
+        {
+            Transform mainTransform = _mainCamera.transform;
+            mainTransform.position = referenceCamera.transform.position;
+            mainTransform.rotation = referenceCamera.transform.rotation;
+            _mainCamera.fieldOfView = referenceCamera.fieldOfView;
         }
 
         private void StopCameraTransition()

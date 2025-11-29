@@ -1,4 +1,5 @@
 using Bitgem.VFX.StylisedWater;
+using UI;
 using UnityEngine;
 
 namespace Game
@@ -37,6 +38,7 @@ namespace Game
         private CameraController _cameraController;
         private SoundManager _soundManager;
         private SaveManager _saveManager;
+        private DialogueManager _dialogueManager;
 
         private static bool _isPaused = false;
         internal static bool isPaused => _isPaused;
@@ -53,6 +55,7 @@ namespace Game
         public CameraController CameraController => _cameraController;
         public SoundManager SoundManager => _soundManager;
         public SaveManager SaveManager => _saveManager;
+        public DialogueManager DialogueManager => _dialogueManager;
 
         private void OnEnable()
         {
@@ -68,10 +71,6 @@ namespace Game
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                SetGameState(GameState.BoatMoving);
-            }
         }
 
         private void OnDisable()
@@ -168,6 +167,7 @@ namespace Game
             _cameraController = FindFirstObjectByType<CameraController>();
             _soundManager = FindFirstObjectByType<SoundManager>();
             _saveManager = FindFirstObjectByType<SaveManager>();
+            _dialogueManager = FindFirstObjectByType<DialogueManager>();
         }
     }
 }

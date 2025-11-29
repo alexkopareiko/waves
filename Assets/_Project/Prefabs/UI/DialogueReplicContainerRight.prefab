@@ -513,6 +513,7 @@ GameObject:
   - component: {fileID: 1547833074364155557}
   - component: {fileID: 5382646066870243028}
   - component: {fileID: 7512512572601335052}
+  - component: {fileID: 4941130907937842431}
   m_Layer: 5
   m_Name: DialogueReplicContainerRight
   m_TagString: Untagged
@@ -591,6 +592,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a0334707acabd14ca3358a74f2f459e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.DialogueReplicContainer
-  _replicText: {fileID: 3440108521244887049}
-  _nameText: {fileID: 0}
+  _replicText: {fileID: 215893043649855136}
+  _nameText: {fileID: 3440108521244887049}
   _characterImage: {fileID: 1856449520565728141}
+--- !u!111 &4941130907937842431
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7055295102668304527}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: 3104851308a103e4591acb2bdcade7e2, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 3104851308a103e4591acb2bdcade7e2, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0

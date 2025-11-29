@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 681605454561104764}
   - component: {fileID: 7956808105460914170}
+  - component: {fileID: 5820663122165097551}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,3 +45,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bdc8281ab6eebc4ca88b10aeee80c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.GameManager
+--- !u!114 &5820663122165097551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6399876640186348466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a909154f3e9a16419cb60743d2110aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.DialogueManager
+  _dialogueSequences:
+  - Replics:
+    - {fileID: 11400000, guid: 0db01432824eb1b48ae734e0dafb74ef, type: 2}
+    - {fileID: 11400000, guid: 7720645e3b91b884785d5e788361740d, type: 2}
+    - {fileID: 11400000, guid: c877107f551e2d94285e0172098b675c, type: 2}
+    - {fileID: 11400000, guid: 3ae895cbec0265841a7c7a8f7bf325de, type: 2}
+    - {fileID: 11400000, guid: f981931e754888b47b0776388d557688, type: 2}
+    - {fileID: 11400000, guid: 4d3ecfa3d9b406d45aa507fe81626403, type: 2}
+    - {fileID: 11400000, guid: 2c05001767869ec44adce1bc3009ce85, type: 2}
+  - Replics:
+    - {fileID: 11400000, guid: f967b3ff68bf2df49a643ea4f9ce1618, type: 2}
+    - {fileID: 11400000, guid: fa3e42d9b2907134fabc75a9045a6649, type: 2}
+    - {fileID: 11400000, guid: e20ca035212fd6442a08ddcaa4941860, type: 2}
+    - {fileID: 11400000, guid: 928a55526a5ac67449ae93093cab3f21, type: 2}
+    - {fileID: 11400000, guid: 67c09dbc1909d9f4eb76e4c8b6872b23, type: 2}
+  - Replics:
+    - {fileID: 11400000, guid: 9e38b44284b7bc747aa41faa13803f11, type: 2}
+    - {fileID: 11400000, guid: 121013b1859e7cf40a2bffb6ea2bc15b, type: 2}
+    - {fileID: 11400000, guid: 72e9eaf96fc04814f8050d75974b7c44, type: 2}
+    - {fileID: 11400000, guid: 01564e32b8f44bf46860aed7dc25f838, type: 2}
+    - {fileID: 11400000, guid: 64779fc1bb691ad47b004a18d2d3d643, type: 2}
+    - {fileID: 11400000, guid: fb2162f6093870f45b0526475c4ae2a6, type: 2}
+  - Replics:
+    - {fileID: 11400000, guid: d5708e3c880381741aa088e878ea94f5, type: 2}
+  - Replics:
+    - {fileID: 11400000, guid: 32d26fc6f2c9c99448e30763ad9242b0, type: 2}

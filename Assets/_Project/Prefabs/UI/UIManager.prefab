@@ -93,7 +93,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7676776041766884485
 RectTransform:
   m_ObjectHideFlags: 0
@@ -292,7 +292,7 @@ MonoBehaviour:
   _dieCanvas: {fileID: 8454136689188424529}
   _winCanvas: {fileID: 5608402100766520163}
   _settingsCanvas: {fileID: 6578367203845853805}
-  _dialogueCanvas: {fileID: 3660019783265985023}
+  _dialogueCanvas: {fileID: 49401475877218591}
   _startClip: {fileID: 0}
 --- !u!1 &2472010685816558207
 GameObject:
@@ -1192,7 +1192,7 @@ GameObject:
   - component: {fileID: 1958641051944719094}
   - component: {fileID: 5666471811219088117}
   - component: {fileID: 7336818784212913569}
-  - component: {fileID: 3660019783265985023}
+  - component: {fileID: 49401475877218591}
   m_Layer: 5
   m_Name: DialogueCanvas
   m_TagString: Untagged
@@ -1257,7 +1257,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3660019783265985023
+--- !u!114 &49401475877218591
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1266,9 +1266,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7808585134185272077}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 483124eb9a25d4949a49c521e9f14544, type: 3}
+  m_Script: {fileID: 11500000, guid: d12af8b6f2d3ff54e9a6b808a78f29eb, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.UISubCanvas
+  m_EditorClassIdentifier: Assembly-CSharp::UI.DialogueCanvas
+  _leftReplicPrefab: {fileID: 1400311123474052991, guid: 77b69faefaeab814baf0c0a7369b244f, type: 3}
+  _rightReplicPrefab: {fileID: 7512512572601335052, guid: bac0acf90e3a9fa46a0143eb6136c313, type: 3}
+  _replicParent: {fileID: 1958641051944719094}
+  _characterRevealInterval: 0.03
 --- !u!1 &7941160177627195830
 GameObject:
   m_ObjectHideFlags: 0
