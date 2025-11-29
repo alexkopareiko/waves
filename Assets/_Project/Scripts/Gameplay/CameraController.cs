@@ -19,6 +19,7 @@ namespace Game
         [SerializeField, Min(0f)] private float _cameraTransitionDuration = 1f;
 
         public BoatCameraController BoatCameraController => _boatCameraController;
+        public Camera WinSceneCameraPrefab => _winSceneCameraPrefab;
 
         private Coroutine _cameraTransitionRoutine;
         private Coroutine _boatCameraTransitionRoutine;
@@ -65,7 +66,7 @@ namespace Game
                     });
                     break;
                 case GameManager.GameState.Win:
-                    ActivateCamera(_winSceneCameraPrefab);
+                    // ActivateCamera(_winSceneCameraPrefab);
                     break;
                 case GameManager.GameState.Paused:
                     ActivateCamera(_pauseMenuCameraPrefab);
