@@ -41,7 +41,7 @@ namespace Game
             if (TransitionManager.Instance != null)
                 TransitionManager.Instance.LoadLevel("Menu", 0f);
             else
-                SceneManager.LoadScene("Menu");
+                SceneManager.LoadScene("Menu"); 
         }
     }
 }

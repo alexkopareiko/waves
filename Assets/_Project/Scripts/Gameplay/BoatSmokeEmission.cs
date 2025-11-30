@@ -57,10 +57,10 @@ namespace Game
         {
             return gear switch
             {
-                -2 => 6f,
-                2 => 6f,
-                -1 => 4f,
-                1 => 4f,
+                -2 => 20f,
+                2 => 20f,
+                -1 => 6f,
+                1 => 6f,
                 _ => 2f,
             };
         }
