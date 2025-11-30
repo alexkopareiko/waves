@@ -304,16 +304,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d571941b6ee49ed47b08c704a31c7917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.BoatTrail
-  _boatCollider: {fileID: 2905226183291007753}
+  _boatCollider: {fileID: 0}
   _dotPrefabs:
   - {fileID: 7321294482887371560, guid: 3bd7e1217f388f64a8e9ec5defc726b5, type: 3}
-  _dotCount: 10
+  _dotCount: 50
   _netWidth: 0.1
   _netDepth: 0.1
   _forwardOffset: 0
   _horizontalJitter: 0.2
   _forwardJitter: 0.2
-  _lerpSpeed: 10
+  _lerpSpeed: 4
   _waterHeightOffset: 0.02
 --- !u!1 &930065608583801379
 GameObject:
