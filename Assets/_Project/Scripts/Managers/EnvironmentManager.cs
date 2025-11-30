@@ -40,10 +40,12 @@ namespace Game
             switch (waterState)
             {
                 case GameManager.WaterState.CALM:
+                    RenderSettings.fog = false;
                     environmentContainerCalm.ActivateEnvironment();
                     environmentContainerCrazy.DeactivateEnvironment();
                     break;
                 case GameManager.WaterState.CRAZY:
+                    RenderSettings.fog = true;
                     environmentContainerCalm.DeactivateEnvironment();
                     environmentContainerCrazy.ActivateEnvironment();
                     break;
