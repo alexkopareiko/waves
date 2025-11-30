@@ -103,6 +103,7 @@ namespace Game
             _cameraController.Initialize();
             _saveManager.Initialize();
             _soundManager.Initialize();
+            _waterVolumeTransforms.Initialize();
 
             SetWaterState(WaterState.CALM);
             SetGameState(GameState.IntroScene);

@@ -111,6 +111,7 @@ namespace Bitgem.VFX.StylisedWater
                                null;
 
                 ApplyMaterialTemplate(meshRenderer, template);
+                UnityEngine.Debug.Log("WaterVolumeBase: Water state changed to " + newState + " on volume \"" + gameObject.name + "\"");
             }
             else
             {
@@ -418,7 +419,7 @@ namespace Bitgem.VFX.StylisedWater
 
         #region MonoBehaviour events
 
-        private void Awake()
+        public void Initialize()
         {
             _onWaterStateChangedAction = OnWaterStateChanged;
             SimpleEventManager.Subscribe(GameEvents.WaterStateChanged, OnWaterStateChanged);
