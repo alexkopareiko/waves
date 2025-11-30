@@ -129,9 +129,10 @@ namespace Game
             }
 
             // Pause and show Die canvas
-            Pause(true);
+            // Pause(true);
             if (UIManager.Instance != null && UIManager.Instance.DieCanvas != null)
             {
+                Debug.Log("Show Die Canvas");
                 UIManager.Instance.ShowDieCanvas();
             }
         }

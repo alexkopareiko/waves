@@ -31,10 +31,6 @@ namespace Game
 
         public void OnClickReload()
         {
-            if (SoundManager.Instance != null)
-            {
-                SoundManager.Instance.PlayButtonSound(SoundManager.ButtonUIType.buy);
-            }
             if (_reloadButton != null) _reloadButton.interactable = false;
 
             LoadGameScene();
