@@ -51,24 +51,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Tentacles
   _boat: {fileID: 0}
   _poolManager: {fileID: 0}
-  _tentacleCount: 1
+  _tentacleCount: 4
   _spawnRadius: 2
-  _spawnRadiusVariance: 0.7
-  _minimumSpacing: 4
-  _yOffsetFromBoat: -1
+  _spawnRadiusVariance: 0.2
+  _minimumSpacing: 2
+  _yOffsetFromBoat: -3
   _maxPositionAttempts: 12
   _obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 64
   _obstacleCheckRadius: 1
   _spawnInterval: 2
-  _riseHeight: 0.4
-  _riseSpeed: 0.06
+  _riseHeight: 2
+  _riseSpeed: 2
   _stayDuration: 8
-  _fallSpeed: 0.06
+  _fallSpeed: 2
   _audioSource: {fileID: 2245274914031214930}
   _riseAudioClip: {fileID: 8300000, guid: 03eedeef55db5fe4fa80516b56af71be, type: 3}
-  _riseAudioVolume: 1
+  _riseAudioVolume: 0.215
   _spawnOnEnable: 1
 --- !u!82 &2245274914031214930
 AudioSource:

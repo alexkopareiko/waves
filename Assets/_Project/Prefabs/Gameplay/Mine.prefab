@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 15c629751ba00c241a9f1aeff02fb549, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15c629751ba00c241a9f1aeff02fb549, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15c629751ba00c241a9f1aeff02fb549, type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15c629751ba00c241a9f1aeff02fb549, type: 3}
       propertyPath: m_LocalPosition.x
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MineController
   shiftLength: 1
   speed: 0.1
-  durationRange: {x: 5, y: 5}
+  durationRange: {x: 5, y: 0}
   delayBetweenMoves: 2
   verticalLerpSpeed: 0.31
   floater: {fileID: 1721520617985805908}
