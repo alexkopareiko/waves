@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Operator
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Operator
-  avatar: {fileID: 21300000, guid: 572ab38bdedd1da46a3be8a4fbf894fb, type: 3}
+  avatar: {fileID: 21300000, guid: 3d59642d20a88da49b0e99d9c76b73f2, type: 3}
   voiceClip: {fileID: 8300000, guid: f0ae85b905717e14a85882d41e3d9c8c, type: 3}

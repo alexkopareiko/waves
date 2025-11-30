@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Ctulhu
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Ctulhu
-  avatar: {fileID: 21300000, guid: 572ab38bdedd1da46a3be8a4fbf894fb, type: 3}
+  avatar: {fileID: 21300000, guid: 1d8a8f3c78923a54387d2ccd771117af, type: 3}
   voiceClip: {fileID: 8300000, guid: 9d8c950fbf0e0124a96aa22fcf2ca536, type: 3}
