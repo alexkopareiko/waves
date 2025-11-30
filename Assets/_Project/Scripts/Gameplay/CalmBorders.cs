@@ -6,8 +6,17 @@ namespace Game
     public class CalmBorders : MonoBehaviour
     {
         [SerializeField] private GameObject _plane;
+        [SerializeField] private Transform _playerRevivePoint;
+
+        public Transform PlayerRevivePoint => _playerRevivePoint;
 
         private bool _triggered = false;
+
+        public void Initialize()
+        {
+            _triggered = false;
+        }
+
         void Update()
         {
             if (GameManager.Instance == null || GameManager.Instance.Boat == null)

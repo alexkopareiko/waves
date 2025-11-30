@@ -17,6 +17,8 @@ namespace Game
             // Ensure listeners are attached once when shown
             if (_reloadButton != null)
                 _reloadButton.onClick.AddListener(OnClickReload);
+
+            GameManager.SetIsDied(true);
         }
 
 

@@ -39,9 +39,13 @@ namespace Game
         private SoundManager _soundManager;
         private SaveManager _saveManager;
         private DialogueManager _dialogueManager;
+        private CalmBorders _calmBorders;
 
         private static bool _isPaused = false;
         internal static bool isPaused => _isPaused;
+        
+        private static bool _isDied = false;
+        public static bool IsDied => _isDied;
 
         public Boat Boat => _boat;
         public WaterVolumeHelper WaterVolumeHelper => _waterVolumeHelper;
@@ -56,6 +60,12 @@ namespace Game
         public SoundManager SoundManager => _soundManager;
         public SaveManager SaveManager => _saveManager;
         public DialogueManager DialogueManager => _dialogueManager;
+        public CalmBorders CalmBorders => _calmBorders;
+
+        public static void SetIsDied(bool value)
+        {
+            _isDied = value;
+        }   
 
         private void OnEnable()
         {
@@ -63,14 +73,6 @@ namespace Game
             SetupInstance();
 
             LoadSequencer.LastModuleLoaded += Load;
-        }
-
-        void Start()
-        {
-        }
-
-        void Update()
-        {
         }
 
         private void OnDisable()
@@ -104,9 +106,22 @@ namespace Game
             _saveManager.Initialize();
             _soundManager.Initialize();
             _waterVolumeTransforms.Initialize();
+            _calmBorders.Initialize();
 
-            SetWaterState(WaterState.CALM);
-            SetGameState(GameState.IntroScene);
+            if (_isDied)
+            {
+                SetWaterState(WaterState.CRAZY);
+                SetGameState(GameState.BoatMoving);
+
+                _boat.transform.position = GameManager.Instance.CalmBorders.PlayerRevivePoint.position;
+                _boat.transform.rotation = GameManager.Instance.CalmBorders.PlayerRevivePoint.rotation;
+                SetIsDied(false);
+            }
+            else
+            {
+                SetWaterState(WaterState.CALM);
+                SetGameState(GameState.IntroScene);
+            }
         }
 
         public void SetGameState(GameState newState)
@@ -170,6 +185,7 @@ namespace Game
             _soundManager = FindFirstObjectByType<SoundManager>();
             _saveManager = FindFirstObjectByType<SaveManager>();
             _dialogueManager = FindFirstObjectByType<DialogueManager>();
+            _calmBorders = FindFirstObjectByType<CalmBorders>();
         }
     }
 }

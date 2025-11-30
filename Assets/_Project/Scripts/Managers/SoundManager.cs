@@ -214,7 +214,8 @@ public class SoundManager : MonoBehaviour
                     _soundEffectEnvSource.Play();
                     break;
                 case GameManager.GameState.BoatMoving:
-                    PlayMusic(_introSceneTheme);
+                    if (GameManager.IsDied == false)
+                        PlayMusic(_introSceneTheme);
                     break;
                 // case GameManager.GameState.Win:
                 //     PlayMusic(_winTheme);
