@@ -160,7 +160,7 @@ MonoBehaviour:
   _rotationSpeed: 300
   _pitchLimits: {x: -25, y: 30}
   _autoFaceMovement: 1
-  _movementAlignSpeed: 70
+  _movementAlignSpeed: 30
   _movementThreshold: 0.001
   _zoomSpeed: 1
   _zoomLimits: {x: 0.5, y: 1}

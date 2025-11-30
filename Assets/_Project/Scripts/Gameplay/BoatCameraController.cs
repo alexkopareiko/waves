@@ -65,10 +65,10 @@ namespace Game
             Vector3 desiredOffset = orbitRotation * new Vector3(0f, 0f, -_distance);
             Vector3 desiredPosition = target.position + desiredOffset;
 
-            if (!hasInput)
-            {
-                desiredPosition.y = transform.position.y;
-            }
+            // if (!hasInput)
+            // {
+            //     desiredPosition.y = transform.position.y;
+            // }
 
             float? minWaterHeight = null;
             if (_clampToWaterSurface && WaterVolumeHelper.Instance != null)
