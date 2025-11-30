@@ -46,6 +46,7 @@ Transform:
   - {fileID: 755176175720434524}
   - {fileID: 7181974114914144729}
   - {fileID: 9061414612534849980}
+  - {fileID: 3408486808459468278}
   - {fileID: 8057348031830966086}
   - {fileID: 3245172113012133039}
   - {fileID: 8770402440290671028}
@@ -11540,6 +11541,84 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 6377221093972407588, guid: a7c9320388565de4db87116ec4bcc860, type: 3}
   m_PrefabInstance: {fileID: 1550344034448749424}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2938556752102799901
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6723709279936968069}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.224
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.246
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+      propertyPath: m_Name
+      value: boat (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+--- !u!4 &3408486808459468278 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f7fe802ab3b2d274bb80b37ad4424625, type: 3}
+  m_PrefabInstance: {fileID: 2938556752102799901}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4431501513163635659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11848,6 +11927,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 964569e27ba516144a19829fa86e870e, type: 3}
       propertyPath: m_Name
       value: boat (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 964569e27ba516144a19829fa86e870e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6327012721952864058, guid: 964569e27ba516144a19829fa86e870e, type: 3}
       propertyPath: m_IsActive

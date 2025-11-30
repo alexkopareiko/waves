@@ -1,9 +1,34 @@
 fileFormatVersion: 2
-guid: 964569e27ba516144a19829fa86e870e
+guid: f7fe802ab3b2d274bb80b37ad4424625
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: boat
+    second: {fileID: 2100000, guid: df3c1439df5a81b49b301ff66efacae6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pizza
+    second: {fileID: 2100000, guid: 2c615a7f88636dd4484ece7d4df534aa, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: boat_Base_color
+    second: {fileID: 2800000, guid: 64ee4e30555fb9c4082852457da263a0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: boat_Emissive
+    second: {fileID: 2800000, guid: de835a52120a60f40a6bdb4c8a1798ba, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: pizza_Base_color
+    second: {fileID: 2800000, guid: 58bce6855ef107644acd1545ad36ef8a, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
