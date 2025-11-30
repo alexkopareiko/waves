@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Dialogue3-4
   m_EditorClassIdentifier: Assembly-CSharp::DialogueReplic
   character: {fileID: 11400000, guid: f9317ec135e59f348891ee77a3b83938, type: 2}
-  replic: "\u041D\u043E, \u0440\u0430\u0434\u0438 \u0432\u0441\u0435\u0433\u043E
-    \u043C\u0443\u0447\u043D\u043E\u0433\u043E, \u043C\u043E\u0433\u0443 \u044F \u0443\u0434\u0435\u043B\u0438\u0442\u044C
-    \u0441\u0435\u0431\u0435 \u043F\u0430\u0440\u0443 \u043C\u0438\u043D\u0443\u0442?!\r\n"
+  replic: But for the love of all things dough-based, can I get a couple minutes
+    for myself?!
   appearDelay: 0
   soundBeforeAppear: {fileID: 0}

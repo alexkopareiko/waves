@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Dialogue5-1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueReplic
   character: {fileID: 11400000, guid: a79040e96784300409a99efeeeeae10a, type: 2}
-  replic: "\u0427\u0435 \u0442\u0430\u043A \u0434\u043E\u043B\u0433\u043E?"
+  replic: Why so long?
   appearDelay: 0
   soundBeforeAppear: {fileID: 0}

@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Dialogue3-5
   m_EditorClassIdentifier: Assembly-CSharp::DialogueReplic
   character: {fileID: 11400000, guid: 506e29ae1cf492644ab17d3c4300b35e, type: 2}
-  replic: "\u041D\u0443 \u0443 \u043C\u0435\u043D\u044F \u0442\u043E \u0438\u0445
-    \u0445\u043E\u0442\u044F \u0431\u044B 17.\r\n"
+  replic: Well, I at least have 17 of them.
   appearDelay: 0
   soundBeforeAppear: {fileID: 0}

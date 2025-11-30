@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Dialogue2-2
   m_EditorClassIdentifier: Assembly-CSharp::DialogueReplic
   character: {fileID: 11400000, guid: 56ea18f6b2a97774bac167f478139ba2, type: 2}
-  replic: "\u042F \u0442\u043E\u043B\u044C\u043A\u043E \u043E\u0442\u043C\u044B\u043B
-    St.Valerie \u043E\u0442 \u041A\u043E\u0440\u043E\u043B\u044F \u0421\u043B\u0438\u0437\u043D\u0435\u0439!
-    \u0427\u0442\u043E \u043D\u0430 \u044D\u0442\u043E\u0442 \u0440\u0430\u0437?"
+  replic: I just finished scrubbing St.Valerie  after the Slime King! What is it
+    this time?
   appearDelay: 0
   soundBeforeAppear: {fileID: 0}
