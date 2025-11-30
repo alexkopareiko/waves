@@ -122,20 +122,7 @@ public class MineController : MonoBehaviour
     {
         if (floater)
         {
-            if (Mathf.Approximately(shiftLength, 0f))
-            {
-                _shouldDropNextVertical = false;
-                return 0f;
-            }
-
-            var dropOffset = -Mathf.Abs(shiftLength);
-            if (_shouldDropNextVertical)
-            {
-                _shouldDropNextVertical = false;
-                return dropOffset;
-            }
-
-            _shouldDropNextVertical = true;
+            _shouldDropNextVertical = false;
             return 0f;
         }
 
