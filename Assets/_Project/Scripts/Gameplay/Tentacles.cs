@@ -58,6 +58,7 @@ namespace Game
         private readonly List<TentacleInstance> _tentacles = new();
         private readonly List<Vector2> _spawnedPositions = new();
         private Coroutine _crazySpawnRoutine;
+        private bool _pendingReturnOnEnable;
 
         public void Initialize()
         {
@@ -74,10 +75,20 @@ namespace Game
             }
         }
 
+        private void OnEnable()
+        {
+            if (_pendingReturnOnEnable && ResolveReferences())
+            {
+                _pendingReturnOnEnable = false;
+                ReturnAllTentacles();
+            }
+        }
+
         private void OnDisable()
         {
             StopCrazySpawning();
             SimpleEventManager.Unsubscribe(GameEvents.WaterStateChanged, OnWaterStateChanged);
+            StopAllCoroutines();
         }
 
         private void Update()
@@ -158,6 +169,12 @@ namespace Game
             {
                 StopCoroutine(_crazySpawnRoutine);
                 _crazySpawnRoutine = null;
+            }
+
+            if (!isActiveAndEnabled)
+            {
+                _pendingReturnOnEnable = _tentacles.Count > 0;
+                return;
             }
 
             ReturnAllTentacles();

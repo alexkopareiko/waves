@@ -97,7 +97,7 @@ public class SoundManager : MonoBehaviour
 
         s_Instance = this;
 
-        DontDestroyOnLoad(this.gameObject);
+        // DontDestroyOnLoad(this.gameObject);
 
         SceneManager.sceneLoaded += OnSceneLoaded;
         HandleSceneLoad(SceneManager.GetActiveScene());

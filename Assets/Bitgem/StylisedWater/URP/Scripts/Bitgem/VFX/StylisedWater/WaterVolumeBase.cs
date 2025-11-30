@@ -103,6 +103,8 @@ namespace Bitgem.VFX.StylisedWater
         #region Public methods
         public void OnWaterStateChanged(object payload)
         {
+            
+
             var meshRenderer = gameObject.GetComponent<MeshRenderer>();
             if (payload is GameManager.WaterState newState && meshRenderer != null)
             {
@@ -423,6 +425,11 @@ namespace Bitgem.VFX.StylisedWater
         {
             _onWaterStateChangedAction = OnWaterStateChanged;
             SimpleEventManager.Subscribe(GameEvents.WaterStateChanged, OnWaterStateChanged);
+        }
+
+        public void OnDisable()
+        {
+            SimpleEventManager.Unsubscribe(GameEvents.WaterStateChanged, OnWaterStateChanged);
         }
 
         void OnValidate()

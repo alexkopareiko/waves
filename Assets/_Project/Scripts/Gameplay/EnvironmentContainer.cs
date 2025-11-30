@@ -9,6 +9,11 @@ namespace Game
         [SerializeField] private List<GameObject> environmentObjects;
         private Coroutine environmentCoroutine;
 
+        void OnDisable()
+        {
+            StopAllCoroutines();
+        }
+
         public void ActivateEnvironment() 
         {
             StartEnvironmentRoutine(ChangeStateAsync(true));
