@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Game.UI;
 
 namespace Game
 {
@@ -12,7 +13,28 @@ namespace Game
         [Header("References")]
         [SerializeField] private GearboxUI _gearboxUI;
         [SerializeField] private CompassUI _compassUI;
+        [SerializeField] private TMP_Text _helperText;
         
+
+        public void ShowHelperTextForDuration(string text, float duration)
+        {
+            if (_helperText == null)
+                return;
+
+            StopAllCoroutines();
+            StartCoroutine(ShowTextForDurationCoroutine(_helperText, text, duration));
+        }
+
+        private System.Collections.IEnumerator ShowTextForDurationCoroutine(TMP_Text textComponent, string text, float duration)
+        {
+            textComponent.text = text;
+            textComponent.gameObject.SetActive(true);
+
+            yield return new WaitForSeconds(duration);
+
+            textComponent.gameObject.SetActive(false);
+        }
+
 
         public void Initialize()
         {

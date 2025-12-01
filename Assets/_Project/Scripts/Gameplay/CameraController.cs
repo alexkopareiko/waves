@@ -61,6 +61,7 @@ namespace Game
                                 {
                                     UIManager.Instance.ShowPlayCanvas();
                                     GameManager.Instance.SetGameState(GameManager.GameState.BoatMoving);
+                                    UIManager.Instance.PlayCanvas.ShowHelperTextForDuration("W/S - for switching gear up/down\nA/D for turning left/right", 10f);
                                 });
                             });
                         });
