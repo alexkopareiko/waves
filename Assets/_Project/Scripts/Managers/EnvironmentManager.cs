@@ -8,8 +8,11 @@ namespace Game
         [SerializeField] private EnvironmentContainer environmentContainerCrazy;
         [SerializeField] private Material calmSkybox;
         [SerializeField] private Material crazySkybox;
+        [SerializeField] private Color calmFogColor;
+        [SerializeField] private Color crazyFogColor;
 
         private Material _defaultSkybox;
+        private Color _defaultFogColor; 
 
 
         public void Initialize()
@@ -21,6 +24,8 @@ namespace Game
         private void Awake()
         {
             _defaultSkybox = RenderSettings.skybox;
+            _defaultFogColor = RenderSettings.fogColor;
+            RenderSettings.fog = true;
         }
         // void OnEnable()
         // {
@@ -40,12 +45,12 @@ namespace Game
             switch (waterState)
             {
                 case GameManager.WaterState.CALM:
-                    RenderSettings.fog = false;
+                    SetFogColor(calmFogColor);
                     environmentContainerCalm.ActivateEnvironment();
                     environmentContainerCrazy.DeactivateEnvironment();
                     break;
                 case GameManager.WaterState.CRAZY:
-                    RenderSettings.fog = true;
+                    SetFogColor(crazyFogColor);
                     environmentContainerCalm.DeactivateEnvironment();
                     environmentContainerCrazy.ActivateEnvironment();
                     break;
@@ -70,6 +75,11 @@ namespace Game
             DynamicGI.UpdateEnvironment();
         }
 
+        private void SetFogColor(Color color)
+        {
+            RenderSettings.fogColor = color;
+            RenderSettings.fog = true;
+        }
+
     }
 }
-

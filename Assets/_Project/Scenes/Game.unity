@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.44313726, g: 0.094117634, b: 0.35282478, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
@@ -817,6 +817,8 @@ MonoBehaviour:
   environmentContainerCrazy: {fileID: 1929800522}
   calmSkybox: {fileID: 2100000, guid: 2bd8959f5fbd3644aa33af1a155fc147, type: 2}
   crazySkybox: {fileID: 2100000, guid: cc421da483ed06c49933077a621bff25, type: 2}
+  calmFogColor: {r: 0.105882354, g: 0.7176471, b: 1, a: 0}
+  crazyFogColor: {r: 0.44313726, g: 0.09411765, b: 0.3529412, a: 0}
 --- !u!4 &564234375
 Transform:
   m_ObjectHideFlags: 0
