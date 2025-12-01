@@ -2070,7 +2070,7 @@ MonoBehaviour:
   _autoAssignReference: 1
   _visibleAngle: 180
   _markerYOffset: 0
-  _markerSize: {x: 40, y: 40}
+  _markerSize: {x: 40, y: 80}
   _labelFontSize: 50
   _cardinalColor: {r: 1, g: 1, b: 1, a: 1}
   _labelFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
