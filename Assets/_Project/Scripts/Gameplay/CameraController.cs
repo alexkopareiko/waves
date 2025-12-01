@@ -14,6 +14,7 @@ namespace Game
 
         [Header("Camera Prefab References")]
         [SerializeField] private UnityEngine.Camera _introSceneCameraPrefab;
+        [SerializeField] private UnityEngine.Camera _introScene2CameraPrefab;
         [SerializeField] private UnityEngine.Camera _winSceneCameraPrefab;
         [SerializeField] private UnityEngine.Camera _pauseMenuCameraPrefab;
         [SerializeField, Min(0f)] private float _cameraTransitionDuration = 1f;
@@ -54,13 +55,13 @@ namespace Game
                         UIManager.Instance.ShowDialogueCanvas();
                         GameManager.Instance.DialogueManager.StartDialogueSequence(0, () =>
                         {
-                            // UIManager.Instance.ShowPlayCanvas();
-                            // UIManager.Instance.ShowDialogueCanvas();
-                            GameManager.Instance.DialogueManager.StartDialogueSequence(1, () =>
+                            ActivateCamera(_introScene2CameraPrefab, false, () =>
                             {
-                                Debug.Log("Dialogue sequence 1 complete.");
-                                UIManager.Instance.ShowPlayCanvas();
-                                GameManager.Instance.SetGameState(GameManager.GameState.BoatMoving);
+                                GameManager.Instance.DialogueManager.StartDialogueSequence(1, () =>
+                                {
+                                    UIManager.Instance.ShowPlayCanvas();
+                                    GameManager.Instance.SetGameState(GameManager.GameState.BoatMoving);
+                                });
                             });
                         });
                     });

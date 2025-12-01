@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4290191595784501304
+--- !u!1 &75494966887806188
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7444635497134808165}
-  - component: {fileID: 7283219027569270204}
-  - component: {fileID: 7878819101509009665}
-  - component: {fileID: 6874339929014138323}
-  - component: {fileID: 768365992744913233}
-  - component: {fileID: 6719729751355802803}
+  - component: {fileID: 295867831824598940}
+  - component: {fileID: 6377221093972407588}
+  - component: {fileID: 6164747277603818486}
   m_Layer: 8
-  m_Name: Camera
+  m_Name: CameraIntroScene0
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7444635497134808165
+--- !u!4 &295867831824598940
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4290191595784501304}
+  m_GameObject: {fileID: 75494966887806188}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.06620127, y: 0.8619526, z: -0.11650147, w: -0.4889608}
-  m_LocalPosition: {x: 6.0274115, y: 6.684421, z: 5.354775}
+  m_LocalRotation: {x: -0.00042407218, y: 0.99933285, z: -0.03539158, w: -0.009010703}
+  m_LocalPosition: {x: 5.447467, y: 6.4817, z: 5.4707465}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 28.637, y: 41.423, z: -0.04}
---- !u!20 &7283219027569270204
+--- !u!20 &6377221093972407588
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4290191595784501304}
+  m_GameObject: {fileID: 75494966887806188}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -87,21 +84,13 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &7878819101509009665
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4290191595784501304}
-  m_Enabled: 1
---- !u!114 &6874339929014138323
+--- !u!114 &6164747277603818486
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4290191595784501304}
+  m_GameObject: {fileID: 75494966887806188}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
@@ -139,47 +128,3 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &768365992744913233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4290191595784501304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fccfaeac47d6e545bf056f299b8f739, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.BoatCameraController
-  _targetOverride: {fileID: 0}
-  _autoAssignBoat: 1
-  _offset: {x: 0, y: 0.4, z: 0.4}
-  _positionSmoothTime: 0.01
-  _clampToWaterSurface: 1
-  _waterSurfaceOffset: 0.1
-  _rotationSpeed: 300
-  _pitchLimits: {x: -25, y: 30}
-  _autoFaceMovement: 1
-  _movementAlignSpeed: 30
-  _movementThreshold: 0.001
-  _zoomSpeed: 1
-  _zoomLimits: {x: 0.5, y: 1}
---- !u!114 &6719729751355802803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4290191595784501304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad66c9b89f5c46a43be7290fdc43f526, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.CameraController
-  _boatCameraController: {fileID: 768365992744913233}
-  _mainCamera: {fileID: 7283219027569270204}
-  _introSceneCameraPrefab: {fileID: 6377221093972407588, guid: df0c11dd37f280049a3edcd97e59ce7f, type: 3}
-  _introScene2CameraPrefab: {fileID: 6377221093972407588, guid: e640f6b99060f404783bd68513679601, type: 3}
-  _winSceneCameraPrefab: {fileID: 7650397876459984762, guid: 00041c1bc2ec0fa4c949ffb7f84729ae, type: 3}
-  _pauseMenuCameraPrefab: {fileID: 0}
-  _cameraTransitionDuration: 1
