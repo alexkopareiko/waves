@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueReplic
   character: {fileID: 11400000, guid: 56ea18f6b2a97774bac167f478139ba2, type: 2}
   replic: "Just not when those couple minutes could cost me my soul! And let me remind
-    you \u2014 yours too!"
+    you \u2013 yours too!"
   appearDelay: 0
   soundBeforeAppear: {fileID: 0}

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Dialogue2-3
   m_EditorClassIdentifier: Assembly-CSharp::DialogueReplic
   character: {fileID: 11400000, guid: f9317ec135e59f348891ee77a3b83938, type: 2}
-  replic: Lighthouse of the Last Sin 1.
+  replic: LIGHTHOUSE of the Last Sin...
   appearDelay: 0
   soundBeforeAppear: {fileID: 0}

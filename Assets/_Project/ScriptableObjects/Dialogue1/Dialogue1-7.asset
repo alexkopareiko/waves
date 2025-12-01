@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dialogue1-7
   m_EditorClassIdentifier: Assembly-CSharp::DialogueReplic
   character: {fileID: 11400000, guid: f9317ec135e59f348891ee77a3b83938, type: 2}
-  replic: "Expect your order within 30 Earth minutes, if we\u2019re late \u2014 you
-    may claim our souls!! Have a nice day!!"
+  replic: "Expect your order within 30 Earth minutes. If we\u2019re late \u2013 you
+    may claim our souls! Have a nice day!"
   appearDelay: 0
   soundBeforeAppear: {fileID: 0}

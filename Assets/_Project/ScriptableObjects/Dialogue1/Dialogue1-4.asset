@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Dialogue1-4
   m_EditorClassIdentifier: Assembly-CSharp::DialogueReplic
   character: {fileID: 11400000, guid: a79040e96784300409a99efeeeeae10a, type: 2}
-  replic: "Cthulhu, High Priest of the Great Old\u2014"
+  replic: Cthulhu, High Priest of the Great Older!
   appearDelay: 0
   soundBeforeAppear: {fileID: 0}

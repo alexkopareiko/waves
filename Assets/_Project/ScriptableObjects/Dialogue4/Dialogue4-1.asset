@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dialogue4-1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueReplic
   character: {fileID: 11400000, guid: 506e29ae1cf492644ab17d3c4300b35e, type: 2}
-  replic: "Let\u2019s go. You remember the rules \u2014 if you die fewer than 50
+  replic: "Let\u2019s go! You remember the rules \u2013 if you die fewer than 50
     times, we split the tips!"
   appearDelay: 2
   soundBeforeAppear: {fileID: 8300000, guid: 0c2d52780f6c0ee47baa44923c535f76, type: 3}

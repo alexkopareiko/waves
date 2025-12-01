@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Dialogue5-1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueReplic
   character: {fileID: 11400000, guid: a79040e96784300409a99efeeeeae10a, type: 2}
-  replic: Why so long?
+  replic: Sorry, but I didn't order pizza... oh no. That was in the end-of-the-world
+    prophecy! What are we supposed to do?
   appearDelay: 0
   soundBeforeAppear: {fileID: 0}

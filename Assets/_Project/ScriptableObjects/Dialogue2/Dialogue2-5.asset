@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Dialogue2-5
   m_EditorClassIdentifier: Assembly-CSharp::DialogueReplic
   character: {fileID: 11400000, guid: 56ea18f6b2a97774bac167f478139ba2, type: 2}
-  replic: At least they pay me well for this!!
+  replic: At least they pay me well for this!
   appearDelay: 0
   soundBeforeAppear: {fileID: 0}

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueReplic
   character: {fileID: 11400000, guid: a79040e96784300409a99efeeeeae10a, type: 2}
   replic: I want to order pizza! One with seal souls, and one with the suffering
-    of unpaid debts! Cheese-stuffed crust on both!!
+    of unpaid debts! Cheese-stuffed crust on both!!!
   appearDelay: 0
   soundBeforeAppear: {fileID: 0}
